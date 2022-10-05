@@ -1,0 +1,19 @@
+# Puts relevant words into categories
+# Syntax: 
+#   # = comment (do not read)
+#   $ = topic header
+#   + = word
+
+
+$ code debug
+
+
+
+$ sprite generation
+
+
+
+$ game feature idea
+
+
+
