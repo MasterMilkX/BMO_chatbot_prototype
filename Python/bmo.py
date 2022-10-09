@@ -131,7 +131,7 @@ class BMO():
                 #get the user's response for a new category
                 user_cat_resp = self.formUser()
 
-                #made by copilot (thanks!)
+                #made by copilot (thanks!) - hard code to get all user variations of the
                 cat_keywords = {
                     "code debug": ["debug", "debugging", "bug", "bugs", "error", "errors", "fix", "fixing", "code", "programming"],
                     "sprite generation": ["sprite", "sprites", "art", "graphics", "graphic", "image", "images", "picture", "pictures"],
