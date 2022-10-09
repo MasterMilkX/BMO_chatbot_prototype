@@ -1,19 +1,30 @@
-# Puts relevant words into categories
-# Syntax: 
-#   # = comment (do not read)
-#   $ = topic header
+# Puts relevant words into categories         
+# Syntax:         
+#   # = comment (do not read)         
+#   $ = topic header         
 #   + = word
 
-
 $ code debug
-
-
++ code
++ bug
++ fix
++ section
++ function
 
 $ sprite generation
-
-
++ sprite
++ pixel
++ make
++ enemy
++ sprite
++ looks
++ like
++ angry
++ pizza
 
 $ game feature idea
-
-
-
++ mechanic
++ game
++ interesting
++ game
++ features
