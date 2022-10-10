@@ -165,11 +165,11 @@ class BMO():
         self.formBMO("See ya later!")
 
     
-        
-        
-
     #associate a raw user response to the closest matching group
+    #  Input:  resp - the raw user response
+    #          wgroups - the dictionary of keywords to match against (form str - list of str)
     def rawClosestMatch(self,resp,wgroups):
+
         #tokenize the response for analysis
         raw_toks = word_tokenize(resp)
         toks = [w.lower() for w in raw_toks if w.lower() not in stopwords.words("english") and w.isalpha() and w not in self.extra_stopwords]
