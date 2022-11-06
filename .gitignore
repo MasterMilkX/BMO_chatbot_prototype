@@ -1,3 +1,5 @@
-bmo-venv/*
-Python/__pycache__/*
+bmo-venv/
+Python/__pycache__/
 test_data.txt
+data/microstudio_games/
+data/microstudio_games.zip
