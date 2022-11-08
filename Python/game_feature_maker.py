@@ -120,11 +120,6 @@ def getFeatures(desc,debug=False):
 
 if __name__ == "__main__":
 
-    # TEST_DESC = "Built with the input of thousands of crazed internet gamers, #IDARB is a chaotic, 8-player, eSport jumping future arena ball game, complete with wild half time competitions, unlockable recipes, and disruptive  hashbombs  which dynamically change the game itself via Twitch and Twitter! Prepare to battle everything from Moustache Cops to Breakfast, in this highly customizable, fast action game inspired by 8-bit sports and arcade classics!"
-    # print(getFeatures(TEST_DESC))
-
-    # exit()
-    
     game_data = {}
     # with open(GAME_DESC_FILE,"r") as f:
     with open("data/mini_desc.txt","r") as f:

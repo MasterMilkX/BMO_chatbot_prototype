@@ -28,15 +28,6 @@ def getLinkSoup(link,wait_time=1):
     if driver is None:
         driver = webdriver.Chrome(ChromeDriverManager().install())
 
-    # response = requests.get(
-    #     url=link,
-    #     headers = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
-    # )
-    # if response.status_code != 200:
-    #     print(f"> ERROR: Link [{link}] not found... (Response: {response.status_code})")
-    #     return None
-    # soup = BeautifulSoup(response.content, 'html.parser')
-    # return soup
     driver.get(link)
     time.sleep(wait_time) #if you want to wait 1 seconds for the page to load
     response = driver.page_source
@@ -77,6 +68,8 @@ MAIN_LINK = "https://gamesdb.launchbox-app.com/genres"
 DOMAIN = "https://gamesdb.launchbox-app.com"
 GAME_PAGE_FILE = "data/game_data.txt";
 GAME_DESC_FILE = "data/game_desc.txt";
+
+
 
 def saveGameLinks(genre_num=0,page_num=0):
     print(DOMAIN)
@@ -179,6 +172,7 @@ def soupTest(link):
     print(desc)
 
 
+LAST_GAME_INDEX = 62077
 
 if __name__ == "__main__":
     # saveGameLinks()
