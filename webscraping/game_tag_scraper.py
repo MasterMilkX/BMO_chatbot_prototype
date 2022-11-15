@@ -63,7 +63,11 @@ def getTagGames(tag_link,max_wait=30):
     if driver is None:
         driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(tag_link)
-    select = Select(driver.find_element(by=By.NAME, value='table-apps_length'))  #assume the driver is on the same page still
+    sd = driver.find_element(by=By.NAME, value='table-apps_length')
+    if sd is None:
+        print("ERROR: Could not find the select element")
+        return []
+    select = Select(sd)  #assume the driver is on the same page still
     select.select_by_value('-1')
 
     print("> Got the select tag!")
@@ -92,7 +96,7 @@ def getTagGames(tag_link,max_wait=30):
 ###############    MAIN   ###############
 
 DOMAIN = "https://steamdb.info"
-LAST_TAG = 0
+LAST_TAG = 412
 
 def main():
     tag_list_links = getTagLinks()
