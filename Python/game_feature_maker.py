@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
     game_data = {}
     # with open(GAME_DESC_FILE,"r") as f:
-    with open("data/mini_desc.txt","r") as f:
+    with open("../data/mini_desc.txt","r") as f:
         # read in everything
         raw_txt = f.readlines()
 
