@@ -4,11 +4,11 @@ import json
 import sys
 sys.path.append("..")
 
-from Python import bmo
+# from Python import bmo
 
 
 app = Flask(__name__,static_url_path='/static')
-BMO = bmo.BMO()
+# BMO = bmo.BMO()
 
 # run home page
 @app.route('/', methods=['GET', 'POST'])

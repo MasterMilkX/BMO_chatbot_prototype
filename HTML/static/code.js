@@ -196,7 +196,7 @@ function init(){
     for (var i = 0; i < expressions.length; i++) {
         if (i==10 ||i==12||i==13||i==23) continue;  //no expression images for these
         exp_img[i] = new Image();
-        exp_img[i].src = "imgs/bmo" + (i+1) + ".jpeg";
+        exp_img[i].src = "static/imgs/bmo" + (i+1) + ".jpeg";
     }
 
     //scroll to bottom of chat
