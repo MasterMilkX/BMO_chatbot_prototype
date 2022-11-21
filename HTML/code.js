@@ -104,6 +104,36 @@ function chat(txtIn){
     },1000);
 }
 
+
+function sendUserChat(txtIn){
+    var txt = txtIn.value;
+    if(txt.length > 0){
+        var ci = new chatItem(txt,"User");
+        chatHistory.push(ci);
+        txtIn.value = "";
+        addChat(ci);
+    }
+
+    console.log(txt)
+
+    $.ajax({ 
+        url: '/bot_chat', 
+        type: 'POST', 
+        data: {"msg": txt},
+        success: function(response){ 
+            let bmo_out = JSON.parse(response)
+            var ci = new chatItem(bmo_out.txt,"BMO");
+            chatHistory.push(ci);
+            addChat(ci);
+
+            if(bmo_out.face != null){
+                BMO.face = bmo_out.face;
+                renderBMO();
+            }
+        } 
+    })
+}
+
 //add the chat item to the div stream
 function addChat(chatitem){
     //setup new chat item
@@ -151,7 +181,7 @@ function toggleBMO(btn){
 userText = document.getElementById('user-chat');
 userText.addEventListener('keyup', function onEvent(e) {
     if (e.keyCode === 13) {
-        chat(userText);
+        sendUserChat(userText);
         // console.log("got enter");
     }
 });

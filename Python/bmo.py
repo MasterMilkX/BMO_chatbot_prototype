@@ -2,8 +2,8 @@
 # Author: Milk + Github Copilot (WOW!)
 # Last modified: 2022-10-05
 
-from asyncio.format_helpers import extract_stack
 import random
+from pathlib import Path
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -21,15 +21,16 @@ class BMO():
         self.exitWords = ["bye", "goodbye", "see ya", "see you later", "cya", "later", "quit", "exit"]  #words that stops the interaction
         self.extra_stopwords = ["help","need","want"]  #words that are not relevant to the categorization
 
-        
+        #html interface variables
+        self.text_mode = "intro"
     
 
-    ####   SAVED WORDS FUNCTIONS  ####
+    ####   SAVED WORDS FUNCTIONS  ####P
     
     # parse the categories to associate relevant words 
     def importCategories(self):
         saveWords = {}
-        catTxt = open("category_words.txt", "r").readlines()
+        catTxt = Path(__file__).with_name("category_words.txt").open("r").readlines()
         cat = ""
         for line in catTxt:
             line = line.strip()
@@ -164,6 +165,60 @@ class BMO():
 
         self.formBMO("See ya later!")
 
+
+    #talk function for use with the html interface
+    def talk_html(self, user_resp):
+        #intro
+        if self.text_mode == "intro":
+            self.text_mode = "normal"
+            return {"txt":"Hi there! I'm BMO, the game dev chatbot!\nWhat do you need? I'll do my best to help you out!","action":"","face":":)"}
+
+        #normal request
+        elif self.text_mode == "normal":
+            #if the user said an exit word, end the conversation, and close the window
+            if user_resp.lower() in self.exitWords:
+                self.text_mode = "exit"
+                return {"txt":"See ya later!","action":"close"}
+
+            #otherwise, determine what the user wants
+            user_req, words = self.matchCategory(user_resp)
+
+            #do one of the three actions
+            if user_req == "code debug":
+                return {"txt":"I can help you debug your code!","action":"code"}
+            elif user_req == "sprite generation":
+                return {"txt":"I can help you make sprites!","action":"sprites"}
+            elif user_req == "game feature idea":
+                return {"txt":"I can help you come up with new game feature ideas!","action":"features"}
+
+            #unknown request
+            else:
+                #figure out where the words associated fit in
+                self.text_mode = "learn"
+                self.last_words = words
+                return {"txt":"I'm sorry, I don't understand...\nIs this related to code debugging, making sprites, or new game features?", "action":"","face":":|"}
+
+        #learn mode
+        elif self.text_mode == "learn":
+                #made by copilot (thanks!) - hard code to get all user variations of the categories
+                cat_keywords = {
+                    "code debug": ["debug", "debugging", "bug", "bugs", "error", "errors", "fix", "fixing", "code", "programming"],
+                    "sprite generation": ["sprite", "sprites", "art", "graphics", "graphic", "image", "images", "picture", "pictures"],
+                    "game feature idea": ["feature", "features", "game", "games", "new"]
+                }
+                best_cat, _ = self.rawClosestMatch(user_resp, cat_keywords)
+
+                #skip if the user doesn't want to add a new category, or can't be understood
+                if best_cat == "?":
+                    self.text_mode = "normal"
+                    return {"txt":"Ok!","action":"","face":":)"}
+                #add request words to the category
+                else:
+                    self.associateWords(self.last_words, best_cat)
+                    self.last_words = []
+                    self.text_mode = "normal"
+                    return {"txt":"Ok, I'll remember that for next time!","action":"","face":":)"}
+                    
     
     #associate a raw user response to the closest matching group
     #  Input:  resp - the raw user response
