@@ -120,16 +120,18 @@ function sendUserChat(txtIn){
         url: '/bot_chat', 
         type: 'POST', 
         data: {"msg": txt},
-        success: function(response){ 
-            let bmo_out = JSON.parse(response)
-            var ci = new chatItem(bmo_out.txt,"BMO");
-            chatHistory.push(ci);
-            addChat(ci);
+        success: function(bmo_out){ 
+            //add a second just to make it look like bmo is thinking
+            setTimeout(function(){
+                var ci = new chatItem(bmo_out.txt,"BMO");
+                chatHistory.push(ci);
+                addChat(ci);
 
-            if(bmo_out.face != null){
-                BMO.face = bmo_out.face;
-                renderBMO();
-            }
+                if(bmo_out.face != null){
+                    BMO.face = bmo_out.face;
+                    renderBMO();
+                }
+            },1000);
         } 
     })
 }
