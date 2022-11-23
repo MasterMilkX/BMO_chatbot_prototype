@@ -115,7 +115,7 @@ def main():
         
         
         #export data to a file
-        with open("data/tag_games.json","a+") as f:
+        with open("data/tag_games.txt","a+") as f:
             f.write(f"{tag}\n")
             f.write("|".join(tag_games[tag]))
             f.write("\n\n")

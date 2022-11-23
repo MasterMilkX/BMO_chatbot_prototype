@@ -1,4 +1,4 @@
-#scrapes from the website: https://gamesdb.launchbox-app.com
+# scrapes from the website: https://gamesdb.launchbox-app.com
 # takes game descriptions for parsing later
 # use the game descriptions to extract mechanics and features and sort by the genre to suggest to the user later
 
@@ -82,7 +82,7 @@ def addFileData(file,dat):
 # main function to run the scraping
 MAIN_LINK = "https://gamesdb.launchbox-app.com/genres"
 DOMAIN = "https://gamesdb.launchbox-app.com"
-GAME_PAGE_FILE = "data/game_data.txt";
+GAME_PAGE_FILE = "data/game_urls.txt";
 GAME_DESC_FILE = "data/game_desc.txt";
 
 
