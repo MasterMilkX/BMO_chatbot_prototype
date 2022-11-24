@@ -274,8 +274,9 @@ if __name__ == "__main__":
                     GAME_DATA[game]["features"] = features
 
                     #grab the entities
-                    entities = getEntities(GDESC[game])
-                    GAME_DATA[game]["entities"] = entities
+                    entities = getEntities(GDESC[game]).tolist()
+                    entities += getEntities(game.lower()).tolist()
+                    GAME_DATA[game]["entities"] = np.unique(entities)
 
                     pbar.update(1)
                     

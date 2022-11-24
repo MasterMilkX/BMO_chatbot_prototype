@@ -18,7 +18,7 @@ change the goal
 
 + BATTLEBLOCK THEATER
 # Indie,Action,Casual,Singleplayer,2D,Puzzle,Multiplayer,Funny,Platformer,Comedy,Co-op,2D Platformer,Online Co-Op,Side Scroller,Puzzle-Platformer,Local Multiplayer,Local Co-Op,Narration,Level Editor,Cats
-@ acts,arenas,arsenal,audience,buddy,cats,couch,editor,friends,game,hundreds,level,levels,mind,order,quest,side,style,tale,tools,treachery,trials,truth,turning,way,weapon
+@ acts,arenas,arsenal,audience,battleblock,buddy,cats,couch,editor,friends,game,hundreds,level,levels,mind,order,quest,side,style,tale,theater,tools,treachery,trials,truth,turning,way,weapon
 free over 300 of your imprisoned friends
 Immerse yourself in this mind
 battle your way through hundreds
@@ -30,13 +30,13 @@ craft your own mind
 
 + THE BINDING OF ISAAC
 # Indie,Action,Singleplayer,Adventure,RPG,2D,Difficult,Survival,Top-Down,Great Soundtrack,Dark,Rogue-like,Rogue-lite,Procedural Generation,Replay Value,Bullet Hell,Dungeon Crawler,Action Roguelike,Perma Death,Addictive
-@ abilities,action,basement,brothers,creatures,droves,elements,enemies,faith,fears,form,journey,mother,players,sacrifice,safety,secrets,sisters,treasures,voice,way
+@ abilities,action,basement,binding,brothers,creatures,droves,elements,enemies,faith,fears,form,isaac,journey,mother,players,sacrifice,safety,secrets,sisters,treasures,voice,way
 find bizarre treasures
 discover secrets and fight his way to safety
 
 + CASTLE CRASHERS
 # Action,Casual,Singleplayer,Adventure,RPG,2D,Multiplayer,Cute,Arcade,Funny,Comedy,Co-op,Cartoony,Medieval,Online Co-Op,Local Multiplayer,Hack and Slash,Local Co-Op,4 Player Local,Beat 'em up
-@ adventure,arcade,award,castles,characters,friends,hack,hand,hi,kingdom,princess,res,slash,victory,visuals,way
+@ adventure,arcade,award,castles,characters,crashers,friends,hack,hand,hi,kingdom,princess,res,slash,victory,visuals,way
 smash your way to victory
 play locally or online to save your princess
 defend your kingdom
@@ -78,7 +78,7 @@ discover hidden secrets
 
 + CYBERPUNK 2077
 # Story Rich,Exploration,First-Person,Sci-fi,Nudity,Violent,Open World,FPS,Great Soundtrack,Character Customization,Action RPG,Futuristic,Mature,Immersive Sim,Cyberpunk
-@ ability,body,cast,character,characters,choices,city,corporation,cyberware,immortality,key,megalopolis,modification,players,prototype,rockerboy,role,story,technology,v,world
+@ ability,body,cast,character,characters,choices,city,corporation,cyberpunk,cyberware,immortality,key,megalopolis,modification,players,prototype,rockerboy,role,story,technology,v,world
 meet a cast
 make difficult choices
 shape the world
@@ -96,7 +96,7 @@ uncover hidden caves
 
 + DONUT COUNTY
 # 3D,Puzzle,Story Rich,Cute,Funny,Relaxing,Family Friendly,Female Protagonist,Stylized,Comedy,Great Soundtrack,Physics,Drama,Interactive Fiction,Short,Music
-@ characters,feet,friend,friends,game,ground,hole,holes,homes,physics,prizes,puzzle,raccoon,residents,story,trash
+@ characters,county,feet,friend,friends,game,ground,hole,holes,homes,physics,prizes,puzzle,raccoon,residents,story,trash
 Meet cute characters
 steal their trash
 throw them in a hole
@@ -104,13 +104,13 @@ earn idiotic prizes
 
 + THE ELDER SCROLLS V: SKYRIM
 # Action,Singleplayer,Adventure,RPG,Atmospheric,Story Rich,Fantasy,First-Person,Third Person,Open World,Great Soundtrack,Sandbox,Medieval,Character Customization,Action RPG,Magic,Lore-Rich,Moddable,Dragons,Epic
-@ alliances,balance,claims,conflict,dragons,edge,evil,future,hero,midst,passages,power,prophesized,throne
+@ alliances,balance,claims,conflict,dragons,edge,elder,evil,future,hero,midst,passages,power,prophesized,throne,v
 comea hero
 stand amongst the dragons
 
 + ELDEN RING
 # 3D,Fantasy,Family Friendly,Third Person,Open World,Difficult,Co-op,Great Soundtrack,PvP,Character Customization,Online Co-Op,Action RPG,Dark Fantasy,Souls-like
-@ action,collaboration,fantasy,game,material,novelist,ring[a,role,setting
+@ action,collaboration,fantasy,game,material,novelist,ring,ring[a,role,setting
 
 + EMILY IS AWAY TOO
 # RPG,Atmospheric,Pixel Graphics,Story Rich,Funny,Retro,Visual Novel,Great Soundtrack,Choices Matter,Multiple Endings,Psychological Horror,Romance,Dating Sim,Text-Based,Memes
@@ -122,7 +122,7 @@ facebook profiles
 
 + ESCAPE SIMULATOR
 # Exploration,Co-op,Controller,Mystery,Point & Click,Character Customization,Online Co-Op,Walking Simulator,Investigation,Level Editor,Escape Room
-@ -,co,community,editor,escape,furniture,level,locks,online,op,person,players,pots,puzzler,rooms,set,solo
+@ -,co,community,editor,escape,furniture,level,locks,online,op,person,players,pots,puzzler,rooms,set,simulator,solo
 play solo
 Explore a set
 Move furniture
@@ -152,13 +152,13 @@ experiment with, while others
 
 + GRAND THEFT AUTO V
 # Action,Singleplayer,Adventure,Atmospheric,Multiplayer,First-Person,Funny,Shooter,Third Person,Open World,Comedy,Co-op,Great Soundtrack,Racing,Sandbox,Mature,Third-Person Shooter,Automobile Sim,Moddable,Crime
-@ -,approach,attention,blends,brand,celebrities,chance,chances,characters,crew,criminals,culture,detail,envy,era,ex,game,gameplay,gurus,hallmarks,heists,help,high,hustler,life,lives,lot,maniac,metropolis,money,multiplayer,opportunities,options,players,reality,retirement,return,score,self,series,sides,starlets,story,street,success,sun,survival,take,turmoil,uncertainty,ways,world
+@ -,approach,attention,auto,blends,brand,celebrities,chance,chances,characters,crew,criminals,culture,detail,envy,era,ex,game,gameplay,gurus,hallmarks,heists,help,high,hustler,life,lives,lot,maniac,metropolis,money,multiplayer,opportunities,options,players,reality,retirement,return,score,self,series,sides,starlets,story,street,success,sun,survival,take,theft,turmoil,uncertainty,v,ways,world
 set them up for life
 open world
 
 + HADES
 # Story Rich,Difficult,Great Soundtrack,Action RPG,Hand-drawn,Rogue-like,Rogue-lite,Hack and Slash,Replay Value,Dungeon Crawler,Action Roguelike,Isometric,Perma Death,Souls-like,Mythology
-@ attempt,domain,father,gods,help,mother,son
+@ attempt,domain,father,gods,hades,help,mother,son
 find his real mother
 
 + HAMMERWATCH
@@ -176,12 +176,12 @@ change other things
 
 + HYPER LIGHT DRIFTER
 # Indie,Action,Singleplayer,Adventure,RPG,2D,Atmospheric,Pixel Graphics,Fantasy,Colorful,Exploration,Sci-fi,Difficult,Top-Down,Great Soundtrack,Action RPG,Hack and Slash,Post-apocalyptic,Metroidvania,Souls-like
-@ action,adventure,bit,blood,classics,collectors,designs,disease,drifters,echoes,grander,histories,illness,knowledge,land,lands,mechanics,past,resonate,rpg,scale,technologies,treasure,vein,way,world
+@ action,adventure,bit,blood,classics,collectors,designs,disease,drifter,drifters,echoes,grander,histories,illness,knowledge,land,lands,mechanics,past,resonate,rpg,scale,technologies,treasure,vein,way,world
 quiet the vicious disease
 
 + JET SET RADIO
 # Action,Singleplayer,Atmospheric,Colorful,Arcade,Anime,Platformer,Retro,Third Person,Open World,Sports,Stylized,Controller,Great Soundtrack,3D Platformer,Classic,Music,Parkour,Cult Classic,Skating,Skating
-@ abilities,adversaries,area,art,cans,cartoon,character,characters,city,cops,expression,fun,government,hip,individuals,kids,missions,neighborhood,piece,plenty,polygons,program,rights,spray,style,territory,time,walls,way
+@ abilities,adversaries,area,art,cans,cartoon,character,characters,city,cops,expression,fun,government,hip,individuals,jet,kids,missions,neighborhood,piece,plenty,polygons,program,radio,rights,set,spray,style,territory,time,walls,way
 Grab your spray
 design your own piece
 Join up with like - minded hip
@@ -189,7 +189,7 @@ help you keep your area
 
 + KINDERGARTEN
 # Puzzle,Pixel Graphics,Story Rich,Early Access,Funny,Violent,Horror,Gore,Difficult,Choices Matter,Mystery,Psychological Horror,Memes,Dark Humor,Dark Comedy,Blood
-@ fun,school
+@ fun,kindergarten,school
 
 + KINGSWAY
 # RPG,Pixel Graphics,Retro,Rogue-like,Rogue-lite
@@ -220,7 +220,7 @@ Travel back to a time
 
 + MINI NINJAS
 # Indie,Action,Casual,Singleplayer,Adventure,Multiplayer,Cute,Anime,Funny,Platformer,Family Friendly,Third Person,Open World,Controller,Great Soundtrack,3D Platformer,Hack and Slash,Stealth,Beautiful,Ninja
-@ amount,animals,army,arrow,balance,characters,choice,direction,disciples,earthquakes,environment,freedom,friend,hint,master,minions,nature,none,objective,order,person,perspective,players,samurai,storms,transformation,warlord,warriors,world,worlds
+@ amount,animals,army,arrow,balance,characters,choice,direction,disciples,earthquakes,environment,freedom,friend,hint,master,minions,nature,ninjas,none,objective,order,person,perspective,players,samurai,storms,transformation,warlord,warriors,world,worlds
 subdue the world
 restore the order
 explore the environment
@@ -290,7 +290,7 @@ cause discomfort andor seizures
 
 + OUTER WILDS
 # Atmospheric,3D,Puzzle,Story Rich,Exploration,First-Person,Sci-fi,Horror,Open World,Great Soundtrack,Mystery,Space,Psychological Horror,Beautiful,Epic
-@ acclaim,action,adventure,awards,character,cycle,game,knowledge,loop,loops,minute,player,sun,system,time,year
+@ acclaim,action,adventure,awards,character,cycle,game,knowledge,loop,loops,minute,player,sun,system,time,wilds,year
 
 + OVERCOOKED! 2
 # Colorful,Multiplayer,Cute,Funny,Family Friendly,Difficult,Comedy,Co-op,Controller,Online Co-Op,Local Multiplayer,Local Co-Op,4 Player Local,Cooking
@@ -311,11 +311,11 @@ become available : Challenge where the game
 
 + QUADRILATERAL COWBOY
 # Indie,Action,Casual,Singleplayer,Adventure,Atmospheric,Puzzle,Story Rich,Exploration,First-Person,Anime,Sci-fi,Female Protagonist,Immersive Sim,Short,Cyberpunk,Hacking,Programming,Typing,Heist
-@ adventure,bidder,brainbox,cassette,cyberpunk,deck,decks,dial,equipment,hacking,hardware,injectors,line,market,player,sabotage,security,suitcase,systems,thing,tone,world
+@ adventure,bidder,brainbox,cassette,cowboy,cyberpunk,deck,decks,dial,equipment,hacking,hardware,injectors,line,market,player,sabotage,security,suitcase,systems,thing,tone,world
 
 + THE RAMP
 # Relaxing,Sports,Stylized,Controller,Sandbox,Minimalist,Driving,Skateboarding,Skating,Snowboarding,Skiing,BMX,Skating,Snowboarding,Skiing,BMX
-@ 
+@ ramp
 
 + RETROWAVE
 # Arcade,Relaxing,Retro,Great Soundtrack,Racing,1980s,Futuristic,1990's,Surreal,Cyberpunk,Music,Psychedelic,Runner,Addictive
@@ -327,13 +327,13 @@ delight fans
 
 + SCRIBBLENAUTS UNLIMITED
 # Indie,Action,Casual,Singleplayer,Adventure,Strategy,2D,Puzzle,Fantasy,Multiplayer,Cute,Funny,Platformer,Family Friendly,Open World,Comedy,Sandbox,Education,Replay Value,Moddable
-@ backstory,challenges,definition,game,hand,hero,notepad,object,objects,parents,players,puzzles,scenery,side,sister,time,world
+@ backstory,challenges,definition,game,hand,hero,notepad,object,objects,parents,players,puzzles,scenery,scribblenauts,side,sister,time,world
 help the game
 solve robust puzzles
 
 + A SHORT HIKE
 # Pixel Graphics,Exploration,Cute,Funny,Relaxing,Family Friendly,Female Protagonist,Third Person,Open World,Great Soundtrack,3D Platformer,Walking Simulator,Nature,Short,Flight,Beautiful
-@ backcountry,climb,hikers,landscapes,mountainside,summit,trails,treasures,way,world
+@ backcountry,climb,hike,hikers,landscapes,mountainside,summit,trails,treasures,way,world
 soar through the peaceful mountainside
 Follow the marked trails
 explore the backcountry
@@ -362,7 +362,7 @@ need to accomplish specific mission
 
 + SUPER FANCY PANTS ADVENTURE
 # 2D,Multiplayer,Platformer,Stylized,Great Soundtrack,Side Scroller,Hand-drawn,Fast-Paced,Classic,Parkour
-@ brand,challenge,culmination,decade,enemies,frame,friends,hats,levels,morewhether,pants,platformingover,run,stagesframe,time,worlds
+@ adventure,brand,challenge,culmination,decade,enemies,frame,friends,hats,levels,morewhether,pants,platformingover,run,stagesframe,time,worlds
 collect in brand
 
 + SUPER MEAT BOY
@@ -386,7 +386,7 @@ involve any sneaking
 
 + TROMBONE CHAMP
 # 3D,Colorful,Cute,Funny,Sexual Content,Comedy,Cartoon,Music,Experimental,Souls-like,Rhythm,Parody,Satire
-@ anthems,arm,artists,baboons,background,cards,classics,colors,controller,controllers,folk,freedom,game,games,guest,keyboard,marches,meaning,menu,mode!uncover,mouse,music,music!toot,note,pieces,pitch,points,purpose,rhythm,sacks,screen,screen!improvise,secrets,songs,time,toots,track,tracks,trombone,tromboners,usb,way,world
+@ anthems,arm,artists,baboons,background,cards,champ,classics,colors,controller,controllers,folk,freedom,game,games,guest,keyboard,marches,meaning,menu,mode!uncover,mouse,music,music!toot,note,pieces,pitch,points,purpose,rhythm,sacks,screen,screen!improvise,secrets,songs,time,toots,track,tracks,trombone,tromboners,usb,way,world
 play any note
 play whatever you want in Freeplay Mode!Uncover
 purchase sacks
@@ -418,7 +418,7 @@ need to perform certain actions
 
 + VAMPIRE SURVIVORS
 # Controller,Action RPG,1980s,Rogue-like,Rogue-lite,Dark Fantasy,Bullet Hell,Action Roguelike,Score Attack,Vampire
-@ bit,choices,creatures,dawn,elements,era,game,graphics,horror,hundreds,lite,monsters,night,rogue,thousands,throwback
+@ bit,choices,creatures,dawn,elements,era,game,graphics,horror,hundreds,lite,monsters,night,rogue,survivors,thousands,throwback,vampire
 survive until dawn
 allow you to quickly snowball against the hundreds
 
