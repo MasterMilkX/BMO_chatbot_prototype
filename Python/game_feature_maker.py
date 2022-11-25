@@ -20,7 +20,7 @@ GAME_FEAT_OUT_FILE = "data/game_datfeat.txt"
 
 # MAIN FUNCTION VARIABLES
 MODE = "features"
-MY_GAMES = ["Among Us","Baba is You","Batman: Arkham City","BattleBlock Theater®","The Binding of Isaac","Castle Crashers","Caveblazers","Chroma Squad","Cuphead","Cyberpunk 2077","Downwell","Donut County","The Elder Scrolls V: Skyrim","ELDEN RING","Emily is Away Too","Escape Simulator","FEZ","Goat Simulator","Grand Theft Auto V","Hades","Hammerwatch","Hyper Light Drifter","Jet Set Radio","Kindergarten","Kingsway","Last Call BBS","Mini Ninjas","Mirror's Edge","Monster Prom","Nidhogg","Night in the Woods","OMORI","Outer Wilds","Overcooked! 2","Portal","Quadrilateral Cowboy","The Ramp","Retrowave","Scribblenauts Unlimited","A Short Hike","Spelunky","Stardew Valley","Streets of Rogue","Super Fancy Pants Adventure","Super Meat Boy","Thief","Trombone Champ","Ultrakill","Undertale","Vampire Survivors"] #use a temp set of games for testing (some faves from my steam game library)
+MY_GAMES = ["Among Us","Baba is You","Batman: Arkham City","BattleBlock Theater®","The Binding of Isaac","Castle Crashers","Caveblazers","Chroma Squad","Cuphead","Cyberpunk 2077","Downwell","Donut County","The Elder Scrolls V: Skyrim","ELDEN RING","Emily is Away Too","Escape Simulator","FEZ","Goat Simulator","Grand Theft Auto V","Hades","Hammerwatch","Hyper Light Drifter","Jet Set Radio","Kindergarten","Kingsway","Last Call BBS","Mini Ninjas","Mirror's Edge","Monster Prom","Nidhogg","Night in the Woods","OMORI","Outer Wilds","Overcooked! 2","Portal","Quadrilateral Cowboy","The Ramp","Retrowave","Scribblenauts Unlimited","A Short Hike","Spelunky","Stardew Valley","Streets of Rogue","Super Fancy Pants Adventure","Super Meat Boy","Thief Gold","Trombone Champ","Ultrakill","Undertale","Vampire Survivors"] #use a temp set of games for testing (some faves from my steam game library)
 
 
 # cleans up the text
@@ -29,6 +29,7 @@ def cleanTxt(txt):
     txt = re.sub(r'[^\x00-\x7F]+',' ', txt)
     txt = re.sub(r'\s*[;/_]\s*','', txt)
     txt = re.sub(r'\s([\,\.])','\\1', txt)
+    txt = re.sub(r'\s+',' ', txt)
     return txt
 
 
@@ -133,7 +134,7 @@ def getFeatures(desc):
 
     #clean up feature syntax
     features = [cleanTxt(f) for f in features if f != ""]
-    return features
+    return list(set(features))
 
 
 # show the parts of speech specifically for verbs
@@ -287,6 +288,8 @@ if __name__ == "__main__":
         with open(GAME_FEAT_OUT_FILE,"w+") as f:
             # for k,v in GAME_DATA.items():
             for k in MY_GAMES:
+                if k not in GAME_DATA:
+                    continue
                 v = GAME_DATA[k]
                 f.write(f"+ {k}\n")
                 f.write(f"# {','.join(v['tags'])}\n")

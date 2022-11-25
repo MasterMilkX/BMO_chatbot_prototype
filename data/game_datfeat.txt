@@ -1,15 +1,15 @@
 + AMONG US
 # Colorful,Multiplayer,Funny,Sci-fi,Survival,Top-Down,Co-op,PvP,Cartoony,Space,Online Co-Op,Local Multiplayer,Aliens,Psychological,Party Game,Minigames,Social Deduction
 @ departure,impostors,player,players,spaceship
-Play with 4 - 10 player
 beware as one or more random players
+Play with 4 - 10 player
 
 + BABA IS YOU
 # 2D,Atmospheric,Puzzle,Pixel Graphics,Cute,Funny,Retro,Difficult,Top-Down,Great Soundtrack,Minimalist,Logic,Surreal,Level Editor,Sokoban,Programming
 @ block,blocks,game,goal,grass,interactions,level,obstacles,patches,pushing,puzzle,rock,rules
-change the rules
-turn yourself into a rock
 turn patches
+turn yourself into a rock
+change the rules
 change the goal
 
 + BATMAN: ARKHAM CITY
@@ -22,91 +22,91 @@ change the goal
 free over 300 of your imprisoned friends
 Immerse yourself in this mind
 battle your way through hundreds
-discover the puzzling truth
-go online or bring a buddy
-play a thoroughly co - optimized quest
-enter the arenas
 craft your own mind
+enter the arenas
+go online or bring a buddy
+discover the puzzling truth
+play a thoroughly co - optimized quest
 
 + THE BINDING OF ISAAC
 # Indie,Action,Singleplayer,Adventure,RPG,2D,Difficult,Survival,Top-Down,Great Soundtrack,Dark,Rogue-like,Rogue-lite,Procedural Generation,Replay Value,Bullet Hell,Dungeon Crawler,Action Roguelike,Perma Death,Addictive
 @ abilities,action,basement,binding,brothers,creatures,droves,elements,enemies,faith,fears,form,isaac,journey,mother,players,sacrifice,safety,secrets,sisters,treasures,voice,way
-find bizarre treasures
 discover secrets and fight his way to safety
+find bizarre treasures
 
 + CASTLE CRASHERS
 # Action,Casual,Singleplayer,Adventure,RPG,2D,Multiplayer,Cute,Arcade,Funny,Comedy,Co-op,Cartoony,Medieval,Online Co-Op,Local Multiplayer,Hack and Slash,Local Co-Op,4 Player Local,Beat 'em up
 @ adventure,arcade,award,castles,characters,crashers,friends,hack,hand,hi,kingdom,princess,res,slash,victory,visuals,way
-smash your way to victory
-play locally or online to save your princess
 defend your kingdom
+play locally or online to save your princess
+smash your way to victory
 crash some castles
 
 + CAVEBLAZERS
 # Singleplayer,2D,Pixel Graphics,Fantasy,Platformer,Retro,Difficult,Co-op,2D Platformer,Character Customization,Action RPG,Rogue-like,Rogue-lite,Procedural Generation,Replay Value,Local Co-Op,Action Roguelike,Perma Death
 @ action,adventure,adventurer,afraid!-,amount,area,areas,bars,blood,boss,bosses,bunch,case,cave,caveblazers,caves,challenge,challenges,chance,characters,combat,content,day,death,elements,equipment,escape,fantasy,fun,game,games,genre,hats,hostile,identities,inventory,it!-,items,journey,levels,life,load,loadout,monsters,monstrosities,nude,pathfinding,perks,place,platformer,players,potion,power,punt,riches,robes,roguelike,roguelike!caveblazers,rpg,runs,screen,set,strategy,style,system,systems,tons,traits.-,trousers,tunics,weapons,world
-explore and a massive amount
-find out what riches
-discover new areas
-explore, new weapons
-encounter AI characters
 feature a set
-encounter a boss
-Go for it!-
+find out what riches
 take a punt
+discover new areas
+Go for it!-
+explore, new weapons
+encounter a boss
+encounter AI characters
+explore and a massive amount
 
 + CHROMA SQUAD
 # Indie,Singleplayer,Simulation,Strategy,RPG,2D,Pixel Graphics,Story Rich,Funny,Comedy,Great Soundtrack,Management,Turn-Based,Turn-Based Combat,Turn-Based Tactics,Isometric,Memes,Tactical RPG,Mechs,Superhero
 @ abilities,actors,audience,battles,boss,cameras,campaign,cardboard,cash,cast,city,combat,combats,combos,costumes,craft,crafting,depth,duct,endings,episode,episodes,equipment,experience,fan,fight,fights,flow,gear,hearts,heroes,improvements,items,jumpsuit,justice,letter,love,maneuvers,marketing,money,moves,one,pixel,points,power,purchase,rangers,robots,rpg,season,series,show,skill,spectators,storyline,strategies,studio,tape,television,term,trees,turn,tv,twist,upgrades,villains,warriors,weapons
+provide cash
+save the city
+hire actors
+ensure further combats
+change the marketing
+destroy the city
+combine your heroes
+upgrade your gear
+buy or craft improvements
 conquer the hearts
 produce ( actors
-provide cash
-ensure further combats
-buy or craft improvements
-change the marketing
-hire actors
-upgrade your gear
-combine your heroes
-destroy the city
-save the city
 
 + CUPHEAD
 # Indie,Action,Singleplayer,2D,Atmospheric,Colorful,Multiplayer,Funny,Platformer,Retro,Difficult,Co-op,Great Soundtrack,Cartoony,Shoot 'Em Up,Side Scroller,Hand-drawn,Cartoon,Bullet Hell,Local Co-Op
 @ -,1930s,action,animation,audio,backgrounds,battles,boss,cartoons,co,debt,devil,era,game,gun,hand,jazz,moves,op,player,recordings,run,secrets,techniques,visuals,watercolor,weapons,worlds
-learn powerful super moves
 discover hidden secrets
+learn powerful super moves
 
 + CYBERPUNK 2077
 # Story Rich,Exploration,First-Person,Sci-fi,Nudity,Violent,Open World,FPS,Great Soundtrack,Character Customization,Action RPG,Futuristic,Mature,Immersive Sim,Cyberpunk
 @ ability,body,cast,character,characters,choices,city,corporation,cyberpunk,cyberware,immortality,key,megalopolis,modification,players,prototype,rockerboy,role,story,technology,v,world
+shape the world
 meet a cast
 make difficult choices
-shape the world
 
 + DOWNWELL
 # Indie,Action,Singleplayer,Adventure,2D,Pixel Graphics,Arcade,Platformer,Retro,Difficult,2D Platformer,Great Soundtrack,Shoot 'Em Up,Rogue-like,Rogue-lite,Procedural Generation,Replay Value,Action Roguelike,Fast-Paced,Precision Platformer
 @ caves,creatures,darkness,game,gems,items,levels,monsters,person,protection,relics,riches,rocks,search,secrets,shops,treasures,trips,way,well
-Make your way
-collect the spectacular red gems
-Step into precariously placed shops
-buy some helpful items
-level up between levels
-battle well - dwelling monsters
 uncover hidden caves
+Step into precariously placed shops
+battle well - dwelling monsters
+buy some helpful items
+collect the spectacular red gems
+Make your way
+level up between levels
 
 + DONUT COUNTY
 # 3D,Puzzle,Story Rich,Cute,Funny,Relaxing,Family Friendly,Female Protagonist,Stylized,Comedy,Great Soundtrack,Physics,Drama,Interactive Fiction,Short,Music
 @ characters,county,feet,friend,friends,game,ground,hole,holes,homes,physics,prizes,puzzle,raccoon,residents,story,trash
-Meet cute characters
-steal their trash
 throw them in a hole
 earn idiotic prizes
+Meet cute characters
+steal their trash
 
 + THE ELDER SCROLLS V: SKYRIM
 # Action,Singleplayer,Adventure,RPG,Atmospheric,Story Rich,Fantasy,First-Person,Third Person,Open World,Great Soundtrack,Sandbox,Medieval,Character Customization,Action RPG,Magic,Lore-Rich,Moddable,Dragons,Epic
 @ alliances,balance,claims,conflict,dragons,edge,elder,evil,future,hero,midst,passages,power,prophesized,throne,v
-comea hero
 stand amongst the dragons
+comea hero
 
 + ELDEN RING
 # 3D,Fantasy,Family Friendly,Third Person,Open World,Difficult,Co-op,Great Soundtrack,PvP,Character Customization,Online Co-Op,Action RPG,Dark Fantasy,Souls-like
@@ -116,7 +116,6 @@ stand amongst the dragons
 # RPG,Atmospheric,Pixel Graphics,Story Rich,Funny,Retro,Visual Novel,Great Soundtrack,Choices Matter,Multiple Endings,Psychological Horror,Romance,Dating Sim,Text-Based,Memes
 @ 2006!new,chat,color,conversations,dialogue,endings,file,friends,icons,interface,kid,links,message,original,outcome,profiles,school,steam,story,successor,text,transfers,window,year,youtube
 Extend the story
-facebook profiles
 change your text
 facebook profiles
 
@@ -124,30 +123,30 @@ facebook profiles
 # Exploration,Co-op,Controller,Mystery,Point & Click,Character Customization,Online Co-Op,Walking Simulator,Investigation,Level Editor,Escape Room
 @ -,co,community,editor,escape,furniture,level,locks,online,op,person,players,pots,puzzler,rooms,set,simulator,solo
 play solo
-Explore a set
 Move furniture
 pick up and examine everything, smash pots
+Explore a set
 break locks
 
 + FEZ
 # Indie,Casual,Singleplayer,Adventure,2D,Atmospheric,Puzzle,Pixel Graphics,Exploration,Cute,Relaxing,Platformer,Retro,Controller,Great Soundtrack,Mystery,Puzzle-Platformer,2.5D,Metroidvania,Beautiful
 @ area,creature,dimension,dimensions,end,existence,feet,game,gameplay,items,journey,miles,mysteries,past,perception,perspective,platform,platforming,players,reality,side,space,spin,tap,time,truth,walls,way,world,worlds
-take him to the very end
+bring a platform
 Unearth the mysteries
-discover the truth
-Change your perspective
-look at the world
 manipulate 2D platforming
 spin your flat world
+Change your perspective
+take him to the very end
+look at the world
 give you a new perspective
+discover the truth
 Find hidden items
-bring a platform
 
 + GOAT SIMULATOR
 # Indie,Action,Casual,Singleplayer,Simulation,3D,Exploration,Cute,Arcade,Funny,Third Person,Open World,Comedy,Co-op,Physics,Sandbox,Local Multiplayer,Memes,Dark Humor,Destruction
 @ action,alpha,attention,bugs,damage,developer,entertainment,excitement,game,games,glitches,goals,goat,interface,ios,jam,joke,map,media,others,person,perspective,player,ports,product,prototype,reliance,reviewers,reviews,sandbox,state,studio,title,value,versions,video,videos,world,x
-build out the game
 maintain the game
+build out the game
 experiment with, while others
 
 + GRAND THEFT AUTO V
@@ -164,15 +163,12 @@ find his real mother
 + HAMMERWATCH
 # Indie,Action,Singleplayer,Adventure,RPG,2D,Pixel Graphics,Fantasy,Multiplayer,Retro,Top-Down,Co-op,Online Co-Op,Rogue-like,Local Multiplayer,Hack and Slash,Dungeon Crawler,Local Co-Op,4 Player Local,Level Editor
 @ -,action,adventure,art,bottom,classes,co,customize,development,difficulty,editing,enemies,environment,environments,fantasy,features,gamepads-,hack,hordes,levels,liking,looks,medium,modifiers-,online,op,players,puzzles,secrets,skills-,solo,support,things,top,traps,unlocks
-slash action
-Play solo or co
 Kill hordes of enemies
-slash action
-Play solo or co
-Kill hordes of enemies
-upgrades- Hard, medium
 make your own levels
+upgrades- Hard, medium
 change other things
+slash action
+Play solo or co
 
 + HYPER LIGHT DRIFTER
 # Indie,Action,Singleplayer,Adventure,RPG,2D,Atmospheric,Pixel Graphics,Fantasy,Colorful,Exploration,Sci-fi,Difficult,Top-Down,Great Soundtrack,Action RPG,Hack and Slash,Post-apocalyptic,Metroidvania,Souls-like
@@ -182,10 +178,10 @@ quiet the vicious disease
 + JET SET RADIO
 # Action,Singleplayer,Atmospheric,Colorful,Arcade,Anime,Platformer,Retro,Third Person,Open World,Sports,Stylized,Controller,Great Soundtrack,3D Platformer,Classic,Music,Parkour,Cult Classic,Skating,Skating
 @ abilities,adversaries,area,art,cans,cartoon,character,characters,city,cops,expression,fun,government,hip,individuals,jet,kids,missions,neighborhood,piece,plenty,polygons,program,radio,rights,set,spray,style,territory,time,walls,way
-Grab your spray
 design your own piece
-Join up with like - minded hip
 help you keep your area
+Join up with like - minded hip
+Grab your spray
 
 + KINDERGARTEN
 # Puzzle,Pixel Graphics,Story Rich,Early Access,Funny,Violent,Horror,Gore,Difficult,Choices Matter,Mystery,Psychological Horror,Memes,Dark Humor,Dark Comedy,Blood
@@ -194,38 +190,38 @@ help you keep your area
 + KINGSWAY
 # RPG,Pixel Graphics,Retro,Rogue-like,Rogue-lite
 @ adventure,adventurers,backpacks,bandits,caves,character,crypts,death,element,emails,enemies,file,folders,game,interface,items,land,mock,monsters,operating,part,play,popups,quests,rpg,skills,style,system,time,top,traps,treasure,types,way,world
-manage your adventure
-Choose from various character
-Discover a strange land of monsters
-steal and murder your way
-Defeat enemies and plunder crypts and caves
 Organize the interface
+Defeat enemies and plunder crypts and caves
+manage your adventure
+steal and murder your way
+Choose from various character
 suit your play
+Discover a strange land of monsters
 
 + LAST CALL BBS
 # Retro,Old School,PvP,Sandbox,Building,Logic,Local Multiplayer,1990's,Card Game,Automation,Solitaire,Mechs
 @ 90s,anime,art,brand,call,campaign,capacitors,cards,century,circuits,computer,computers,copy,costs,demake,design,developers,dial,dungeons,exchange,factories,flesh,food,game,games,games:20th,hand,head,life,logic,machines,manufacturer,master,matching,minigame,models,multiplayer,need,path,pc,player,program?hack*match,protection,puzzle,puzzles,release,resolution,retro,right,robot,s,sandpaper,sculptures,second,set,sets,smash,solitaire,story,sysop,t,take,tile,time,transistors,wires,world,years,z5
-Boot up your Z5 Powerlance and dial
-worry about copy
-produce food
-Keep your costs
-Enter a cursed world
-create bizarre flesh
-trust him?Sawayama Solitaire
 Try your hand
-map out the dungeons
+Boot up your Z5 Powerlance and dial
+Enter a cursed world
 Wait a second
+Keep your costs
+worry about copy
+create bizarre flesh
 Create matching
+map out the dungeons
+trust him?Sawayama Solitaire
+produce food
 Travel back to a time
 
 + MINI NINJAS
 # Indie,Action,Casual,Singleplayer,Adventure,Multiplayer,Cute,Anime,Funny,Platformer,Family Friendly,Third Person,Open World,Controller,Great Soundtrack,3D Platformer,Hack and Slash,Stealth,Beautiful,Ninja
 @ amount,animals,army,arrow,balance,characters,choice,direction,disciples,earthquakes,environment,freedom,friend,hint,master,minions,nature,ninjas,none,objective,order,person,perspective,players,samurai,storms,transformation,warlord,warriors,world,worlds
-subdue the world
 restore the order
-explore the environment
-meditate to receive a hint
 see an arrow
+explore the environment
+subdue the world
+meditate to receive a hint
 
 + MIRROR'S EDGE
 # Action,Singleplayer,Adventure,Atmospheric,Puzzle,Colorful,Exploration,First-Person,Sci-fi,Action-Adventure,Platformer,Female Protagonist,Stylized,Great Soundtrack,Futuristic,3D Platformer,Cyberpunk,Dystopian,Parkour,Time Attack
@@ -235,57 +231,57 @@ commit, Faith finds herself on the edge
 + MONSTER PROM
 # Story Rich,Fantasy,Multiplayer,Funny,Sexual Content,Nudity,Visual Novel,Comedy,Great Soundtrack,Choices Matter,Online Co-Op,Local Multiplayer,Zombies,Dating Sim,LGBTQ+,Life Sim,Demons,Vampire
 @ adventure,apps,art,artthere,boys,cast,chances,characters,choicemonsters,choices,classmates,competition,d**kpics,date,dialogue,dream,end,events,eventsget,experience,fashion,fiend,fight,fingertips,fonder,fondness,freedom,friends,fun,game,gaze,gender,girls,groove,group,heart,humor,hundreds,items,kinds,losers,love,lovers,moment,monster,monsters,name,orientation,outcomes,outfits,people,peopleplay,personality,player,players,playno,prom,quirks,quizzes,rewards,school,schoolers,self,selfies,sim,simnothing,situations,slice,stats,stones,strengths,strings,style,sweetheart,sweethearts,t,tastes,that!choose,thing,throat,topic,trimmings,types,universe,war,way,weeks,world,writingall
-get a date
-Go through absurd and funny situations
-raise your stats
-seduce one of your classmates
-get all the way
-take personality
-determine your stats
-get into all kinds
-seduce your sweetheart
-Play to your strengths
-earn better rewards
-discover and unlock items
-fight the good fight
-Grab up to three friends
-play by yourself, enjoy the beautiful art
 make hard choices
-grow fonder
-Set your gaze
-make fun
-branch into 1000 + possible situations
-pick up and playNo
+play by yourself, enjoy the beautiful art
 fall in love
+Set your gaze
+pick up and playNo
+get into all kinds
+Grab up to three friends
+fight the good fight
+get all the way
+earn better rewards
+make fun
+take personality
+discover and unlock items
+determine your stats
+Go through absurd and funny situations
+Play to your strengths
+grow fonder
+raise your stats
+branch into 1000 + possible situations
+seduce one of your classmates
+get a date
+seduce your sweetheart
 
 + NIDHOGG
 # Indie,Action,2D,Pixel Graphics,Multiplayer,Funny,Platformer,Sports,Controller,Great Soundtrack,PvP,Local Multiplayer,Local Co-Op,Fast-Paced,Fighting,Competitive,2D Fighter,Swordplay,Party Game,GameMaker
 @ end,environment,fighting,game,jump,opponent,player,players,respawns,screen,seconds,side,slide,swords,wins
-run, jump
-throw their swords
 run towards their opponent
+throw their swords
+run, jump
 reach the end
 
 + NIGHT IN THE WOODS
 # Singleplayer,2D,Atmospheric,Story Rich,Colorful,Exploration,Cute,Funny,Platformer,Female Protagonist,Great Soundtrack,Choices Matter,Mystery,Psychological Horror,Side Scroller,Drama,Walking Simulator,LGBTQ+
 @ adventure,bass,break,character,characters,dark,dozens,dropout,end,exploration,friends,game,home,hometown,leaves,life,light,lots,mining,night,powerlines,roofs,side,site,story,stuff,things,town,trip,wind,woods,world
 Hold onto AnythingCollege dropout
-reconnect with the friends
-meet and lots
-do across a lush, vibrant world
-Break stuff
 play bass
+Break stuff
+reconnect with the friends
 hang out, walk on powerlines
-discover strange and amazing and terrible things
 Come home and waste your life
+meet and lots
 Explore this game
+discover strange and amazing and terrible things
+do across a lush, vibrant world
 
 + OMORI
 # Pixel Graphics,Story Rich,Fantasy,Colorful,Exploration,Anime,Horror,Stylized,Great Soundtrack,Multiple Endings,Psychological Horror,Hand-drawn,Turn-Based,Party-Based RPG,JRPG,RPGMaker
 @ anxiety,audiences,depictions,depression,discretion,epilepsy,fate,flashing,foes,friends,game,imagery,mundane,order,others,past,path,seizures,suicide,time,vibrant,world
-Explore a strange world
 Navigate through the vibrant
 uncover a forgotten past
+Explore a strange world
 cause discomfort andor seizures
 
 + OUTER WILDS
@@ -295,18 +291,18 @@ cause discomfort andor seizures
 + OVERCOOKED! 2
 # Colorful,Multiplayer,Cute,Funny,Family Friendly,Difficult,Comedy,Co-op,Controller,Online Co-Op,Local Multiplayer,Local Co-Op,4 Player Local,Cooking
 @ -,action,aprons,brand,chefs,co,cooking,couch,fire,helping,hunger,kitchen,op,pan,play,players,returns,team,threat,time,world
-assemble your team of chefs
-Hold onto your aprons
-save the world
-get back in the kitchen
 stave off the hunger
+assemble your team of chefs
+save the world
+Hold onto your aprons
+get back in the kitchen
 
 + PORTAL
 # Action,Singleplayer,Adventure,Atmospheric,Puzzle,Story Rich,First-Person,Funny,Sci-fi,Platformer,Female Protagonist,Comedy,FPS,Physics,Puzzle-Platformer,3D Platformer,Short,Classic,Dark Humor,Science
 @ amount,androids,cake,competition,construct,developers,distance,facility,footsteps,game,gun,levels,life,mode,modes,obstacles,organization,person,point,portals,puzzle,puzzles,research,shooter,solving,space,strategy,subject,successor,tasks,test,tests,time,universe,versions,way,weapons
-construct called GlaDOS requiring some tasks
-overcome the obstacles
 perform the necessary tests
+overcome the obstacles
+construct called GlaDOS requiring some tasks
 become available : Challenge where the game
 
 + QUADRILATERAL COWBOY
@@ -320,9 +316,9 @@ become available : Challenge where the game
 + RETROWAVE
 # Arcade,Relaxing,Retro,Great Soundtrack,Racing,1980s,Futuristic,1990's,Surreal,Cyberpunk,Music,Psychedelic,Runner,Addictive
 @ ',80s,atmosphere,car,cars,colors,end,era,experience,fans,features,feeling,future,game,gameplay,genre,highway,lights,modes,moments,money,musics,nostalgia,offers,palm,people,performance,player,purchase,road,run,synthwave,system,trees,universe,universes,upgrades,vehicles,version,wheels,world
-start with one car
 upgrade it or buy other cars
 Race your car
+start with one car
 delight fans
 
 + SCRIBBLENAUTS UNLIMITED
@@ -334,12 +330,12 @@ solve robust puzzles
 + A SHORT HIKE
 # Pixel Graphics,Exploration,Cute,Funny,Relaxing,Family Friendly,Female Protagonist,Third Person,Open World,Great Soundtrack,3D Platformer,Walking Simulator,Nature,Short,Flight,Beautiful
 @ backcountry,climb,hike,hikers,landscapes,mountainside,summit,trails,treasures,way,world
-soar through the peaceful mountainside
+take in the world
 Follow the marked trails
 explore the backcountry
 meet other hikers
 discover hidden treasures
-take in the world
+soar through the peaceful mountainside
 
 + SPELUNKY
 # Indie,Action,Singleplayer,Adventure,2D,Platformer,Difficult,Co-op,Controller,Great Soundtrack,Side Scroller,Rogue-like,Rogue-lite,Local Multiplayer,Procedural Generation,Replay Value,Local Co-Op,Action Roguelike,Perma Death,Addictive
@@ -350,15 +346,15 @@ Use your wits
 + STARDEW VALLEY
 # Casual,Singleplayer,Simulation,RPG,2D,Pixel Graphics,Multiplayer,Cute,Relaxing,Open World,Great Soundtrack,Sandbox,Building,Crafting,Dating Sim,Life Sim,Farming Sim,Agriculture,Fishing
 @ activity,center,coins,community,dedication,farm,fields,grandfather,greatness,hand,home,hub,land,life,opportunity,plot,shambles,tools,town,valley,ways
+restore Stardew Valley to greatness
 learn to live off the land
 turn these overgrown fields
-restore Stardew Valley to greatness
 
 + STREETS OF ROGUE
 # RPG,2D,Pixel Graphics,Multiplayer,Early Access,Funny,Violent,Gore,Co-op,Great Soundtrack,Online Co-Op,Rogue-like,Rogue-lite,Procedural Generation,Local Co-Op,Action Roguelike,Stealth
 @ activities,character,choice,city,denizens,dungeon,elements,environment,experimentation,form,freedom,fun,game,gameplay,goals,inspiration,items,life,lite,lites,mission,order,place,player,rogue,rpgs,streets,throne,traits,use,walks,way
-progress, the player
 need to accomplish specific mission
+progress, the player
 
 + SUPER FANCY PANTS ADVENTURE
 # 2D,Multiplayer,Platformer,Stylized,Great Soundtrack,Side Scroller,Hand-drawn,Fast-Paced,Classic,Parkour
@@ -368,57 +364,63 @@ collect in brand
 + SUPER MEAT BOY
 # Indie,Action,Singleplayer,2D,Pixel Graphics,Funny,Platformer,Retro,Gore,Difficult,Comedy,Controller,2D Platformer,Great Soundtrack,Side Scroller,Replay Value,Fast-Paced,Precision Platformer,Time Attack,Unforgiving
 @ bandages,boss,boy,bs,caves,characters,cube,damsel,difficulty,distress,editor,factories,fetus,fights,ghost,girlfriend,hell,hero,hospitals,jar,level,levels,lines,meat,nails,needles,platformer,platforming,player,pools,salt,saws,school,seas,secrets,soul,titles,tons,tux,walls,well,zones
+stream lines
 leap from walls
 save his damsel
-stream lines
 
-+ THIEF
-# Action,Singleplayer,Adventure,RPG,Atmospheric,Fantasy,First-Person,Nudity,Horror,Open World,FPS,Dark,Medieval,Stealth,Parkour,Steampunk,Remake,Assassin,Heist,Reboot,Reboot
-@ action,blob,bonus,directions,game,gun,laser,levels,life,lives,maze,objective,perspective,play,player,points,positioning,robot,robots,score,screen,sneaking,style,thief,title,top,walls,way,ways
-move and shoot in eight directions
-destroy as many robots
-get a high score
-kill the robots
-shoot them with the laser
-wait until an unearthly blob
-trick the robots
-involve any sneaking
++ THIEF GOLD
+# Action,Singleplayer,Adventure,Atmospheric,Story Rich,Fantasy,Exploration,First-Person,Horror,Dark,Medieval,Dark Fantasy,Immersive Sim,1990's,Stealth,Classic,Moddable,Steampunk,Cult Classic,Immersive
+@ addition,amount,areas,arrows,beggar,blackjack,bodies,bombs,bow,bugfixes,campaign,challenges,changes,chasms,combat,company,cross,design,difficulties,difficulty,disposal,elements,enemies,equipment,era,extinguishes,fantasy,fire,flash,footsteps,forces,game,gem,goals,gold,ground,guard,guards,head,keys,lack,level,levels,line,lockpicks,master,masters,metropolis,mines,mission,missions,modifications,moss,nobles,noisemaker,noises,objective,objects,opponents,order,organization,parts,paths,people,person,place,places,plans,player,plot,purpose,range,reissue,requirements,rope,ropes,shadows,skills,sounds,spots,stage,stealth,streets,surfaces,surfacing,sword,technology,thief,thieving,time,torches,town,training,treasures,trinkets,type,types,undead,version,visibility,water,way,ways,work,world
+sneak on guards
+skip some of the harder areas
+provide new challenges
+steal their keys
+appropriate the treasures
+accomplish the objective
+enter forbidden places
+avoid being heard ( different surfaces
+avoid being seen ( the level
+allow the player
+include bugfixes
+keep his head
+soften the sounds
+move their bodies
 
 + TROMBONE CHAMP
 # 3D,Colorful,Cute,Funny,Sexual Content,Comedy,Cartoon,Music,Experimental,Souls-like,Rhythm,Parody,Satire
 @ anthems,arm,artists,baboons,background,cards,champ,classics,colors,controller,controllers,folk,freedom,game,games,guest,keyboard,marches,meaning,menu,mode!uncover,mouse,music,music!toot,note,pieces,pitch,points,purpose,rhythm,sacks,screen,screen!improvise,secrets,songs,time,toots,track,tracks,trombone,tromboners,usb,way,world
 play any note
-play whatever you want in Freeplay Mode!Uncover
-purchase sacks
 Move your arm
+uncover their full meaning
+purchase sacks
+play whatever you want in Freeplay Mode!Uncover
+believe how many baboons
 blow ! The sounds your trombone
 earn, but you have the freedom
-believe how many baboons
-uncover their full meaning
 
 + ULTRAKILL
 # 3D,First-Person,Shooter,Sci-fi,Retro,Difficult,Stylized,Old School,FPS,Cyberpunk,Fast-Paced,Robots,Arena Shooter,Character Action Game,Blood,Spectacle fighter,Silent Protagonist
 @ ',90s,action,blood,carnage,character,foes,games,health,scoring,shooters,skill,style,ultraviolent,weapons
-Rip apart your foes
 shower in their blood
+Rip apart your foes
 regain your health
 
 + UNDERTALE
 # Singleplayer,RPG,2D,Pixel Graphics,Story Rich,Cute,Funny,Horror,Retro,Comedy,Great Soundtrack,Choices Matter,Dark,Multiple Endings,Psychological Horror,Replay Value,Bullet Hell,Dating Sim,Memes
 @ action,actions,areas,aspects,attack,attacks,basics,battle,bloodshed,box,care,child,combat,command,conflict,damage,encounter,fight,file,game,heart,hole,humans,mercy,meter,monsters,npcs,opponent,order,others,overworld,player,players,playthroughs,puzzles,reference,resolutions,rpg,save,screen,soul,story,strength,system,talks,time,timing,turn,underground,war,way,woman,world,years
-try to find peaceful resolutions
 attack monsters
 deal more damage
+need to perform certain actions
 choose to perform friendly actions in battle
-show mercy to the opponent in order
-resolve conflict without bloodshed
 finish every encounter
 do this with than others
-need to perform certain actions
+resolve conflict without bloodshed
+try to find peaceful resolutions
+show mercy to the opponent in order
 
 + VAMPIRE SURVIVORS
 # Controller,Action RPG,1980s,Rogue-like,Rogue-lite,Dark Fantasy,Bullet Hell,Action Roguelike,Score Attack,Vampire
 @ bit,choices,creatures,dawn,elements,era,game,graphics,horror,hundreds,lite,monsters,night,rogue,survivors,thousands,throwback,vampire
-survive until dawn
 allow you to quickly snowball against the hundreds
+survive until dawn
 
