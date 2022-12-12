@@ -4,3 +4,4 @@ test_data.txt
 data/microstudio_games/
 data/microstudio_games.zip
 data/glove.6B/
+tmp/GPT_*

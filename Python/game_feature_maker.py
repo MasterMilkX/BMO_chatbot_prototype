@@ -16,6 +16,7 @@ MAX_SEGMENTS = 7
 # FILE I/O
 GAME_DESC_FILE = "data/game_desc.txt"
 GAME_TAG_FILE = "data/tag_games.txt"
+GAME_TAG_FILE2 = "data/tag_games2.txt"
 GAME_FEAT_OUT_FILE = "data/game_datfeat.txt"
 
 # MAIN FUNCTION VARIABLES
@@ -175,36 +176,38 @@ if __name__ == "__main__":
     GAME_DATA = {}
 
     #get the game names and tags
-    with open(GAME_TAG_FILE,"r") as f:
-        tag_txt = f.readlines()
-        # genres = tag_txt[::2]
-        # all_games = tag_txt[1::2]
+    for TFILE in [GAME_TAG_FILE, GAME_TAG_FILE2]:
+        print("--- PROCESSING {} ---".format(TFILE))
+        with open(TFILE,"r") as f:
+            tag_txt = f.readlines()
+            # genres = tag_txt[::2]
+            # all_games = tag_txt[1::2]
 
-        #kinda inconsistent with grabbing genres to games
-        genres = []
-        all_games = []
-        i = 0
-        while(i < len(tag_txt)):
-            if tag_txt[i].strip() == "":
-                i += 1
-                continue
-            else:
-                genres.append(tag_txt[i].strip())
-                all_games.append(tag_txt[i+1].strip())
-                i += 2
-        # print(f"Found {len(genres)} genres and {len(all_games)} games")
-        FULL_GAME_TAGS = [g.strip() for g in genres]
+            #kinda inconsistent with grabbing genres to games
+            genres = []
+            all_games = []
+            i = 0
+            while(i < len(tag_txt)):
+                if tag_txt[i].strip() == "":
+                    i += 1
+                    continue
+                else:
+                    genres.append(tag_txt[i].strip())
+                    all_games.append(tag_txt[i+1].strip())
+                    i += 2
+            # print(f"Found {len(genres)} genres and {len(all_games)} games")
+            FULL_GAME_TAGS += [g.strip() for g in genres]
 
-        #break up the game names
-        with tqdm(total=len(all_games)) as pbar:
-            for i in range(len(all_games)):
-                game_list = all_games[i].split("|")
-                game_list = [cleanTxt(g).strip().upper() for g in game_list]
-                for g in game_list:
-                    if g not in GAME_DATA:
-                        GAME_DATA[g] = {"tags":[],"features":[],"entities":[]}
-                    GAME_DATA[g]["tags"].append(genres[i].strip())
-                pbar.update(1)
+            #break up the game names
+            with tqdm(total=len(all_games)) as pbar:
+                for i in range(len(all_games)):
+                    game_list = all_games[i].split("|")
+                    game_list = [cleanTxt(g).strip().upper() for g in game_list]
+                    for g in game_list:
+                        if g not in GAME_DATA:
+                            GAME_DATA[g] = {"tags":[],"features":[],"entities":[]}
+                        GAME_DATA[g]["tags"].append(genres[i].strip())
+                    pbar.update(1)
 
     # print(game_data['Terraria'])
     print("# Games: ",len(GAME_DATA))
@@ -284,19 +287,23 @@ if __name__ == "__main__":
         print(f"Extracted [ {num_features} ] features")
         print(f"Skipped [ {len(skipped)} ] games")
 
-        #export the data to a txt file (each game has + in front, tag list has a #, entity list has a @, everything else is a feature on a new line)
+
+        #export the data to a txt file (tag list (#), then entity list (@), then features on a new line with a hyphen bullet point in front. games separated by a blank line)
         with open(GAME_FEAT_OUT_FILE,"w+") as f:
             # for k,v in GAME_DATA.items():
             for k in MY_GAMES:
                 if k not in GAME_DATA:
                     continue
+                if len(GAME_DATA[k]["features"]) == 0:
+                    continue
                 v = GAME_DATA[k]
                 f.write(f"+ {k}\n")
-                f.write(f"# {','.join(v['tags'])}\n")
-                f.write(f"@ {','.join(v['entities'])}\n")
+                f.write(f"# {','.join([t.lower() for t in v['tags']])}\n")
+                f.write(f"@ {','.join([e.lower() for e in v['entities']])}\n")
                 for feat in v["features"]:
-                    f.write(f"{feat}\n")
+                    f.write(f"- {feat}\n")
                 f.write("\n") 
+
             
 
     
