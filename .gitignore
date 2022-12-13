@@ -5,3 +5,4 @@ data/microstudio_games/
 data/microstudio_games.zip
 data/glove.6B/
 tmp/GPT_*
+models/

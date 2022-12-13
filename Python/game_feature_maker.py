@@ -289,12 +289,14 @@ if __name__ == "__main__":
 
 
         #export the data to a txt file (tag list (#), then entity list (@), then features on a new line with a hyphen bullet point in front. games separated by a blank line)
+        no_features = 0
         with open(GAME_FEAT_OUT_FILE,"w+") as f:
             # for k,v in GAME_DATA.items():
             for k in MY_GAMES:
                 if k not in GAME_DATA:
                     continue
                 if len(GAME_DATA[k]["features"]) == 0:
+                    no_features += 1
                     continue
                 v = GAME_DATA[k]
                 f.write(f"+ {k}\n")
@@ -303,6 +305,8 @@ if __name__ == "__main__":
                 for feat in v["features"]:
                     f.write(f"- {feat}\n")
                 f.write("\n") 
+
+        print(f"Skipped [ {no_features} ] games with no features")
 
             
 
