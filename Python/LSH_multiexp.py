@@ -22,11 +22,14 @@ from lsh import VanillaLSH
 
 WRITE_TO_FILE = True  # write the results to a file
 MULTIPROCESS = True
-NUM_PROCESSES = 6  # number of processes to use for multiprocessing
+NUM_PROCESSES = 4  # number of processes to use for multiprocessing
+
+W2V_DIM = 100
+D2V_DIM = 100
 
 
-k_set = [1,2,5,10,15,25]  # k values to try  (not using 100 or 250 - preliminary results on subset show that it is not worth it)
-l_set = [1,5,10,25,100,250]  # l values to try
+k_set = [1,2,5,7,10]  # k values to try  (not using 100 or 250 - preliminary results on subset show that it is not worth it)
+l_set = [1,5,10,25,50,100]  # l values to try
 # k_set = [1]
 # l_set = [1]
 
@@ -39,9 +42,9 @@ prompts = [
     "a physics shopping simulator in a 90s mall"                   #recs: goat simulator, retrowave, donut county
 ] 
 
-prompt_inc = [["THE RAMP", "JET SET RADIO", "CYBERPUNK 2077"],
-                ["STARDEW VALLEY", "NIGHT IN THE WOODS", "A SHORT HIKE"],
-                ["GOAT SIMULATOR", "RETROWAVE", "DONUT COUNTY"]
+prompt_inc = [["THE RAMP", "JET SET RADIO", "CYBERPUNK 2077", "RETROWAVE", "MIRROR'S EDGE"],
+                ["STARDEW VALLEY", "NIGHT IN THE WOODS", "A SHORT HIKE", "FEZ", "HARVEST MOON"],
+                ["GOAT SIMULATOR", "RETROWAVE", "DONUT COUNTY", "LAST CALL BBS", "MALL TYCOON"]
             ]
 
 ### SETUP AND DATA IMPORT ###
@@ -49,8 +52,8 @@ prompt_inc = [["THE RAMP", "JET SET RADIO", "CYBERPUNK 2077"],
 # import the dataset
 def loadFeatData():
     DAT = {}
-    # with open("../data/game_datfeat_FULL.txt", "r") as f:
-    with open("../data/game_datfeat.txt", "r") as f:
+    with open("../data/game_datfeat_FULL.txt", "r") as f:
+#     with open("../data/game_datfeat.txt", "r") as f:
         lines = [l.strip() for l in f.readlines()]
         CUR_GAME = ""
         for l in lines:
@@ -184,7 +187,7 @@ def encodeGames():
             pbar2.update(1)
 
     # train the doc2vec model
-    d2vmodel = gensim.models.doc2vec.Doc2Vec(vector_size=100, min_count=2, epochs=40)
+    d2vmodel = gensim.models.doc2vec.Doc2Vec(vector_size=D2V_DIM, min_count=2, epochs=40)
     d2vmodel.build_vocab(list(doc_games_in.values()))
 
     #get each game's vectors
@@ -211,7 +214,7 @@ def getDocVec(d2vmodel, prompt):
 def gameW2V():
     #retrieve the glove data
     GLOVE_DAT = {}
-    with open("../data/glove.6B/glove.6B.50d.txt", "r", encoding="utf-8") as f:
+    with open(f"../data/glove.6B/glove.6B.{W2V_DIM}d.txt", "r", encoding="utf-8") as f:
         lines = f.readlines()
         for line in tqdm(lines, desc="Loading GloVe vectors"):
             line = line.split()
@@ -329,13 +332,13 @@ def main_exp(vector_method, tofile=True):
 
     if vector_method == "doc2vec":
         pq = PromptQueryFun(getDocVec, D2V_MODEL)
-        ndim = D2V_MODEL.vector_size
+        ndim = D2V_DIM
     elif vector_method == "bag_of_words":
         pq = PromptQueryFun(getBag, VEC_IDX)
         ndim = len(VEC_IDX)
     elif vector_method == "word2vec":
         pq = PromptQueryFun(getW2VVec, GLOVE_DAT)
-        ndim = 50
+        ndim = W2V_DIM
 
     if tofile:
         with open(DAT_FILE, "a+") as f:
@@ -392,6 +395,7 @@ def main_exp(vector_method, tofile=True):
         headers = ["k", "l", "hastime", "# recs", "% recs / all games", "% recs inc"]
         for i, p in enumerate(prompts):
             print(f"Prompt #{i+1}: {str(tokenize(p))}")
+            print(f"Includes games: {str(prompt_inc[i])}") 
             print(tabulate(RESULTS_TABLE[i], headers, tablefmt='psql'))
             print("\n\n\n")
 
@@ -404,5 +408,5 @@ if __name__ == "__main__":
             stat_tab = [["# of games", len(GAME_DATA)], ["# of tags", len(ALL_TAGS)], ["# of entities", len(ALL_ENTITIES)]]
             f.write(f"{tabulate(stat_tab)}\n\n")
 
-    for VECTOR_TYPE in ["bag_of_words", "doc2vec", "word2vec"]:
+    for VECTOR_TYPE in ["word2vec", "doc2vec", "bag_of_words"]:
         main_exp(VECTOR_TYPE, tofile=WRITE_TO_FILE)
