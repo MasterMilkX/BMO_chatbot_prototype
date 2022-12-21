@@ -122,3 +122,9 @@ def tokenize(txt):
     raw_toks = word_tokenize(txt)
     toks = [w.lower() for w in raw_toks if w.lower() not in stopwords.words("english") and w.lower() not in CUSTOM_STOPWORDS]
     return toks
+
+# extract and singularize the nouns from a prompt
+def single_noun(txt):
+    doc = nlp(txt)
+    toks = [t.lemma_ for t in doc if t.pos_ == "NOUN"]
+    return toks
