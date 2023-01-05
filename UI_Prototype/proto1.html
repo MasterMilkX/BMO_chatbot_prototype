@@ -46,7 +46,6 @@
                 width:620px;
                 height:100%;
                 background-color:#000;
-                border:1px solid white;
                 float:left;
             }
             #ace-code{
@@ -72,7 +71,7 @@
                 width:280px;
                 height:425px;
                 background-color:#022946;
-                border:1px solid red;
+                /* border:1px solid red; */
             }
             #chat-out{
                 width:260px;
@@ -121,7 +120,7 @@ function make_a_game(){
                     editor.session.setMode("ace/mode/javascript");
                 </script>
             </div>
-            <div id="right">
+            <div id="right-half">
                 <div id="bmo">
                     <canvas id="bmo-face"></canvas>
                     <script>
@@ -130,14 +129,14 @@ function make_a_game(){
                         canvas.height = 175;
                         var ctx = canvas.getContext("2d");
                         var bmo_face = new Image();
-                        bmo_face.src = "bmo9.jpeg";
+                        bmo_face.src = "bmo_blank.png";
                         bmo_face.onload = function(){
                             //add background
                             ctx.fillStyle = "#000";
                             // ctx.fillRect(0, 0, 280, 175);
 
                             //draw the face
-                            ctx.drawImage(bmo_face, 0, 0, 280, 175);
+                            ctx.drawImage(bmo_face, 0, 0, bmo_face.width, bmo_face.height, 0, 0, 280, 175);
 
                             //draw a border around
                             ctx.strokeStyle = "#4CAA98";
