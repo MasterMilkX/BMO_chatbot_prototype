@@ -14,13 +14,16 @@ var bitx = bmo_icon_canvas.getContext("2d");
 //bmo icon spritesheet setup
 let bmo_icon_ss = new Image();
 bmo_icon_ss.src = "../data/imgs/bmo_icon.png";
-bmo_icon_ss.onload = function(){showIcon("awake")};
 bmo_icon_key = ["awake","sleep","off","think","question","notify","bad","good"]
 let icon_size = 16;
 
 var bmo_mode = "idle";
 
-////////////    ACE EDITOR SETUP    //////////////
+////////////    EDITOR SETUP    //////////////
+
+
+var game_viewer = document.getElementById("game-viewer");
+
 
 //ace code editor setup
 var ace_editor = ace.edit("ace-code");
@@ -29,6 +32,7 @@ ace_editor.session.setMode("ace/mode/javascript");
 ace_editor.setOptions({
     wrap:true
 });
+ace_editor.setShowPrintMargin(false); //hides the annoying vertical line
 
 
 ////////////    BMO FACE SETUP    //////////////
@@ -49,9 +53,6 @@ let chatbox = document.getElementById("chatbox");
 
 
 
-
-
-
 ////////////    FUNCTIONS    //////////////
 
 
@@ -59,13 +60,10 @@ let chatbox = document.getElementById("chatbox");
 
 //change the current icon from the spreadsheet
 function showIcon(mood){
-    // let xi = bmo_icon_canvas.width/2 - icon_size/2 - 1;
-    // let yi = bmo_icon_canvas.height/2 - icon_size/2 - 1;
     // let imsize = icon_size;
-
-    let xi = 0
-    let yi = 0;
-    let imsize = bmo_icon_canvas.width-1;
+    let imsize = bmo_icon_canvas.width;
+    let xi = bmo_icon_canvas.width/2 - imsize/2;
+    let yi = bmo_icon_canvas.height/2 - imsize/2;
 
     bitx.clearRect(0,0,bmo_icon_canvas.width,bmo_icon_canvas.height);
     bitx.drawImage(bmo_icon_ss, 
@@ -74,9 +72,9 @@ function showIcon(mood){
 }
 
 //show or hide the bmo chat sidebar
-function togglerChat(){
+function toggleChat(){
     let chat_window = document.getElementById("right-half");
-    let editor_window = document.getElementById("left-half");
+    let editor_window = document.getElementById("editor");
     
     //show the window
     if (chat_window.style.display == "none"){
@@ -91,7 +89,7 @@ function togglerChat(){
         editor_window.style.width = "900px";
     }
 
-    ace_editor.resize()
+    ace_editor.resize()  //resize the code editor
 }
 
 
@@ -102,8 +100,8 @@ function togglerChat(){
 //set default bmo face
 bmo_face.onload = function(){
     //add background
-    bftx.fillStyle = "#000";
-    // ctx.fillRect(0, 0, 280, 175);
+    bftx.fillStyle = "#4CAA98";
+    bftx.fillRect(0, 0, 280, 175);
 
     //draw the face
     bftx.drawImage(bmo_face, 0, 0, bmo_face.width, bmo_face.height, 0, 0, 280, 175);
@@ -139,11 +137,49 @@ chatbox.addEventListener("keyup", function(event){
 });
 
 
+// - editor functions - //
+
+//change which screen the editor window shows
+function changeEditorView(modeTab){
+    let mode = modeTab.innerHTML.toLowerCase();
+
+    //hide all the other windows and unselect tabs
+    let all_windows = document.getElementsByClassName("editor-window");
+    for (let i = 0; i < all_windows.length; i++){
+        all_windows[i].style.display = "none";
+    }
+    let all_tabs = document.getElementsByClassName("tool-item-right");
+    for (let i = 0; i < all_tabs.length; i++){
+        all_tabs[i].classList.remove("tool-select");
+    }
+
+
+    //show the selected window and tab
+    let selected_window = document.getElementById(mode + "-editor");
+    selected_window.style.display = "block";
+    modeTab.classList.add("tool-select");
+
+}
+
+
 //initialization function
 function init(){
     //set the default icon
-    showIcon("awake");
+    let bmo_shown = document.getElementById("right-half");
+    showIcon((bmo_shown.style.display == "block" ? "off" : "awake"));
 
-
+    //set some sample code
+    ace_editor.setValue("//BMO CODE \
+    \nlet bmo = 'cool';\
+    \nconsole.log('bmo is ' + bmo);\
+    \n\nfunction make_a_game(){\
+    \n\treturn 'who wants to play video games?';\
+    \n}\
+    \nconsole.log(make_a_game());\
+    \n\nlet foo = 'If I push this button, you will both be \
+dangerously transported into my main brain game frame, \
+where it is very dangerous'\
+    ",-1);
+    ace_editor.clearSelection();
 
 }

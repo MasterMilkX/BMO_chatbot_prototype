@@ -24,6 +24,11 @@
                 background-color: #01435D;
                 color: #FFFFFF;
             }
+
+            /* ----------------- */
+            /* app layout styles */
+            /* ----------------- */
+
             #container{
                 /* temp height */
                 width:900px;
@@ -42,14 +47,101 @@
                 height:100%;
                 background-color:#000;
                 border-left: 5px solid #dedede;
-                /* display:none; */
+                display:block;
             }
+
+            /* -------------- */
+            /* toolbar styles */
+            /* -------------- */
+
+            #toolbar{
+                width:900px;
+                height:30px;
+                background-color:#0ff;
+                border-bottom: 5px solid #dedede;
+                color:#000;
+                display:flex;
+            }
+            #toolbar-left{
+                width:55%;
+                height:30px;
+                border:1px solid re÷d;
+                display:flex;
+                background-color: #dedede;
+            }
+            #toolbar-right{
+                width:45%;
+                height:30px;
+                display:flex;
+                text-align:center;
+                background-color: #dedede;
+            }
+            .toolbar-item{
+                background-color:#dedede;
+                text-align:center;
+                cursor:pointer;
+                border-width: 1px;
+                border-color:#ababab;
+                border-style: none solid none solid;
+                height:100%;
+                line-height: 200%;
+                width:20%;
+                height: 30px;
+            }
+            .tool-item-right{
+                float:right;
+                width:100px;
+            }
+            .tool-select{
+                background-color:#ababab;
+            }
+
+            /* -------------- */
+            /* bmo icon style */
+            /* -------------- */
+
+            #bmo-icon-button{
+                width:30px;
+                height:30px;
+                background-color: #dedede;
+                float:right;
+                padding:0 5px 0 5px;
+                cursor:pointer;
+                /* border:1px solid #898989; */
+            }
+            #bmo-icon-button:hover{
+                background-color: #ababab;
+            }
+            /* canvas animation icon */
+            #bmo-icon{
+                width:30px;
+                height:30px;
+
+                /* scale up pixels */
+                image-rendering: -moz-crisp-edges;
+                image-rendering: -webkit-crisp-edges;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+            }
+
+            /* ------------------ */
+            /* main window editor */
+            /* ------------------ */
 
             #editor{
                 width:620px;
                 height:100%;
                 background-color:#000;
                 float:left;
+            }
+            .editor-window{
+                width:100%;
+                height:100%;
+            }
+
+            /* code editor */
+            #code-editor{
+                display:block;
             }
             #ace-code{
                 width:100%;
@@ -58,6 +150,28 @@
                 border:0px;
             }
 
+            /* sprite editor */
+            #sprite-editor{
+                display:none;
+            }
+
+            /* map editor */
+            #map-editor{
+                display:none;
+            }
+
+            /* game editor */
+            #game-editor{
+                display:none;
+            }
+            #game-canvas{
+                width:600px;
+                width:600px;
+            }
+
+            /* ----------------------- */
+            /* right half with chatbox */
+            /* ----------------------- */
 
             #bmo{
                 width:280px;
@@ -109,62 +223,7 @@
         <div id="container">
 
             <style>
-                #toolbar{
-                    width:900px;
-                    height:30px;
-                    background-color:#0ff;
-                    border-bottom: 5px solid #dedede;
-                    color:#000;
-                    display:flex;
-                }
-                #toolbar-left{
-                    width:70%;
-                    height:30px;
-                    border:1px solid re÷d;
-                    display:flex;
-                    /* background-color: #dedede; */
-                }
-                #toolbar-right{
-                    width:30%;
-                    height:30px;
-                    /* border:1px solid blue; */
-                    text-align:right;
-                    background-color: #dedede;
-                }
-                .toolbar-item{
-                    background-color:#dedede;
-                    text-align:center;
-                    cursor:pointer;
-                    border-width: 1px;
-                    border-color:#ababab;
-                    border-style: none solid solid none;
-                    height:100%;
-                    line-height: 200%;
-                    width:20%;
-                    height: 30px;
-                }
-
-
-                #bmo-icon-button{
-                    width:30px;
-                    height:30px;
-                    background-color: #dedede;
-                    /* border:1px solid #898989; */
-                }
-                #bmo-icon-button:hover{
-                    background-color: #ababab;
-                }
-                /* canvas animation icon */
-                #bmo-icon{
-                    width:30px;
-                    height:30px;
-
-                    /* scale up pixels */
-                    image-rendering: -moz-crisp-edges;
-                    image-rendering: -webkit-crisp-edges;
-                    image-rendering: pixelated;
-                    image-rendering: crisp-edges;
-                }
+                
             </style>
 
             <div id="toolbar">
@@ -174,24 +233,35 @@
                     <div class="toolbar-item">Help</div>
                 </div>
                 <div id="toolbar-right">
-                    <div id="bmo-icon-button"><canvas id="bmo-icon"></canvas></div>
+                    <div class="toolbar-item tool-item-right tool-select" onclick="changeEditorView(this)">Code</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Sprite</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Map</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Game</div>
+                    <div id="bmo-icon-button" onclick="toggleChat()"><canvas id="bmo-icon"></canvas></div>
                 </div>
             </div>
 
             <div id="main-content">
 
-                <!-- code editor -->
+               
                 <div id="editor">
-                    <div id="ace-code">//BMO CODE
-let bmo = "cool";
-console.log('bmo is ' + bmo);
-console.log(make_a_game());
-
-function make_a_game(){
-    return "who wants to play video games?";
-}
-let foo = "this is a long piece of text, i want to see if the code editor window will word wrap or overflow based on the size of container it is in"
-</div>
+                     <!-- code editor -->
+                    <div id="code-editor" class="editor-window">
+                        <div id="ace-code"></div>
+                    </div>
+                    <!-- sprite editor -->
+                    <div id="sprite-editor" class="editor-window">
+                        sprite editor goes here
+                    </div>
+                    <!-- map editor -->
+                    <div id="map-editor" class="editor-window">
+                        map editor goes here
+                    </div> 
+                    <!-- game view -->
+                    <div id="game-editor" class="editor-window">
+                        game editor goes here
+                        <canvas id="game-canvas"></canvas>
+                    </div>
                 </div>
 
                 <!-- bmo interaction -->
