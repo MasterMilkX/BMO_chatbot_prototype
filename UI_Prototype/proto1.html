@@ -27,20 +27,23 @@
             #container{
                 /* temp height */
                 width:900px;
-                height:600px;
+                height:635px;
                 margin:auto;
-
-                border:3px solid white;
+                border:5px solid #dedede;
+            }
+            #main-content{
+                width:900px;
+                height:600px;
+                background-color:#000;
                 display:flex;
-                
             }
             #right-half{
                 width:280px;
                 height:100%;
                 background-color:#000;
-                border-left:3px solid white;
+                border-left: 5px solid #dedede;
+                /* display:none; */
             }
-
 
             #editor{
                 width:620px;
@@ -104,105 +107,111 @@
     </head>
     <body onload="init()">
         <div id="container">
-            <div id="editor">
-                <div id="ace-code">//BMO CODE
+
+            <style>
+                #toolbar{
+                    width:900px;
+                    height:30px;
+                    background-color:#0ff;
+                    border-bottom: 5px solid #dedede;
+                    color:#000;
+                    display:flex;
+                }
+                #toolbar-left{
+                    width:70%;
+                    height:30px;
+                    border:1px solid re÷d;
+                    display:flex;
+                    /* background-color: #dedede; */
+                }
+                #toolbar-right{
+                    width:30%;
+                    height:30px;
+                    /* border:1px solid blue; */
+                    text-align:right;
+                    background-color: #dedede;
+                }
+                .toolbar-item{
+                    background-color:#dedede;
+                    text-align:center;
+                    cursor:pointer;
+                    border-width: 1px;
+                    border-color:#ababab;
+                    border-style: none solid solid none;
+                    height:100%;
+                    line-height: 200%;
+                    width:20%;
+                    height: 30px;
+                }
+
+
+                #bmo-icon-button{
+                    width:30px;
+                    height:30px;
+                    background-color: #dedede;
+                    /* border:1px solid #898989; */
+                }
+                #bmo-icon-button:hover{
+                    background-color: #ababab;
+                }
+                /* canvas animation icon */
+                #bmo-icon{
+                    width:30px;
+                    height:30px;
+
+                    /* scale up pixels */
+                    image-rendering: -moz-crisp-edges;
+                    image-rendering: -webkit-crisp-edges;
+                    image-rendering: pixelated;
+                    image-rendering: crisp-edges;
+                }
+            </style>
+
+            <div id="toolbar">
+                <div id="toolbar-left">
+                    <div class="toolbar-item">File</div>
+                    <div class="toolbar-item">Edit</div>
+                    <div class="toolbar-item">Help</div>
+                </div>
+                <div id="toolbar-right">
+                    <div id="bmo-icon-button"><canvas id="bmo-icon"></canvas></div>
+                </div>
+            </div>
+
+            <div id="main-content">
+
+                <!-- code editor -->
+                <div id="editor">
+                    <div id="ace-code">//BMO CODE
 let bmo = "cool";
 console.log('bmo is ' + bmo);
 console.log(make_a_game());
 
 function make_a_game(){
     return "who wants to play video games?";
-}</div>
-                <!-- ace editor code -->
-                <script>
-                    var editor = ace.edit("ace-code");
-                    editor.setTheme("ace/theme/monokai");  //change to a bluer theme if possible
-                    editor.session.setMode("ace/mode/javascript");
-                </script>
-            </div>
-            <div id="right-half">
-                <div id="bmo">
-                    <canvas id="bmo-face"></canvas>
-                    <script>
-                        var canvas = document.getElementById("bmo-face");
-                        canvas.width = 280;
-                        canvas.height = 175;
-                        var ctx = canvas.getContext("2d");
-                        var bmo_face = new Image();
-                        bmo_face.src = "bmo_blank.png";
-                        bmo_face.onload = function(){
-                            //add background
-                            ctx.fillStyle = "#000";
-                            // ctx.fillRect(0, 0, 280, 175);
-
-                            //draw the face
-                            ctx.drawImage(bmo_face, 0, 0, bmo_face.width, bmo_face.height, 0, 0, 280, 175);
-
-                            //draw a border around
-                            ctx.strokeStyle = "#4CAA98";
-                            ctx.lineWidth = 30;
-                            ctx.beginPath();
-                            ctx.roundRect(0, 0, 280, 175,[40]);
-                            ctx.stroke();
-
-                            ctx.strokeStyle = "#000"
-                            ctx.lineWidth = 2;
-                            ctx.beginPath();
-                            ctx.roundRect(14, 13, 250, 146, 25);
-                            ctx.stroke();
-
-                            
-                        }
-                    </script>
+}
+let foo = "this is a long piece of text, i want to see if the code editor window will word wrap or overflow based on the size of container it is in"
+</div>
                 </div>
-                <div id="chat">
-                    <div id="chat-out">
-                        hello world<br>
+
+                <!-- bmo interaction -->
+                <div id="right-half">
+                    <div id="bmo">
+                        <canvas id="bmo-face"></canvas>
                     </div>
-                    <div id="chat-in">
-                        <input type="text" id="chatbox">
-                        <!-- temp chatbox -->
-                        <script>
-                            let chatbox = document.getElementById("chatbox");
-                            chatbox.addEventListener("keyup", function(event){
-                                if(event.key == "Enter"){
-                                    console.log("enter pressed");
-                                    let chat_out = document.getElementById("chat-out");
-                                    let chatbox = document.getElementById("chatbox");
-                                    let chatbox_text = chatbox.value;
-                                    chatbox.value = "";
-                                    chat_out.innerHTML += chatbox_text + "<br>";
-                                    chat_out.scrollTop = chat_out.scrollHeight;
-                                }
-                            });
-                        </script>
+                    <div id="chat">
+                        <div id="chat-out">
+                            hello world<br>
+                        </div>
+                        <div id="chat-in">
+                            <input type="text" id="chatbox">
+                        </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-        
 
-        <!-- bmo face render -->
-        <!-- <script>
-            var canvas = document.getElementById("bmo-face");
-            var ctx = canvas.getContext("2d");
-            var bmo_face = new Image();
-            bmo_face.src = "bmo9.jpeg";
-            bmo_face.onload = function(){
-                //draw a border around
-                ctx.strokeStyle = "#4CAA98";
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.roundRect(0, 0, 300, 200, 10);
-                ctx.stroke();
-
-                //draw the face
-                ctx.drawImage(bmo_face, 0, 0, 300, 200);
-            }
-        </script> -->
-
-
+        <script src="code1.js"></script>
 
     </body>
 </html>
