@@ -15,7 +15,6 @@ CUSTOM_STOPWORDS = ["game", ",", ".", "!"]
 nlp = spacy.load("en_core_web_sm")
 
 
-
 ##########     TFIDF FUNCTIONS     ##########
 
 # used in the context where docs = games and their descriptional entities
@@ -72,7 +71,7 @@ def idf_docs(doc_set):
 ######    IMPORT THE SCRAPED GAME DATA    ######
 
 #import the game data from the game_datfeat.txt file
-def importGameData(self,full=True):
+def importGameData(full=True):
     #select which file to import
     if full:
         print("Importing full game data...")
@@ -106,7 +105,7 @@ def importGameData(self,full=True):
 
 #get all of the tags and the entities from the game data
 # returns a tuple of (tags, entities)
-def getTagsEntities(self,game_data):
+def getTagsEntities(game_data):
     # get all of the tags and entities
     ALL_TAGS = []
     ALL_ENTITIES = []

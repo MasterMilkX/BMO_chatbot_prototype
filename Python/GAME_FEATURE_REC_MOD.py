@@ -28,7 +28,7 @@ import Python.utils as utils
 nlp = spacy.load("en_core_web_sm")
 
 
-# GAME REC MOD CLASS (make game similarity recommendations)
+#### GAME REC MOD CLASS (make game similarity recommendations)  ####
 
 class GameRecMod():
     """
@@ -262,8 +262,7 @@ class GameRecMod():
 
 
 
-# FEATURE MOD CLASS (make features)
-
+#### FEATURE MOD CLASS (make features) ####
 
 class FeatureMod():
     """
