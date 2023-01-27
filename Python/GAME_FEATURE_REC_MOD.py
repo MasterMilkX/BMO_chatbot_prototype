@@ -229,6 +229,10 @@ class GameRecMod():
     def getGameEntities(self,game):
         return self.GAME_DATA[game]["entities"]
 
+    # returns the list of all game names
+    def getAllGames(self):
+        return list(self.GAME_DATA.keys())
+
     # returns some features from the top games recommended
     def getTopGameFeats(self, prompt_txt, num_games=3):
         top_games, _ = self.getClosestGames(prompt_txt,num_games=num_games)
@@ -272,6 +276,8 @@ class FeatureMod():
         -----------
         train_entity_set : list(str)
             list of nouns to get related entities for
+        get_related : bool
+            whether to get related entities or not and branch off
         steps : int
             how many layers of related entities to get
         debug : bool

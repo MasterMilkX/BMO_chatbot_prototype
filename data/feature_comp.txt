@@ -1,0 +1,334 @@
+====== FEATURE COMPARISON ======
+
+
+Game: TEAM FORTRESS 2
+Prompt: a class based multiplayer online shooter with a variety of modes including capture the flag, death match, and deliver the payload
+-- Human Features -- 
+- shoot gun to heal allies
+- double jump in the air
+- drink energy drinks
+- throw suspicious jars
+- backstab enemy targets
+- sneak across terrain
+
+-- Transformer Features -- 
+action,free to play,multiplayer,first-person,funny,shooter,comedy,co-op,fps,cartoony,online co-op,tactical,crafting,cartoon,robots,team-based,competitive,class-based,hero shooter,trading,action,shooter
+-,abilities,achievements,activity,assault,attempt,background,base,beam,bercharge,bomb,bunch,cart,cell,chain,checkpoints,class,classes,classics,commentary,control,defense,developer,elements,end,enemy,example,feature,game,gameplay,games,gun,healing,instant,kart,kills,loner,look,map,maps,medic,melee,menu,mini,mode,modes,multiplayer,offensive,order,overview,past,payload,player,points,rail,release,remake,round,route,school,seconds,series,set,shooter,signature,spy,statistics,stats,style,successor,targets,team,teams,time,type,use,version,weapons
+- access all the stats
+- play all the way
+- change the look
+- earn experience
+- gain points
+- use all these classes
+- access all the stats
+- use a bomb
+- access all the stats
+- help them survive theence
+- select the route
+- access all the stats
+- help them survive the assault
+- use an offline password
+- access all the stats
+- work together, and a key feature
+- help them survive the assault
+- change the route
+- reset each round
+- work together, and a option
+- use the bomb
+- access all the stats
+- access all the stats
+
+
+-- ConceptNet Features -- 
+- secure doors
+- represent rivers
+- understand the rules
+- estimate distances
+- explain something
+- use pieces to represent a player
+- belong to a team
+- blow something up
+- kill someone
+- pick a leader
+- make visual representations
+- get from A to B
+- shoot things
+- construct buildings
+- support a roof
+
+Game: DOTA 2
+Prompt: a 5v5 game where you protect your base while destroying enemy bases using an array of different abilities and items
+-- Human Features -- 
+- kill npc enemies
+- buy power ups
+- type to communicate with enemy team
+- coordinate tactics with allies
+- protect allied mobs
+- attack enemy turrets
+
+-- Transformer Features -- 
+action,simulation,strategy,rpg,fantasy,free to play,multiplayer,difficult,co-op,pvp,character customization,online co-op,action rpg,replay value,rts,tower defense,team-based,competitive,esports,moba,action,strategy
+arena,battle,building,character,content,delivery,dota,end,enemy,fighting,game,gold,items,map,match,mod,multiplayer,os,phase,platform,player,players,regions,sequel,stronghold,team,teams,testing,title,versions,victory,video,x
+- fight against each other in an arena
+- advance to the next stage
+- control enemy
+-royale in which the player
+- fight against enemy
+- advance through the game
+- purchase items
+
+
+-- ConceptNet Features -- 
+- stand on
+- pick a leader
+- tell you where you are
+- locate a place
+- name a book
+- help you find your way
+- indicate accomplishment
+- watch events
+- secure valuables
+- protect posessions
+- plan a road trip
+- search for a destination
+- stand upon
+- find the treasure
+- hold a large conference
+
+Game: THE LEGEND OF ZELDA: BREATH OF THE WILD
+Prompt: an open-world exploration game in a post-apocalyptic fantasy world where you can climb anything and destroy everything
+-- Human Features -- 
+- explore the wilds
+- battle towering enemies
+- think quickly and develop the right strategies
+- gather ingredients
+- earn special items
+- bundle up with warmer clothes
+
+-- Transformer Features -- 
+action,adventure,role-playing
+adventure,air,attack,beasts,boundary,breath,clothes,clothing,corner,desert,destinations,devices,discovery,effects,elixirs,enemies,example,exploration,fields,food,forests,game,games,gear,heat,hunt,ingredients,items,journey,kingdom,landscape,legend,method,mountain,one,order,outfits,path,peaks,puzzles,rewards,search,series,shapes,sizes,stealthier,strategies,strategy,towers,traps,travel,variety,way,ways,weaponry,wild,wilderness,wilds,world
+- find your way
+- Solve a variety
+- plan your attack
+- Travel to a variety of forests and field
+- make weapons
+- change into three different outfits
+- Become the new king
+- create new outfits
+- Explore the wilds
+- need to manage your time
+- discover new ways
+- find your way
+- learn new recipes
+- learn new combat
+- Explore a whole new world
+- become the king
+- have to think on your own path
+- learn new ways
+- find a path
+- help you on your adventure
+- Become the new king
+- discover theportation
+- become the king
+- take your breath
+- find the way
+- learn new combat
+
+
+-- ConceptNet Features -- 
+- time food cook with a timer
+- become moldy
+- elevate one 's mood
+- taste salty
+- shre into pieces of confetti
+- house a king
+- prevent starvation
+- indicate a border
+- protect your skin from the sun
+- find shells on a shoreline sometimes
+- hope for peace
+- live on
+- smell moldy if leave wet
+- cook or uncooked
+- provide comfort
+
+Game: ALCHEMY PRINCESS
+Prompt: an RPG about a princess who collects swords and flowers to turn into potions and is secretly a frog
+-- Human Features -- 
+- fight sludge monsters in the swamp
+- discover new alchemy recipes
+- identify new flora and fauna
+- explore the ruined castle
+meet new animal friends
+find the antidote to your curse
+
+-- Transformer Features -- 
+atmospheric,fantasy,colorful,early access,cute,relaxing,family friendly,open world,sandbox,crafting,nature,life sim,farming sim,capitalism,agriculture,cozy,wholesome,adventure,rpg
+alchemy,areas,bags,biomes,combinations,components,create,creations,experience,experiments,exploration,flowers,furniture,game,garden,gardening,gardens,gold,home,imagination,ingredients,kinds,land,mechanics,objects,piece,plants,potions,recipes,sandbox,seed,shop,storemanage,tools,trees,variety,villagers,world,princess,collects,swords,flowers,turn,potions,secretly,frog
+- use plants
+- create potions
+- grow your own plants
+- explore the land
+- make your own unique potions
+- create unique potions
+- use plants
+- grow your own gardens
+- turn your imagination
+- create unique gardens
+- create potions
+- make your own unique potions
+- make potions
+- create potions! lushflowerakura : a gardens
+- use to make your own unique plants
+- sell your creations
+- sell your creations
+- grow your own garden
+- restore acients
+- explore a mysterious and mysterious world
+- use to create potions
+- sell them to theCollects
+- make potions
+- use your imagination
+- grow your own garden
+- make potions
+- Take what you've collected back to the shop
+- turn a normal humanulp into gold
+- grow your own garden
+- make your own unique potions
+- explore a huge world
+- Take on a variety
+- make your own potions
+- create potions
+
+
+-- ConceptNet Features -- 
+- discover the world
+- make foods
+- live on
+- grow on trees too
+- reach towards the sky
+- appear further than they really are
+- trust that fire will harm them
+- sell your products to
+- wall you in
+- shade people sit under them
+- make wood pulp
+- buy and sell things
+- buy items
+- feel better
+- sense their environment
+
+Game: THE ONIGIRI DORM
+Prompt: a collaborative cooking game where you make and sell onigiri in your college dorm room
+-- Human Features -- 
+- make onigiri on the weekends
+- set your own prices
+- buy new meats and veggies
+- decorate your dorm room
+- pay off your tuition
+- hire friends and roommates part-time
+
+-- Transformer Features -- 
+casual,singleplayer,simulation,colorful,multiplayer,cute,funny,family friendly,difficult,co-op,great soundtrack,local multiplayer,local co-op,4 player local,split screen,co-op campaign,cooking,action,cooking
+-,actions,baying,bowels,challenge,characters,chef,chefs,co,cooking,couch,customers,danger,dishes,ed,error,evil,fan,floe,food,fun,game,gauntlet,head,heat,huff,ice,journey,kitchen,kitchens,knives,land,level,levels,limits,master,mettle,modes,mushroom,op,operation,order,orders,ordination,part,pirate,pizza,player,players,quest,range,ship,skills,solo,steaks,super,t,team,teams,top,trucks,underworld,variety,ways,whites,world,collaboritive,make,sell,onigiri,college,dorm,room
+- push your skills of co
+- become the most effective and ultimate team
+- push your skills of co
+- take part
+- dust off your chef
+- communicate and co - ordinate their actions
+- Take part
+- dust off your chef
+- prepare, cook and serve up a variety
+- - live the journey
+- communicate and co - ordinate their actions
+- Play solo
+- take part
+- Take part
+- get ready to enter the kitchen
+- come out on top
+- come out on top
+- take it on a ghostly gauntlet
+- come out on top
+- become master
+- engage in hard boiled head
+- engage in hard boiled head
+
+
+-- ConceptNet Features -- 
+- cut things
+- become liquid
+- move the air
+- bread the cutlets
+- travel over water
+- ensure that a wall is vertical
+- swim on water
+- cool yourself
+- cook food
+- pull trailors with cargo in them
+- head the ball
+- reading , sleep , eat in
+- attempt to win
+- cure a headache
+- cook a gourmet meal
+
+Game: HOVERDECK 209X
+Prompt: a retro-futuristic cyberpunk skateboarding game where you hack corporations, the robot police, and the street gangs
+-- Human Features -- 
+- hack the corpo suits
+- vandalize properties with graffiti
+- find secret hideouts
+- race the street gangs
+- upgrade your bioware tech
+- skate the streets of the city
+
+-- Transformer Features -- 
+3d,colorful,platformer,family friendly,sports,difficult,stylized,2d platformer,cartoony,character customization,hand-drawn,3d platformer,procedural generation,surreal,2.5d,precision platformer,competitive,skateboarding,action,cyberpunk,skateboarding
+accessibility,action,arms,array,battle,bee,board,brim,challenges,character,characters,compilation,controls,cruise,curb,depth,entry,expression,fear,featurestake,flops,freedom,friend,friends,gameplay,globe,gods,grabs,grind,hand,haven,judgement,leagues,levels,locations,looks,mastery,method,millions,missions,mode,moves,opportunities,paths,personality,platformer,player,players,quest,quests,rewards,ride,rivals,sandbox,score,series,side,signature,skate,skills,state,streets,studio,style,system,tracks,trick,tricks,trip,utopia,way,world,retro-futuristic,hack,corporations,robot,police,street,gangs
+- choose their look
+- choose their personality
+- Ride your private jet
+- experience the iconic grind
+- get a high score
+- Get instant access
+- ride their way
+- Experience the series's most iconic locations and quests
+- Experience the rich and immersive world
+- have to master the art
+- test your skills
+- grind your way
+- Explore a vast and rich world
+- Get a ride
+- master the deep combo system
+- complete secret missions
+- ride their way
+- Grab a friend
+- ride like a local, online multiplayer team
+- get theirarms
+- Ride like a local through a series of levels
+- Grab a friend's hand
+- test the most hardcore and timer friendly game
+- master the deep combo system
+- ride your way
+- see who comes out on top!arms
+- have access
+
+
+-- ConceptNet Features -- 
+- needle you
+- corner a suspect
+- carry a gun while at work
+- reduce costs
+- cut the mustard
+- give a gift to a friend
+- defeat an enemy
+- give money to each other
+- tail a suspect
+- organize a project
+- joke with
+- live in
+- cause change
+- walk and talk
+- play science fiction games
+
