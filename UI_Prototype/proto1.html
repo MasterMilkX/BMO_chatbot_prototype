@@ -193,7 +193,7 @@
             }
             #chat-out{
                 width:260px;
-                height:375px;
+                height:340px;
                 background-color:#000;
                 font-family:'Courier New', Courier, monospace;
                 padding:10px;
@@ -212,14 +212,12 @@
                 border:0px;
                 font-size:100%;
             }
-
             #chat-btns{
                 width:100%;
                 height:30px;
                 background-color:#000;
                 display:flex;
-                position: absolute;
-                bottom: 36px;
+                padding-bottom: 5px;
                 justify-content: center;
             }
 
@@ -230,6 +228,23 @@
                 border: 1px solid #0B738E;
                 cursor:pointer;
             }
+            .user_chat{
+                color: var(--user_color);
+            }
+            .bmo_chat{
+                color: var(--bmo_color);
+            }
+            .bmo_name{
+                background-color: var(--bmo_color);
+                color:#000;
+                font-weight: bold;
+            }
+            .user_name{
+                background-color: var(--user_color);
+                color:#000;
+                font-weight: bold;
+            } 
+
             
         </style>
 
@@ -289,13 +304,13 @@
                         <canvas id="bmo-face"></canvas>
                     </div>
                     <div id="chat">
+                        <div id="chat-out">
+                            hello world<br>
+                        </div>
                         <div id="chat-btns">
                             <button id="chat-btn" onclick="sendChatFromButton(this)">code debug</button>
                             <button id="chat-btn" onclick="sendChatFromButton(this)">make sprites</button>
                             <button id="chat-btn" onclick="sendChatFromButton(this)">new game features</button>
-                        </div>
-                        <div id="chat-out">
-                            hello world<br>
                         </div>
                         <div id="chat-in">
                             <input type="text" id="chatbox">
@@ -306,6 +321,7 @@
         </div>
 
         <script src="code1.js"></script>
+        <script src="bmo1.js"></script>
 
     </body>
 </html>
