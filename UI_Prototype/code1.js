@@ -60,14 +60,6 @@ let expressions = [
 var bmo_face = new Image();
 bmo_face.src = "../data/imgs/bmo_blank.png";
 
-
-
-////////////    CHATBOX SETUP    //////////////
-
-let chatbox = document.getElementById("chatbox");
-
-
-
 ////////////    FUNCTIONS    //////////////
 
 
@@ -106,9 +98,6 @@ function toggleChat(){
 
     ace_editor.resize()  //resize the code editor
 }
-
-
-
 
 // - face functions - //
 
@@ -181,33 +170,6 @@ function drawBMOFace(mood){
 
 // - chat functions - //
 
-//basic chatbox function
-chatbox.addEventListener("keyup", function(event){
-    if(event.key == "Enter"){
-        console.log("enter pressed");
-        let chat_out = document.getElementById("chat-out");
-        let chatbox = document.getElementById("chatbox");
-        let chatbox_text = chatbox.value;
-        chatbox.value = "";
-        chat_out.innerHTML += chatbox_text + "<br>";
-        chat_out.scrollTop = chat_out.scrollHeight;
-
-        // simple bmo user input
-        let {txt, action, face} = bmo.talk(chatbox_text)
-        chat_out.innerHTML += txt + "<br>"; 
-        drawBMOFace(face);
-
-
-        /// DEBUGGING IN THE CHAT ///
-        //change bmo's face to the input if a keyword is found
-        if(chatbox_text.includes("mood: ")){
-            let new_mood = chatbox_text.replace("mood: ", "");
-            console.log(`new mood: ${new_mood}`)
-            drawBMOFace(new_mood);
-        }
-    }
-});
-
 
 // - editor functions - //
 
@@ -232,118 +194,6 @@ function changeEditorView(modeTab){
     modeTab.classList.add("tool-select");
 
 }
-
-function sendChatFromButton(button){
-    let chat_out = document.getElementById("chat-out");
-    let chatbox = document.getElementById("chatbox");
-    let chatbox_text = button.innerHTML;
-    chatbox.value = "";
-    chat_out.innerHTML += chatbox_text + "<br>";
-    chat_out.scrollTop = chat_out.scrollHeight;
-
-    // simple bmo user input
-    let output = bmo.talk(chatbox_text)
-    let {txt, action, face} = bmo.talk(chatbox_text)
-    chat_out.innerHTML += txt + "<br>"; 
-    drawBMOFace(face);
-}
-
-/////// bmo code, TODO: move to a separate file ///////
-
-//js copy of the python BMO class
-class BMO {
-    constructor(debug = false) {
-        this.DEBUG = debug
-        this.debugTxt("Debugging is on")
-        this.exitWordds = ["bye", "goodbye", "see ya", "see you later", "cya", "later", "quit", "exit"]
-
-        this.debugTxt("constructor")
-        this.text_mode = "intro"
-    }
-
-    debugTxt(txt) {
-        if(this.DEBUG){
-            console.log(txt)
-        }
-    }
-
-    // show the BMO message in a format that shows BMO as the speaker
-    formBMO(msg) {
-        console.log("BMO: " + msg);
-    }
-    
-    // show the user message in a format that shows the user as the speaker
-    formUser() {
-        //TODO
-    }
-    
-    //talk function
-    talk(user_resp) {
-
-        //intro
-        if (this.text_mode === "intro") {
-        this.text_mode = "normal";
-        return { txt: "Hi there! I'm BMO, the game dev chatbot!\nWhat do you need? I'll do my best to help you out!", action: "", face: ":)" };
-    }
-
-        //normal
-        else if (this.text_mode === "normal") {
-        //check if the user wants to exit
-        if (this.exitWordds.includes(user_resp)) {
-            return { txt: "Bye!", action: "exit", face: ":)" };
-        }
-
-        //otherwise, check what user wants
-        let category = user_resp.toLowerCase();
-        this.debugTxt("user wants: " + category + "\n")
-
-        if (category == "code debug") {
-            return { txt: "I can help you debug your code!", action: "debug", face: ":)" };
-        }
-        else if (category == "make sprites") {
-            return { txt: "I can help you make sprites!", action: "sprites", face: ":)" };
-        }
-        else if (category == "new game features") {
-            return { txt: "I can help you come up with new game feature ideas!", action: "new game features", face: ":)" };
-        }
-
-        //if no match, ask for clarification
-        else {
-
-            this.text_mode = "learn"
-            return { txt: "I'm sorry, I don't understand...\nIs this related to code debugging, making sprites, or new game features?", action: "", face: ":)" };
-        }
-
-    }
-
-    //learn mode
-    else if (this.text_mode === "learn") {
-        this.debugTxt("learning: " + words)
-
-        let cat_keywords = {
-                    "code debug": ["debug", "debugging", "bug", "bugs", "error", "errors", "fix", "fixing", "code", "programming"],
-                    "sprite generation": ["sprite", "sprites", "art", "graphics", "graphic", "image", "images", "picture", "pictures"],
-                    "game feature idea": ["feature", "features", "game", "games", "new"]
-        }
-        let best_cat = this.rawClosestMatch(user_resp, cat_keywords)[0] 
-        this.debugTxt("best cat: " + best_cat)
-
-        if (best_cat === "?") {
-            this.text_mode = "normal"
-            return { txt: "Ok!", action: "", face: ":)" }
-        }
-        else {
-            this.associateWords(this.last_words, best_cat)
-            this.text_mode = "normal"
-            this.last_words = []
-            return { txt: "Ok!", action: "", face: ":)" }
-        }
-    
-
-    }
-    }
-}
-let bmo = new BMO(true);
 
 //initialization function
 function init(){

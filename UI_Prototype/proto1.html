@@ -228,6 +228,12 @@
                 border: 1px solid #0B738E;
                 cursor:pointer;
             }
+            .chat{
+                width:256px;
+                word-wrap: normal;
+                padding:2px;
+                line-height: 20px;
+            }
             .user_chat{
                 color: var(--user_color);
             }
@@ -305,9 +311,8 @@
                     </div>
                     <div id="chat">
                         <div id="chat-out">
-                            hello world<br>
                         </div>
-                        <div id="chat-btns">
+                        <div id="chat-btns"> <!-- generate this-->
                             <button id="chat-btn" onclick="sendChatFromButton(this)">code debug</button>
                             <button id="chat-btn" onclick="sendChatFromButton(this)">make sprites</button>
                             <button id="chat-btn" onclick="sendChatFromButton(this)">new game features</button>
