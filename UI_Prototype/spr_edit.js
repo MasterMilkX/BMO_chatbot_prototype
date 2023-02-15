@@ -1,0 +1,369 @@
+// SPRITE EDITOR CODE 
+// Written by Milk
+
+var PALETTE = ["#FFF","#595959","#B1F702","#000"] //offset by 1 (0 is transparent)
+var TRANS_COLOR = "#dedede";
+var CUR_COLOR = 4;
+
+var TOOLS = {0:'pencil', 1:'paint', 2:'move', 3:'select'}
+var CUR_TOOL = 0;
+
+var SPRITES = []; // array of sprites (8x8 int values)
+var SPR_INDEX = 0; // index of current sprite in editor
+var NAMES = []; // array of sprite names
+
+var EDITOR = null; // editor object
+var ETX = null; // editor context
+var PREVIEW = null; // preview object
+var PTX = null; // preview context
+
+
+var WINDOW_SIZE = "small";
+
+// initialization function called on the start of the page
+function init(){
+    //set editor size
+    document.getElementById("editor-small").style.display = "block";
+    document.getElementById("editor-wide").style.display = "none";
+    WINDOW_SIZE = "small";
+
+    EDITOR = document.getElementById("paint-canvas-small")
+    ETX = EDITOR.getContext("2d");
+    EDITOR.width = 320;
+    EDITOR.height = 320;
+
+    PREVIEW = document.getElementById("preview-canv");
+    PTX = PREVIEW.getContext("2d");
+    PREVIEW.width = 64;
+    PREVIEW.height = 64;
+
+    //add tools and palette
+    addPalette();
+    addSpriteList();
+    setDemoSprites();
+    showSprite();
+    changeTool(0);
+}
+
+// toggle between small and wide
+function toggleSize(){
+    console.log("new size!")
+    var content = document.getElementById("content");
+    if(content.style.width == "900px"){
+        content.style.width = "600px";
+        document.getElementById("editor-small").style.display = "block";
+        document.getElementById("editor-wide").style.display = "none";
+        WINDOW_SIZE = "small";
+        EDITOR.width = 320;
+        EDITOR.height = 320;
+    }else{
+        content.style.width = "900px";
+        document.getElementById("editor-small").style.display = "none";
+        document.getElementById("editor-wide").style.display = "block";
+        WINDOW_SIZE = "wide";
+    }
+
+    EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE);
+    etx = EDITOR.getContext("2d");
+}
+
+
+// add palette to the palette bar
+function addPalette(){
+    var palette = document.getElementById("palette-small");
+
+    //add the transparent color
+    var tr_color = document.createElement("div");
+    tr_color.classList.add("palette-item-tr");
+    tr_color.style.backgroundColor = TRANS_COLOR;
+    tr_color.onclick = setColor(tr_color,0);
+    palette.appendChild(tr_color);
+
+
+    //add the palette colors
+    for(var i=0; i<PALETTE.length; i++){
+        var color = document.createElement("div");
+        color.classList.add("palette-item");
+        color.style.backgroundColor = PALETTE[i];
+
+        //set the color
+        color.onclick = setColor(color,i+1);
+            
+        palette.appendChild(color);
+    }
+}
+
+// add sprite list to the sprite list bar
+function addSpriteList(){
+    var spriteList = document.getElementById("sprite-list-small");
+    for(var i=0; i<7; i++){
+        var sprite = document.createElement("img");
+        sprite.classList.add("spr-item");
+        sprite.style.backgroundColor = TRANS_COLOR;
+        sprite.id = "sprite-"+i;
+
+        spriteList.appendChild(sprite);
+    }
+}
+
+// next sprite in list
+function nextSprite(){
+    if(SPR_INDEX < SPRITES.length-1)
+        SPR_INDEX++;
+    showSprite();
+}
+// previous sprite in list
+function prevSprite(){
+    if(SPR_INDEX > 0)
+        SPR_INDEX--;
+    showSprite();
+}
+
+// show sprite in the canvas
+function showSprite(){
+    //update index value and name
+    document.getElementById("spr_index").innerHTML = (SPR_INDEX+1) + " / 256";
+    document.getElementById("sprite-label-"+WINDOW_SIZE).value = NAMES[SPR_INDEX];
+
+    //update the list set
+    let spr_imgs = document.getElementById("sprite-list-"+WINDOW_SIZE).getElementsByTagName("img");
+    let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))  // 0 < x < L-7
+    for(let i=lb;i<lb+7;i++){
+        //draw the sprite in the preview canvas
+        sprOnCanvas(PREVIEW, PTX, i);
+        spr_imgs[i-lb].src = PREVIEW.toDataURL();
+    }
+
+    //change border
+    for(let i=0;i<7;i++)
+        spr_imgs[i].classList.remove("sel-spr");
+    spr_imgs[SPR_INDEX-lb].classList.add("sel-spr");
+
+    //draw in the editor
+    sprOnCanvas();
+}
+
+// draw in the canvas (specified with canvas and context)
+function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX){
+    //clear and draw transparency color
+    cont.clearRect(0, 0, canv.width, canv.height);
+    cont.fillStyle = TRANS_COLOR;
+    cont.fillRect(0, 0, canv.width, canv.height);
+
+    //draw the sprite
+    let cur_spr = SPRITES[ind];
+    let px = canv.width / 8;  //assume square canvas
+    for(var i = 0; i < 64; i++){
+        let x = i % 8;
+        let y = Math.floor(i / 8);
+
+        //draw nothing
+        if(cur_spr[i] == 0)
+            continue;
+
+        //draw the color
+        var color = PALETTE[cur_spr[i]-1];
+        cont.fillStyle = color;
+        cont.fillRect(x*px, y*px, px, px);
+    }
+}
+
+// changes the name of the current sprite
+function changeSprName(newName){
+    NAMES[SPR_INDEX] = newName;
+}
+
+// changes the current tool
+function changeTool(tool_index){
+    //change tool 
+    CUR_TOOL = tool_index;
+    for(var i=0;i<4; i++){
+        var tool = document.getElementById("tool"+i);
+        if(i == tool_index)
+            tool.classList.add("sel-tool");
+        else
+            tool.classList.remove("sel-tool");
+    }
+
+    //change canvas cursor
+    EDITOR.style.cursor = `url('../data/imgs/bmo_cursors/${TOOLS[CUR_TOOL]}.png'), pointer`;
+
+}
+
+// sets the color of the pencil based on the palette
+function setColor(div,i){
+    return function(){
+        CUR_COLOR = i;
+
+        let ch = document.getElementById("palette-"+WINDOW_SIZE).children;
+        for(let j=0;j<ch.length;j++)
+            ch[j].classList.remove("sel-pal");
+
+        div.classList.add("sel-pal");
+        // console.log("color "+i+" selected");
+    }
+}
+
+
+//////////////////////      PAINT FUNCTIONS     //////////////////////
+
+
+// returns offset values for mouse or touch event
+function getCursorOffset(e){
+    let curs = {offx:0,offy:0};
+    //mouse
+    if(e instanceof MouseEvent){	
+        curs.offx = e.offsetX
+        curs.offy = e.offsetY
+    }
+    //touch
+    else{
+        let rect = e.target.getBoundingClientRect();
+        let ox = e.targetTouches[0].pageX - rect.left;
+        let oy = e.targetTouches[0].pageY - rect.top;
+
+        curs.offx = ox;
+        curs.offy = oy;
+    }
+    return curs
+}
+
+
+
+
+// repeatedly called to update the canvas
+function renderEditor(){
+    let px = EDITOR.width / 8;  //assume square canvas
+
+    //draw the sprite
+    sprOnCanvas();
+
+    //draw the ghost pixel
+    if(CUR_TOOL == 0){
+        ETX.fillStyle = PALETTE[CUR_COLOR-1];
+        ETX.globalAlpha = 0.5;
+        ETX.fillRect(GHOST_X*px, GHOST_Y*px, px, px);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+// set demo sprites (8x8 int values)
+// to get this from Piskel, goto File > Export as > Other > C file (.c)
+// then open and convert all of the hex values to int associated by the palette
+function setDemoSprites(){
+
+    //assume 8x8 sprites
+    SPRITES = [
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 1, 1, 0, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0, 
+        0, 0, 1, 0, 0, 1, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 1, 0, 0, 0, 0, 
+        0, 0, 0, 1, 0, 0, 0, 0, 
+        0, 0, 0, 1, 0, 0, 0, 0, 
+        0, 0, 0, 1, 0, 0, 0, 0, 
+        0, 0, 1, 1, 1, 0, 0, 0, 
+        0, 0, 0, 1, 0, 0, 0, 0
+        ],
+        [
+        1, 1, 1, 1, 1, 1, 1, 1, 
+        1, 0, 0, 0, 0, 0, 0, 1, 
+        1, 0, 1, 1, 1, 1, 0, 1, 
+        1, 0, 1, 1, 1, 1, 0, 1, 
+        1, 0, 1, 1, 1, 1, 0, 1, 
+        1, 0, 1, 1, 1, 1, 0, 1, 
+        1, 0, 0, 0, 0, 0, 0, 1, 
+        1, 1, 1, 1, 1, 1, 1, 1
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 3, 3, 3, 3, 0, 0, 
+        0, 3, 3, 3, 3, 1, 3, 0, 
+        0, 3, 3, 3, 1, 4, 1, 0, 
+        0, 3, 1, 1, 1, 1, 3, 0, 
+        0, 0, 3, 4, 4, 3, 0, 0, 
+        0, 0, 0, 2, 2, 0, 0, 0, 
+        0, 0, 0, 4, 4, 0, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 4, 4, 4, 4, 0, 0, 
+        0, 4, 2, 2, 2, 2, 4, 0, 
+        0, 2, 4, 2, 2, 4, 2, 0, 
+        0, 0, 2, 2, 2, 2, 0, 0, 
+        0, 0, 0, 4, 4, 0, 0, 0, 
+        0, 0, 0, 4, 3, 0, 0, 0, 
+        0, 0, 0, 3, 3, 0, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 3, 0, 0, 0, 0, 3, 0, 
+        0, 0, 3, 3, 3, 3, 0, 0, 
+        0, 3, 4, 3, 3, 4, 3, 0, 
+        0, 0, 3, 3, 3, 3, 0, 0, 
+        0, 0, 0, 4, 1, 0, 0, 0, 
+        0, 0, 0, 1, 4, 0, 0, 0, 
+        0, 0, 0, 4, 1, 0, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 4, 0, 0, 4, 0, 0, 
+        0, 0, 4, 4, 4, 4, 0, 0, 
+        0, 0, 3, 4, 4, 3, 0, 0, 
+        0, 0, 4, 4, 4, 4, 0, 0, 
+        0, 0, 0, 4, 4, 0, 4, 0, 
+        0, 0, 0, 4, 4, 4, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 1, 1, 0, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0, 
+        0, 0, 4, 1, 1, 4, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0, 
+        0, 0, 1, 0, 0, 1, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 1, 1, 1, 1, 0, 
+        0, 1, 1, 1, 4, 4, 4, 0, 
+        0, 0, 1, 4, 3, 4, 3, 0, 
+        0, 0, 0, 1, 1, 1, 1, 0, 
+        0, 0, 0, 0, 1, 1, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0
+        ],
+        [
+        0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 1, 1, 1, 1, 1, 2, 0, 
+        0, 1, 3, 4, 4, 1, 2, 0, 
+        0, 1, 4, 4, 4, 1, 2, 0, 
+        0, 1, 1, 1, 1, 1, 2, 0, 
+        0, 0, 0, 2, 2, 0, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0, 
+        0, 1, 1, 1, 1, 1, 1, 0
+        ]
+    ];
+
+    NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
+}   
