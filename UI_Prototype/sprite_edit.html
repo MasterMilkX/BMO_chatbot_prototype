@@ -1,0 +1,548 @@
+<html>
+    <head>
+        <title>
+            Sprite Editor - Beta
+        </title>
+
+        <!-- libraries -->
+        <script src="jscolor.min.js"></script>
+
+
+        <style>
+             /* 
+                COLORS:
+                    //blade-runner palette
+                    #022946
+                    #01435D
+                    #058F9E
+                    #0B738E
+                    #005076
+                    #FF36DA
+
+                    #4CAA98  //outside
+                    #81E5D1  //face
+            */
+
+            body{
+                margin: 0;
+                padding: 0;
+                background-color: #efefef;
+            }
+
+            canvas{
+                /* scale up pixels */
+				image-rendering: -moz-crisp-edges;
+		        image-rendering: -webkit-crisp-edges;
+		        image-rendering: pixelated;
+		        image-rendering: crisp-edges;
+            }
+
+            #preview-canv{
+                display:none;
+                border:3px solid blue;
+                width: 64px;
+                height: 64px;
+            }
+
+
+            #container{
+                width:906px;
+                height:606px;
+                margin:10px auto 20px auto;
+                border:3px solid black;
+                background-color: #cdcdcd;
+            }
+            #content{
+                /* width:900px; */
+                width:600px; /*start off small */
+                height:600px;
+                float:left;
+                background-color: #4CAA98;
+                border:3px solid blue;
+            }
+            .editor{
+                width:100%;
+                height:100%;
+                background-color: #4CAA98;
+                /* border:1px solid black; */
+            }
+
+
+            #sprite-label-small{
+                width: 320px;
+                height: 30px;
+                font-size:24px;
+                text-align: center;
+                border: 1px solid black;
+                margin:15px auto 15px auto;
+            }
+
+            #paint-small{
+                width: 100%;
+                margin: auto;
+                text-align: center;
+                /* border:2px solid red; */
+            }
+            #tool-small{
+                width: 60px;
+                /* border:2px solid red; */
+                margin:auto;
+            }
+            .tool-img{
+                width: 40px;
+                height: 40px;
+                margin: 5px auto 5px auto;
+                cursor: pointer;
+                padding:10px;
+                border: 2px solid transparent;
+                border-radius: 3px;
+            }
+            .tool-img:hover{
+                /* border: 2px solid white;
+                border-radius: 3px; */
+                filter: brightness(80%);
+            }
+            .sel-tool{
+                border: 2px solid white;
+                filter: brightness(100%);
+            }
+
+            #palette-small{
+                width: 64px;
+                margin:auto;
+            }
+            #paint-canvas-small{
+                width: 320px;
+                height: 320px;
+                border: 3px solid black;
+                background-color: #f0f0f0;
+            }
+            .palette-item{
+                width : 52px;
+                height : 50px;
+                border-top : 3px solid black;
+                border-left : 3px solid black;
+                border-right : 3px solid black;
+                float : left;
+                cursor : pointer;
+            }
+            .palette-item-tr{
+                width : 52px;
+                height : 50px;
+                border : 3px solid black;
+                float : left;
+                cursor : pointer;
+                margin-bottom : 20px;
+            }
+
+            .arrow-nav{
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                padding:10px;
+                margin:auto;
+                /* border: 2px solid transparent; */
+            }
+            .arrow-nav:hover{
+                filter: brightness(70%);
+            }
+            #sprite-list-small{
+                /* width: 462px; */
+                /* height: 66px; */
+                /* border: 2px solid black; */
+                margin: auto;
+                /* overflow: hidden; */
+                /* white-space: nowrap; */
+            }
+            .spr-item{
+                width : 64px;
+                height : 64px;
+                border-width : 4px 2px 4px;
+                border-style : solid;
+                border-color : black;
+                float : left;
+                cursor: pointer;
+                filter:brightness(70%);  /* change this to highlight the border instead */
+            }
+            .sel-spr{
+                filter : brightness(100%);
+                /* border: 2px solid yellow; */
+                cursor: pointer;
+            }
+
+
+            #settings{
+                width:880px;
+                height:20px;
+                padding:10px;
+                margin:auto;
+                border:3px solid grey;
+            }
+        </style>
+    </head>
+    <body onload="init()">
+        <canvas id="preview-canv"></canvas>
+        <div id="container">
+            <div id="content">
+
+                <!-- small editor -->
+                <div class='editor' id="editor-small">
+                    <div id="paint-small">
+                        <!-- top -->
+                        <div style="width:100%;">
+                            <input id='sprite-label-small' type="text" value="alien" onchange="changeSprName(this.value)" >
+                        </div>
+                        <!-- middle -->
+                        <div style="display:flex;margin:20px auto 20px auto;">
+                            <div id="tool-small">
+                                <!-- add tools here -->
+                                <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0" onclick="changeTool(0)">
+                                <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1" onclick="changeTool(1)">
+                                <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2" onclick="changeTool(2)">
+                                <img src="../data/imgs/tools/tools_3.png" class="tool-img" id="tool3" onclick="changeTool(3)">
+                            </div>  
+                            <canvas id="paint-canvas-small"></canvas>
+                            <div id="palette-small">
+                                <!-- add palette here -->
+                            </div>
+                        </div>
+                        <!-- bottom -->
+                        <div style="width:100%;display:flex;">
+                            <div><img src='../data/imgs/tools/arrow_left.png' class="arrow-nav" onclick="prevSprite()"></div>
+                            <div id="sprite-list-small">
+                                <!-- populate list of sprites here -->
+                            </div>
+                            <div><img src='../data/imgs/tools/arrow_right.png' class="arrow-nav" onclick="nextSprite()"></div>
+                        </div>
+                        <!-- indicator -->
+                        <div style="font-size:20px;font-family: 'Courier New', Courier, monospace;padding:10px">
+                            <span id="spr_index">0 / 256</span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                <!-- wide editor -->
+                <div class='editor' id="editor-wide">
+                    
+                </div>
+            </div>
+        </div>
+        <div id="settings">
+            <!-- <button onclick="toggleSize()">Change size</button> -->
+        </div>
+
+
+        <script>
+            var PALETTE = ["#FFF","#595959","#B1F702","#000"] //offset by 1 (0 is transparent)
+            var TRANS_COLOR = "#dedede";
+            var TOOLS = {0:'pencil', 1:'paint', 2:'move', 3:'select'}
+            var CUR_TOLL = 0;
+            
+            var SPRITES = []; // array of sprites (8x8 int values)
+            var SPR_INDEX = 0; // index of current sprite in editor
+            var NAMES = []; // array of sprite names
+
+            var EDITOR = null; // editor object
+            var ETX = null; // editor context
+            var PREVIEW = null; // preview object
+            var PTX = null; // preview context
+
+
+            var WINDOW_SIZE = "small";
+            var TOOL = TOOLS['pencil'];
+            var COLOR = 4;
+
+            function init(){
+                //set editor size
+                document.getElementById("editor-small").style.display = "block";
+                document.getElementById("editor-wide").style.display = "none";
+                WINDOW_SIZE = "small";
+
+                EDITOR = document.getElementById("paint-canvas-small")
+                ETX = EDITOR.getContext("2d");
+                EDITOR.width = 320;
+                EDITOR.height = 320;
+
+                PREVIEW = document.getElementById("preview-canv");
+                PTX = PREVIEW.getContext("2d");
+                PREVIEW.width = 64;
+                PREVIEW.height = 64;
+            
+                //add tools and palette
+                addPalette();
+                addSpriteList();
+                setDemoSprites();
+                showSprite();
+                changeTool(0);
+            }
+
+            // toggle between small and wide
+            function toggleSize(){
+                console.log("new size!")
+                var content = document.getElementById("content");
+                if(content.style.width == "900px"){
+                    content.style.width = "600px";
+                    document.getElementById("editor-small").style.display = "block";
+                    document.getElementById("editor-wide").style.display = "none";
+                    WINDOW_SIZE = "small";
+                    EDITOR.width = 320;
+                    EDITOR.height = 320;
+                }else{
+                    content.style.width = "900px";
+                    document.getElementById("editor-small").style.display = "none";
+                    document.getElementById("editor-wide").style.display = "block";
+                    WINDOW_SIZE = "wide";
+                }
+
+                EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE);
+                etx = EDITOR.getContext("2d");
+            }
+
+
+            // add palette to the palette bar
+            function addPalette(){
+                var palette = document.getElementById("palette-small");
+
+                //add the transparent color
+                var tr_color = document.createElement("div");
+                tr_color.classList.add("palette-item-tr");
+                tr_color.style.backgroundColor = TRANS_COLOR;
+                palette.appendChild(tr_color);
+
+
+                //add the palette colors
+                for(var i=0; i<PALETTE.length; i++){
+                    var color = document.createElement("div");
+                    color.classList.add("palette-item");
+                    color.style.backgroundColor = PALETTE[i];
+
+                    if (i == PALETTE.length-1)
+                        color.style.borderBottom = "3px solid black";
+                    
+                    palette.appendChild(color);
+                }
+            }
+
+            // add sprite list to the sprite list bar
+            function addSpriteList(){
+                var spriteList = document.getElementById("sprite-list-small");
+                for(var i=0; i<7; i++){
+                    var sprite = document.createElement("img");
+                    sprite.classList.add("spr-item");
+                    if(i == 0)
+                        sprite.style.borderLeft = "4px solid black";
+                    if(i == 6)
+                        sprite.style.borderRight = "4px solid black";
+                    sprite.style.backgroundColor = TRANS_COLOR;
+                    sprite.id = "sprite-"+i;
+
+                    spriteList.appendChild(sprite);
+                }
+            }
+
+            function nextSprite(){
+                if(SPR_INDEX < SPRITES.length-1)
+                    SPR_INDEX++;
+                showSprite();
+            }
+            function prevSprite(){
+                if(SPR_INDEX > 0)
+                    SPR_INDEX--;
+                showSprite();
+            }
+
+            //show sprite in the canvas
+            function showSprite(){
+                //update index value and name
+                document.getElementById("spr_index").innerHTML = (SPR_INDEX+1) + " / 256";
+                document.getElementById("sprite-label-"+WINDOW_SIZE).value = NAMES[SPR_INDEX];
+
+                //update the list set
+                let spr_imgs = document.getElementById("sprite-list-"+WINDOW_SIZE).getElementsByTagName("img");
+                let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))  // 0 < x < L-7
+                for(let i=lb;i<lb+7;i++){
+                    //draw the sprite in the preview canvas
+                    renderCanvas(PREVIEW, PTX, i);
+                    spr_imgs[i-lb].src = PREVIEW.toDataURL();
+                }
+
+                //change border
+                for(let i=0;i<7;i++)
+                    spr_imgs[i].classList.remove("sel-spr");
+                spr_imgs[SPR_INDEX-lb].classList.add("sel-spr");
+
+                //draw in the editor
+                renderCanvas();
+            }
+
+            //draw in the canvas (specified with canvas and context)
+            function renderCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX){
+                //clear and draw transparency color
+                cont.clearRect(0, 0, canv.width, canv.height);
+                cont.fillStyle = TRANS_COLOR;
+                cont.fillRect(0, 0, canv.width, canv.height);
+
+                //draw the sprite
+                let cur_spr = SPRITES[ind];
+                let px = canv.width / 8;  //assume square canvas
+                for(var i = 0; i < 64; i++){
+                    let x = i % 8;
+                    let y = Math.floor(i / 8);
+
+                    //draw nothing
+                    if(cur_spr[i] == 0)
+                        continue;
+
+                    //draw the color
+                    var color = PALETTE[cur_spr[i]-1];
+                    cont.fillStyle = color;
+                    cont.fillRect(x*px, y*px, px, px);
+                }
+            }
+
+            //changes the name of the current sprite
+            function changeSprName(newName){
+                NAMES[SPR_INDEX] = newName;
+            }
+
+            //changes the current tool
+            function changeTool(tool_index){
+                //change tool 
+                CUR_TOOL = tool_index;
+                for(var i=0;i<4; i++){
+                    var tool = document.getElementById("tool"+i);
+                    if(i == tool_index)
+                        tool.classList.add("sel-tool");
+                    else
+                        tool.classList.remove("sel-tool");
+                }
+
+                //change canvas cursor
+                EDITOR.style.cursor = `url('../data/imgs/bmo_cursors/${TOOLS[CUR_TOOL]}.png'), pointer`;
+
+            }
+
+            //changes the color of a palette
+            function changeColor(){
+
+            }
+
+
+
+            // set demo sprites (8x8 int values)
+            // to get this from Piskel, goto File > Export as > Other > C file (.c)
+            // then open and convert all of the hex values to int associated by the palette
+            function setDemoSprites(){
+
+                //assume 8x8 sprites
+                SPRITES = [
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 1, 0, 0, 0, 
+                    0, 0, 1, 1, 1, 1, 0, 0, 
+                    0, 0, 1, 0, 0, 1, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 0, 0, 0, 0, 
+                    0, 0, 1, 1, 1, 0, 0, 0, 
+                    0, 0, 0, 1, 0, 0, 0, 0
+                    ],
+                    [
+                    1, 1, 1, 1, 1, 1, 1, 1, 
+                    1, 0, 0, 0, 0, 0, 0, 1, 
+                    1, 0, 1, 1, 1, 1, 0, 1, 
+                    1, 0, 1, 1, 1, 1, 0, 1, 
+                    1, 0, 1, 1, 1, 1, 0, 1, 
+                    1, 0, 1, 1, 1, 1, 0, 1, 
+                    1, 0, 0, 0, 0, 0, 0, 1, 
+                    1, 1, 1, 1, 1, 1, 1, 1
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 3, 3, 3, 3, 0, 0, 
+                    0, 3, 3, 3, 3, 1, 3, 0, 
+                    0, 3, 3, 3, 1, 4, 1, 0, 
+                    0, 3, 1, 1, 1, 1, 3, 0, 
+                    0, 0, 3, 4, 4, 3, 0, 0, 
+                    0, 0, 0, 2, 2, 0, 0, 0, 
+                    0, 0, 0, 4, 4, 0, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 4, 4, 4, 4, 0, 0, 
+                    0, 4, 2, 2, 2, 2, 4, 0, 
+                    0, 2, 4, 2, 2, 4, 2, 0, 
+                    0, 0, 2, 2, 2, 2, 0, 0, 
+                    0, 0, 0, 4, 4, 0, 0, 0, 
+                    0, 0, 0, 4, 3, 0, 0, 0, 
+                    0, 0, 0, 3, 3, 0, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 3, 0, 0, 0, 0, 3, 0, 
+                    0, 0, 3, 3, 3, 3, 0, 0, 
+                    0, 3, 4, 3, 3, 4, 3, 0, 
+                    0, 0, 3, 3, 3, 3, 0, 0, 
+                    0, 0, 0, 4, 1, 0, 0, 0, 
+                    0, 0, 0, 1, 4, 0, 0, 0, 
+                    0, 0, 0, 4, 1, 0, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 4, 0, 0, 4, 0, 0, 
+                    0, 0, 4, 4, 4, 4, 0, 0, 
+                    0, 0, 3, 4, 4, 3, 0, 0, 
+                    0, 0, 4, 4, 4, 4, 0, 0, 
+                    0, 0, 0, 4, 4, 0, 4, 0, 
+                    0, 0, 0, 4, 4, 4, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 1, 0, 0, 0, 
+                    0, 0, 1, 1, 1, 1, 0, 0, 
+                    0, 0, 4, 1, 1, 4, 0, 0, 
+                    0, 0, 1, 1, 1, 1, 0, 0, 
+                    0, 0, 1, 0, 0, 1, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 0, 0, 1, 1, 1, 1, 0, 
+                    0, 1, 1, 1, 4, 4, 4, 0, 
+                    0, 0, 1, 4, 3, 4, 3, 0, 
+                    0, 0, 0, 1, 1, 1, 1, 0, 
+                    0, 0, 0, 0, 1, 1, 0, 0, 
+                    0, 0, 1, 1, 1, 1, 0, 0
+                    ],
+                    [
+                    0, 0, 0, 0, 0, 0, 0, 0, 
+                    0, 1, 1, 1, 1, 1, 2, 0, 
+                    0, 1, 3, 4, 4, 1, 2, 0, 
+                    0, 1, 4, 4, 4, 1, 2, 0, 
+                    0, 1, 1, 1, 1, 1, 2, 0, 
+                    0, 0, 0, 2, 2, 0, 0, 0, 
+                    0, 0, 1, 1, 1, 1, 0, 0, 
+                    0, 1, 1, 1, 1, 1, 1, 0
+                    ]
+                ];
+
+                NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
+            }   
+
+        </script>
+    </body>
+</html>

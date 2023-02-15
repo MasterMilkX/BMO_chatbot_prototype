@@ -135,8 +135,8 @@ class BMO {
         //if no match, ask for clarification
         // else {
 
-        //     this.text_mode = "learn"
-        //     return { txt: "I'm sorry, I don't understand...\nIs this related to code debugging, making sprites, or new game features?", action: "", face: ":)" };
+        //     // this.text_mode = "learn"
+        //     return { txt: "I'm sorry, I don't understand...\nIs this related to code debugging, making sprites, or new game features?", action: "", face: ":/" };
         // }
 
     }
