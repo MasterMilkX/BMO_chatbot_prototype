@@ -43,6 +43,15 @@ function init(){
     setDemoSprites();
     showSprite();
     changeTool(0);
+    CUR_COLOR = 0;
+
+    //mouse function assignments
+    document.addEventListener("mousedown", editorDown);
+    document.addEventListener("mouseup", editorUp);
+    document.addEventListener("mousemove", editorMove);
+    document.addEventListener("mouseout", editorLeave)
+
+
 }
 
 // toggle between small and wide
@@ -64,7 +73,10 @@ function toggleSize(){
     }
 
     EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE);
-    etx = EDITOR.getContext("2d");
+    ETX = EDITOR.getContext("2d");
+
+    //mouse function assignments
+    
 }
 
 
@@ -77,6 +89,8 @@ function addPalette(){
     tr_color.classList.add("palette-item-tr");
     tr_color.style.backgroundColor = TRANS_COLOR;
     tr_color.onclick = setColor(tr_color,0);
+    tr_color.id = "color-0";
+    tr_color.classList.add("sel-pal");
     palette.appendChild(tr_color);
 
 
@@ -89,6 +103,8 @@ function addPalette(){
         //set the color
         color.onclick = setColor(color,i+1);
             
+        //set the id + add to palette
+        color.id = "color-"+(i+1);
         palette.appendChild(color);
     }
 }
@@ -100,6 +116,7 @@ function addSpriteList(){
         var sprite = document.createElement("img");
         sprite.classList.add("spr-item");
         sprite.style.backgroundColor = TRANS_COLOR;
+        sprite.onclick = onSprite(i);
         sprite.id = "sprite-"+i;
 
         spriteList.appendChild(sprite);
@@ -117,6 +134,16 @@ function prevSprite(){
     if(SPR_INDEX > 0)
         SPR_INDEX--;
     showSprite();
+}
+
+//if the sprite list is clicked, jump to the sprite
+function onSprite(index){
+    return function(){
+        let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))
+        // console.log("on sprite: " + (index+lb));
+        SPR_INDEX = index+lb;
+        showSprite();
+    }
 }
 
 // show sprite in the canvas
@@ -208,6 +235,8 @@ function setColor(div,i){
 //////////////////////      PAINT FUNCTIONS     //////////////////////
 
 
+var mouseIsDown = false;
+
 // returns offset values for mouse or touch event
 function getCursorOffset(e){
     let curs = {offx:0,offy:0};
@@ -229,24 +258,151 @@ function getCursorOffset(e){
 }
 
 
+function editorDown(e){
+    //ignore all else
+    if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
+        return;
 
+    e.preventDefault();
+    mouseIsDown = true;
+    if(mouseIsDown)
+		paint(curs);
+}
 
-// repeatedly called to update the canvas
-function renderEditor(){
+// when the editor cursor is lifted (mouse or touch)
+function editorUp(e){
+    //ignore all else
+    if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
+        return;
+
+	e.preventDefault();
+	mouseIsDown = false;
+
+    //redraw the sprite in the list
+    showSprite();
+}	
+
+// when cursor is moved over editor (mouse or touch)
+function editorMove(e){
+    //ignore all else
+    if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
+        return;
+
+	e.preventDefault();
+	curs = getCursorOffset(e);
+	if(mouseIsDown)
+		paint(curs);
+    else
+        ghostPixel(curs);
+}
+
+// when the cursor leaves the editor
+function editorLeave(e){
+    //ignore all else
+    if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
+        return;
+
+	e.preventDefault();
+	mouseIsDown = false;
+    sprOnCanvas();
+}
+
+// returns the x,y position of the cursor on the editor
+function getCursPos(ev){
+
     let px = EDITOR.width / 8;  //assume square canvas
+
+    //realign cursor coordinates
+	var modX = (ev.offx * EDITOR.width) / EDITOR.offsetWidth;
+	var modY = (ev.offy * EDITOR.height) / EDITOR.offsetHeight;
+	let x = Math.floor(modX / px);  
+	let y = Math.floor(modY/ px); 
+    let pos = y*8+x;
+
+    return {x:x,y:y,px:px,pos:pos,rx:modX,ry:modY};
+}
+
+let UNIV_PD = null;
+
+
+// show the ghost pixel color when the mouse is over the editor
+function ghostPixel(ev){
+    let cur_spr = SPRITES[SPR_INDEX];
+
+    let pd = getCursPos(ev);
+    UNIV_PD = pd;  //for debugging
+
+    //check for out of bounds
+	if(pd.x < 0 || pd.x >= 8)
+        return;
+    else if(pd.y < 0 || pd.y >= 8)
+        return;
 
     //draw the sprite
     sprOnCanvas();
 
     //draw the ghost pixel
     if(CUR_TOOL == 0){
-        ETX.fillStyle = PALETTE[CUR_COLOR-1];
+        
+        if((cur_spr[pd.pos] == 0)){
+            //ghost of current pixel color
+            if(CUR_COLOR == 0){
+                ETX.fillStyle = "#fff";
+                ETX.globalAlpha = 0.5;
+            }else{
+                ETX.fillStyle = PALETTE[CUR_COLOR-1];
+                ETX.globalAlpha = 0.6;
+            }
+        }else{
+            ETX.fillStyle = "#000";
+            ETX.globalAlpha = 0.3;
+        }
+        
+       /*
+        //ghost of white pixel - regardless of set color
+        ETX.fillStyle = "#fff";
         ETX.globalAlpha = 0.5;
-        ETX.fillRect(GHOST_X*px, GHOST_Y*px, px, px);
+       */
+        ETX.fillRect(pd.x*pd.px, pd.y*pd.px, pd.px, pd.px);
+        ETX.globalAlpha = 1;
     }
 
 }
 
+
+
+// EDITOR METHOD FOR PAINTING ON SQUARES
+function paint(ev){
+	// console.log("i like it! picasso!")
+
+    let cur_spr = SPRITES[SPR_INDEX];
+	let pd = getCursPos(ev);
+    UNIV_PD = pd;  //for debugging
+
+	//check for out of bounds
+	if(pd.x < 0 || pd.x >= 8)
+        return;
+    else if(pd.y < 0 || pd.y >= 8)
+        return;
+
+    sprOnCanvas();
+
+	//draw the pixel
+	if(CUR_TOOL == 0){
+		//already there
+		if(cur_spr[pd.pos] == CUR_COLOR)
+			return;
+
+		cur_spr[pd.pos] = CUR_COLOR;
+        sprOnCanvas();
+	}
+
+    //paint fill
+    else if(curTool == 1){
+		
+		
+	}
+}
 
 
 
@@ -367,3 +523,14 @@ function setDemoSprites(){
 
     NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
 }   
+
+
+let debug = document.getElementById("debug");
+
+function update(){
+    requestAnimationFrame(update);
+
+    if (UNIV_PD != null)
+        debug.innerHTML = `X: ${UNIV_PD.x} Y: ${UNIV_PD.y} | ${mouseIsDown}`
+}
+update();
