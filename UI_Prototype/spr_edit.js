@@ -5,8 +5,12 @@ var PALETTE = ["#FFF","#595959","#B1F702","#000"] //offset by 1 (0 is transparen
 var TRANS_COLOR = "#dedede";
 var CUR_COLOR = 4;
 
-var TOOLS = {0:'pencil', 1:'paint', 2:'move', 3:'select'}
+var TOOLS = {0:'pencil', 1:'paint', 2:'move', 3:'select', 6:'undo', 7:'redo'}
 var CUR_TOOL = 0;
+
+var HISTORY = []; 
+var MAX_HISTORY = 50;
+var REDO_SET = [];
 
 var SPRITES = []; // array of sprites (8x8 int values)
 var SPR_INDEX = 0; // index of current sprite in editor
@@ -16,9 +20,8 @@ var EDITOR = null; // editor object
 var ETX = null; // editor context
 var PREVIEW = null; // preview object
 var PTX = null; // preview context
-
-
 var WINDOW_SIZE = "small";
+
 
 // initialization function called on the start of the page
 function init(){
@@ -44,6 +47,7 @@ function init(){
     showSprite();
     changeTool(0);
     CUR_COLOR = 0;
+    makeHistory();
 
     //mouse function assignments
     document.addEventListener("mousedown", editorDown);
@@ -125,12 +129,14 @@ function addSpriteList(){
 
 // next sprite in list
 function nextSprite(){
+    makeHistory();
     if(SPR_INDEX < SPRITES.length-1)
         SPR_INDEX++;
     showSprite();
 }
 // previous sprite in list
 function prevSprite(){
+    makeHistory();
     if(SPR_INDEX > 0)
         SPR_INDEX--;
     showSprite();
@@ -139,9 +145,11 @@ function prevSprite(){
 //if the sprite list is clicked, jump to the sprite
 function onSprite(index){
     return function(){
+        makeHistory();
         let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))
         // console.log("on sprite: " + (index+lb));
         SPR_INDEX = index+lb;
+        
         showSprite();
     }
 }
@@ -206,7 +214,7 @@ function changeSprName(newName){
 function changeTool(tool_index){
     //change tool 
     CUR_TOOL = tool_index;
-    for(var i=0;i<4; i++){
+    for(var i=0;i<3; i++){
         var tool = document.getElementById("tool"+i);
         if(i == tool_index)
             tool.classList.add("sel-tool");
@@ -273,6 +281,9 @@ function editorDown(e){
     if(!mouseIsDown){
         let pt = getCursPos(curs);
         touchPt = {x:pt.x,y:pt.y};
+
+        //add to history
+        makeHistory();
     }
 
     mouseIsDown = true;
@@ -300,8 +311,8 @@ function editorUp(e){
 
     //redraw the sprite in the list
     showSprite();
-
     ghostPixel(curs);
+
 }	
 
 // when cursor is moved over editor (mouse or touch)
@@ -520,6 +531,73 @@ function neighbors(pt){
 }
 
 
+
+// ADDS TO THE HISTORY SET OF LAST MAP ACTION
+function makeHistory(){
+    let cur_spr = SPRITES[SPR_INDEX];
+    let hpt = {spr:[...cur_spr],i:SPR_INDEX};
+
+    //same action as last time
+    if(HISTORY.length > 0){
+        let lastPt = HISTORY[HISTORY.length-1];
+        if(lastPt.spr.toString() === cur_spr.toString() && lastPt.i == SPR_INDEX)
+            return;
+    }
+
+	//add to the history and remove top if maxed out
+	HISTORY.push(hpt);
+	if(HISTORY.length > MAX_HISTORY)
+		HISTORY.shift(0);
+
+	REDO_SET = [];	//reset the redo list (can no longer redo after this point)
+    console.log("point added")
+}
+
+// UNDOES THE LAST ACTION TO THE PREVIOUS MAP LAYOUT
+function undo(){
+	if(HISTORY.length < 1)
+		return;
+
+    //add current state to redo list
+    let cur_spr = SPRITES[SPR_INDEX];
+    let hpt = {spr:[...cur_spr],i:SPR_INDEX};
+    REDO_SET.push(hpt);		//add to the redo set
+
+	//set the map
+    let lastPt = HISTORY.pop();		//pop off the last element of the history
+    SPRITES[lastPt.i] = [...lastPt.spr];
+    SPR_INDEX = lastPt.i;
+    showSprite(SPR_INDEX);
+	
+    
+	// resetLasso();  			//deselect lasso in case it's out
+
+    console.log("undo")
+}
+
+// REDOES THE LAST ACTION TO THE NEXT MAP LAYOUT
+function redo(){
+	if(REDO_SET.length == 0)
+		return;
+
+    //add to the history and remove top if maxed out
+    let cur_spr = SPRITES[SPR_INDEX];
+    let hpt = {spr:[...cur_spr],i:SPR_INDEX};
+	HISTORY.push(hpt);
+	if(HISTORY.length > MAX_HISTORY)
+		HISTORY.shift(0);
+
+    //pop from redo list and set
+    let redoPt = REDO_SET.pop();
+    SPRITES[redoPt.i] = redoPt.spr;
+    SPR_INDEX = redoPt.i;
+    showSprite(SPR_INDEX);
+
+    console.log("redo")
+
+	// resetLasso();  			//deselect lasso in case it's out
+	
+}
 
 
 
