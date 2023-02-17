@@ -398,12 +398,68 @@ function paint(ev){
 	}
 
     //paint fill
-    else if(curTool == 1){
-		
-		
+    else if(CUR_TOOL == 1){
+        let fill_pts = pixSearch(pd.x,pd.y);
+        for(let i=0;i<fill_pts.length;i++){
+            let pt = fill_pts[i];
+            cur_spr[pt.pos] = CUR_COLOR;
+        }
+        sprOnCanvas();
+        
 	}
 }
 
+// search for similar color pixels from a starting point
+// for use with the paint fill tool
+function pixSearch(x,y){
+    let queue = [];
+    let color = [];
+    let visited = [];
+
+    let first_pt = {x:x,y:y,pos:y*8+x};
+    let cur_spr = SPRITES[SPR_INDEX];
+    queue.push(first_pt);
+    color.push(first_pt)
+    visited.push(first_pt.x+","+first_pt.y);
+    let t = 0;
+    while(queue.length > 0 && t < 64){
+        let pt = queue.pop();
+        let ne = neighbors(pt);
+        for(let i=0;i<ne.length;i++){
+            let n = ne[i];
+            let nstr = n.x+","+n.y;
+            if(cur_spr[n.pos] == cur_spr[first_pt.pos] && !visited.includes(nstr)){
+                queue.push(n);
+                color.push(n);
+                visited.push(nstr);
+            }
+        }
+        t++;
+    }
+    console.log(queue);
+    return color;
+}
+
+//get neighbors of a pixel
+function neighbors(pt){
+    let n = [];
+
+    let left = {x:pt.x-1,y:pt.y,pos:pt.pos-1};
+    let right = {x:pt.x+1,y:pt.y,pos:pt.pos+1};
+    let up = {x:pt.x,y:pt.y-1,pos:pt.pos-8};
+    let down = {x:pt.x,y:pt.y+1,pos:pt.pos+8};
+
+    if(left.x >= 0)
+        n.push(left);
+    if(right.x < 8)
+        n.push(right);
+    if(up.y >= 0)
+        n.push(up);
+    if(down.y < 8)
+        n.push(down);
+
+    return n;
+}
 
 
 
@@ -523,6 +579,9 @@ function setDemoSprites(){
 
     NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
 }   
+
+
+///////////////     DEBUG     //////////////////
 
 
 let debug = document.getElementById("debug");
