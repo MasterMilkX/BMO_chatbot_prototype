@@ -171,14 +171,16 @@ function showSprite(){
 }
 
 // draw in the canvas (specified with canvas and context)
-function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX){
+function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX, cur_spr=null){
     //clear and draw transparency color
     cont.clearRect(0, 0, canv.width, canv.height);
     cont.fillStyle = TRANS_COLOR;
     cont.fillRect(0, 0, canv.width, canv.height);
 
     //draw the sprite
-    let cur_spr = SPRITES[ind];
+    if(cur_spr == null)
+        cur_spr = SPRITES[ind];  //set to current sprite
+    
     let px = canv.width / 8;  //assume square canvas
     for(var i = 0; i < 64; i++){
         let x = i % 8;
@@ -257,13 +259,22 @@ function getCursorOffset(e){
     return curs
 }
 
-
+// when the editor cursor is pressed (mouse or touch)
+let touchPt = {x:-1,y:-1};
 function editorDown(e){
     //ignore all else
     if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
         return;
 
     e.preventDefault();
+    curs = getCursorOffset(e);
+
+    //add the first touch point
+    if(!mouseIsDown){
+        let pt = getCursPos(curs);
+        touchPt = {x:pt.x,y:pt.y};
+    }
+
     mouseIsDown = true;
     if(mouseIsDown)
 		paint(curs);
@@ -272,14 +283,25 @@ function editorDown(e){
 // when the editor cursor is lifted (mouse or touch)
 function editorUp(e){
     //ignore all else
-    if(e.target.id != "paint-canvas-"+WINDOW_SIZE)
+    if(e.target.id != "paint-canvas-"+WINDOW_SIZE && new_spr == null)
         return;
 
+    //reset the tool back to up position and set the new sprite position
+    if(CUR_TOOL == 2){ 
+        EDITOR.style.cursor = `url('../data/imgs/bmo_cursors/${TOOLS[CUR_TOOL]}.png'), pointer`
+        SPRITES[SPR_INDEX] = new_spr;
+        new_spr = null;
+    }
+
+    //reset everything
 	e.preventDefault();
 	mouseIsDown = false;
+    touchPt = {x:-1,y:-1};
 
     //redraw the sprite in the list
     showSprite();
+
+    ghostPixel(curs);
 }	
 
 // when cursor is moved over editor (mouse or touch)
@@ -303,8 +325,13 @@ function editorLeave(e){
         return;
 
 	e.preventDefault();
-	mouseIsDown = false;
-    sprOnCanvas();
+
+    //reset everything
+    if(new_spr == null){
+        mouseIsDown = false;
+        touchPt = {x:-1,y:-1};
+        sprOnCanvas();
+    }
 }
 
 // returns the x,y position of the cursor on the editor
@@ -372,6 +399,7 @@ function ghostPixel(ev){
 
 
 // EDITOR METHOD FOR PAINTING ON SQUARES
+let new_spr = null;
 function paint(ev){
 	// console.log("i like it! picasso!")
 
@@ -385,7 +413,7 @@ function paint(ev){
     else if(pd.y < 0 || pd.y >= 8)
         return;
 
-    sprOnCanvas();
+    // sprOnCanvas();
 
 	//draw the pixel
 	if(CUR_TOOL == 0){
@@ -407,6 +435,36 @@ function paint(ev){
         sprOnCanvas();
         
 	}
+
+    //sprite drag
+    else if(CUR_TOOL == 2){
+        //set the cursor to hold
+        EDITOR.style.cursor = `url('../data/imgs/bmo_cursors/hold.png'), pointer`;
+
+        if(touchPt.x == -1 || touchPt.y == -1)
+            return;
+
+        let dx = pd.x - touchPt.x;
+        let dy = pd.y - touchPt.y;
+        console.log("dx: "+dx+" dy: "+dy)
+
+        //move the sprite based on changed position
+        new_spr = [];
+        for(let i=0;i<cur_spr.length;i++){
+            let x = i%8;
+            let y = Math.floor(i/8);
+            let nx = x-dx;
+            let ny = y-dy;
+            if(nx < 0 || nx >= 8 || ny < 0 || ny >= 8)
+                new_spr[i] = 0;
+            else{
+                let npos = ny*8+nx;
+                new_spr[i] = cur_spr[npos];
+            }
+        }
+        // SPRITES[SPR_INDEX] = new_spr;
+        sprOnCanvas(EDITOR,ETX,0,new_spr);
+    }
 }
 
 // search for similar color pixels from a starting point
@@ -590,6 +648,6 @@ function update(){
     requestAnimationFrame(update);
 
     if (UNIV_PD != null)
-        debug.innerHTML = `X: ${UNIV_PD.x} Y: ${UNIV_PD.y} | ${mouseIsDown}`
+        debug.innerHTML = `mouse pos (${UNIV_PD.x}, ${UNIV_PD.y}) | ${mouseIsDown} | touch pt (${touchPt.x}, ${touchPt.y})`
 }
 update();
