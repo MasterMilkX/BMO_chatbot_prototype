@@ -181,6 +181,34 @@
                 padding:0;
             }
 
+            #indicator-small{
+                font-size:20px;
+                font-family: 'Courier New', Courier, monospace;
+                padding:10px;
+                margin-top:15px;
+                /* border:3px solid purple; */
+                display:flex;
+                /* justify-content: space-between; */
+            }
+            #spr-ind-div{
+                padding:7px;
+                width:175px;
+                margin:auto;
+            }
+            #spr_index-small{
+                color:#0f0;
+                background-color: #000;
+            }
+            #ind_in-small{
+                display:none;
+                width:175px;
+                text-align:center;
+            }
+            #indicator-small img{
+                width:36px;
+                height:36px;
+            }
+
 
             #settings{
                 width:880px;
@@ -209,7 +237,7 @@
                     <div id="paint-small">
                         <!-- top -->
                         <div style="width:100%;">
-                            <input id='sprite-label-small' type="text" value="alien" onchange="changeSprName(this.value)" >
+                            <input id='sprite-label-small' type="text" value="alien" onblur="changeSprName(this.value)" >
                         </div>
                         <!-- middle -->
                         <div style="display:flex;margin:20px auto 20px auto;">
@@ -235,9 +263,14 @@
                             </div>
                             <div><img src='../data/imgs/tools/arrow_right.png' class="arrow-nav" onclick="nextSprite()"></div>
                         </div>
-                        <!-- indicator -->
-                        <div style="font-size:20px;font-family: 'Courier New', Courier, monospace;padding:10px;margin-top:15px;">
-                            <span id="spr_index">0 / 256</span>
+                        <!-- indicator and sprite mod -->
+                        <div id="indicator-small">
+                            <!-- <img src='../data/imgs/tools/delete.png'> -->
+                            <div id="spr-ind-div">
+                                <div ondblclick="editIndex()" id="spr_index-small">0 / 256</div>
+                                <input type='number' min="1" max="256" onblur="toSprite(this)" id="ind_in-small">
+                            </div>
+                            <!-- <img src='../data/imgs/tools/add2.png'> -->
                         </div>
                         
                     </div>

@@ -154,10 +154,40 @@ function onSprite(index){
     }
 }
 
+//jump to an index
+function toSprite(d){
+    let index = Math.max(Math.min(parseInt(d.value-1), 255),0);
+
+    //hide again
+    d.style.display = "none";
+    document.getElementById("spr_index-"+WINDOW_SIZE).style.display = "block";
+
+    document.getElementById("spr_index-"+WINDOW_SIZE).innerHTML = (index+1) + " / 256";
+    makeHistory();
+    SPR_INDEX = index;
+    showSprite();
+}
+
+//show the input text
+function editIndex(){
+    let i = document.getElementById("ind_in-"+WINDOW_SIZE);
+    document.getElementById("spr_index-"+WINDOW_SIZE).style.display = "none";
+    i.value = "";
+    i.style.display = "block";
+    i.focus();
+
+}
+document.getElementById("ind_in-"+WINDOW_SIZE).addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        toSprite(this);
+    }
+});
+
 // show sprite in the canvas
 function showSprite(){
     //update index value and name
-    document.getElementById("spr_index").innerHTML = (SPR_INDEX+1) + " / 256";
+    document.getElementById("spr_index-"+WINDOW_SIZE).innerHTML = (SPR_INDEX+1) + " / 256";
     document.getElementById("sprite-label-"+WINDOW_SIZE).value = NAMES[SPR_INDEX];
 
     //update the list set
@@ -550,7 +580,6 @@ function makeHistory(){
 		HISTORY.shift(0);
 
 	REDO_SET = [];	//reset the redo list (can no longer redo after this point)
-    console.log("point added")
 }
 
 // UNDOES THE LAST ACTION TO THE PREVIOUS MAP LAYOUT
@@ -609,8 +638,18 @@ function redo(){
 // then open and convert all of the hex values to int associated by the palette
 function setDemoSprites(){
 
+    //add blank sprites
+    for(let i=0;i<256;i++){
+        let spr = [];
+        for(let j=0;j<64;j++)
+            spr.push(0);
+        SPRITES.push(spr);
+    }
+
+    //set the first x sprites to the demo sprites
+
     //assume 8x8 sprites
-    SPRITES = [
+    let demo_sprites = [
         [
         0, 0, 0, 0, 0, 0, 0, 0, 
         0, 0, 0, 0, 0, 0, 0, 0, 
@@ -712,6 +751,10 @@ function setDemoSprites(){
         0, 1, 1, 1, 1, 1, 1, 0
         ]
     ];
+
+    for(let i = 0; i < 8; i++){
+        SPRITES[i] = demo_sprites[i];
+    }
 
     NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
 }   
