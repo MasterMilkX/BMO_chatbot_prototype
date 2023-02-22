@@ -39,7 +39,6 @@
 
             #preview-canv{
                 display:none;
-                border:3px solid blue;
                 width: 64px;
                 height: 64px;
             }
@@ -50,44 +49,18 @@
                 height:606px;
                 margin:10px auto 20px auto;
                 border:3px solid black;
-                background-color: #cdcdcd;
+                background-color: #005;
             }
             #content{
-                /* width:900px; */
-                width:600px; /*start off small */
+                width:900px;
                 height:600px;
-                float:left;
                 background-color: #4CAA98;
                 border:3px solid blue;
-            }
-            .editor{
-                width:100%;
-                height:100%;
-                background-color: #4CAA98;
-                /* border:1px solid black; */
+                display:flex;
             }
 
+            /* general class styles */
 
-            #sprite-label-small{
-                width: 320px;
-                height: 30px;
-                font-size:24px;
-                text-align: center;
-                border: 1px solid black;
-                margin:15px auto 15px auto;
-            }
-
-            #paint-small{
-                width: 100%;
-                margin: auto;
-                text-align: center;
-                /* border:2px solid red; */
-            }
-            #tool-small{
-                width: 60px;
-                /* border:2px solid red; */
-                margin:auto;
-            }
             .tool-img{
                 width: 30px;
                 height: 30px;
@@ -98,32 +71,16 @@
                 border-radius: 3px;
             }
             .tool-img:hover{
-                /* border: 2px solid white;
-                border-radius: 3px; */
                 filter: brightness(80%);
             }
             .sel-tool{
                 border: 2px solid white;
                 filter: brightness(100%);
             }
-
-            #palette-small{
-                width: 64px;
-                margin:auto;
-            }
-            #paint-canvas-small{
-                width: 320px;
-                height: 320px;
-                border: 3px solid black;
-                background-color: #f0f0f0;
-            }
             .palette-item{
                 width : 52px;
                 height : 50px;
                 outline: 3px solid black;
-                /* border-top : 3px solid black;
-                border-left : 3px solid black;
-                border-right : 3px solid black; */
                 float : left;
                 cursor : pointer;
             }
@@ -133,7 +90,6 @@
                 outline : 3px solid black;
                 float : left;
                 cursor : pointer;
-                margin-bottom : 20px;
             }
             .sel-pal{
                 filter: brightness(100%);
@@ -146,33 +102,20 @@
                 cursor: pointer;
                 padding:10px;
                 margin:auto;
-                /* border: 2px solid transparent; */
             }
             .arrow-nav:hover{
                 filter: brightness(70%);
-            }
-            #sprite-list-small{
-                /* width: 462px; */
-                /* height: 66px; */
-                /* border: 2px solid black; */
-                margin: auto;
-                /* overflow: hidden; */
-                /* white-space: nowrap; */
             }
             .spr-item{
                 width : 64px;
                 height : 64px;
                 outline: 4px solid black;
                 padding-right:3px;
-                /* border-width : 4px 2px 4px;
-                border-style : solid;
-                border-color : black; */
                 float : left;
                 cursor: pointer;
             }
             .sel-spr{
                 filter : brightness(100%);  /* do not remove - pushes image to the front */
-                /* outline: 4px solid #00f0ff; */
                 outline: 4px solid yellow;
                 width:72px;
                 height:72px;
@@ -181,34 +124,10 @@
                 padding:0;
             }
 
-            #indicator-small{
-                font-size:20px;
-                font-family: 'Courier New', Courier, monospace;
-                padding:10px;
-                margin-top:15px;
-                /* border:3px solid purple; */
-                display:flex;
-                /* justify-content: space-between; */
-            }
-            #spr-ind-div{
-                padding:7px;
-                width:175px;
-                margin:auto;
-            }
-            #spr_index-small{
-                color:#0f0;
-                background-color: #000;
-            }
-            #ind_in-small{
-                display:none;
-                width:175px;
-                text-align:center;
-            }
-            #indicator-small img{
-                width:36px;
-                height:36px;
-            }
 
+
+
+            /* debug styles */
 
             #settings{
                 width:880px;
@@ -226,6 +145,8 @@
                 padding:3px 10px;
             }
         </style>
+        <link rel="stylesheet" href="spr_small.css">
+        <link rel="stylesheet" href="spr_wide.css">
     </head>
     <body onload="init()">
         <canvas id="preview-canv"></canvas>
@@ -233,7 +154,7 @@
             <div id="content">
 
                 <!-- small editor -->
-                <div class='editor' id="editor-small">
+                <div id="editor-small">
                     <div id="paint-small">
                         <!-- top -->
                         <div style="width:100%;">
@@ -243,12 +164,12 @@
                         <div style="display:flex;margin:20px auto 20px auto;">
                             <div id="tool-small">
                                 <!-- add tools here -->
-                                <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0" onclick="changeTool(0)">
-                                <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1" onclick="changeTool(1)">
-                                <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2" onclick="changeTool(2)">
+                                <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0-small" onclick="changeTool(0)">
+                                <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1-small" onclick="changeTool(1)">
+                                <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2-small" onclick="changeTool(2)">
                                 <!-- <img src="../data/imgs/tools/tools_3.png" class="tool-img" id="tool3" onclick="changeTool(3)"> -->
-                                <img src="../data/imgs/tools/tools_6.png" class="tool-img" id="tool6" onclick="undo()">
-                                <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7" onclick="redo()">
+                                <img src="../data/imgs/tools/tools_6.png" class="tool-img" id="tool6-small" onclick="undo()">
+                                <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7-small" onclick="redo()">
                             </div>  
                             <canvas id="paint-canvas-small"></canvas>
                             <div id="palette-small">
@@ -266,26 +187,66 @@
                         <!-- indicator and sprite mod -->
                         <div id="indicator-small">
                             <!-- <img src='../data/imgs/tools/delete.png'> -->
-                            <div id="spr-ind-div">
+                            <div id="spr-ind-div-small">
                                 <div ondblclick="editIndex()" id="spr_index-small">0 / 256</div>
                                 <input type='number' min="1" max="256" onblur="toSprite(this)" id="ind_in-small">
                             </div>
                             <!-- <img src='../data/imgs/tools/add2.png'> -->
                         </div>
-                        
                     </div>
                 </div>
 
-
                 <!-- wide editor -->
                 <div class='editor' id="editor-wide">
-                    
+                    <!-- top -->
+                    <div style="width:100%;text-align:center">
+                        <input id='sprite-label-wide' type="text" value="alien" onblur="changeSprName(this.value)" >
+                    </div>
+                    <div style="text-align: center;margin:auto;">
+                        <canvas id="paint-canvas-wide"></canvas>
+                    </div>
+
+                    <!-- middle -->
+                    <div>
+                        <div id="palette-wide">
+                            <!-- add palette here -->
+                        </div>
+
+                        <div id="tool-wide">
+                            <!-- add tools here -->
+                            <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0-wide" onclick="changeTool(0)">
+                            <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1-wide" onclick="changeTool(1)">
+                            <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2-wide" onclick="changeTool(2)">
+                            <!-- <img src="../data/imgs/tools/tools_3.png" class="tool-img" id="tool3" onclick="changeTool(3)"> -->
+                            <img src="../data/imgs/tools/tools_6.png" class="tool-img" id="tool6-wide" onclick="undo()">
+                            <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7-wide" onclick="redo()">
+                        </div>  
+                        
+                        
+                    </div>
+                   
+                     <!-- indicator and sprite mod -->
+                     <div id="indicator-wide">
+                        <div><img src='../data/imgs/tools/arrow_left.png' class="arrow-nav" onclick="prevSprite()"></div>
+                        <!-- <img src='../data/imgs/tools/delete.png'> -->
+                        <div id="spr-ind-div-wide">
+                            <div ondblclick="editIndex()" id="spr_index-wide">0 / 256</div>
+                            <input type='number' min="1" max="256" onblur="toSprite(this)" id="ind_in-wide">
+                        </div>
+                        <div><img src='../data/imgs/tools/arrow_right.png' class="arrow-nav" onclick="nextSprite()"></div>
+                        <!-- <img src='../data/imgs/tools/add2.png'> -->
+                    </div>
+                </div>
+
+                 <!-- sprite sheet to show in wide editor -->
+                 <div id="spritesheet">
+                    <canvas id="ss_canv"></canvas>
                 </div>
             </div>
         </div>
         <div id="settings">
-            <!-- <button onclick="toggleSize()">Change size</button> -->
-            <button>this does nothing</button>
+            <button onclick="toggleSize()">Change size</button>
+            <!-- <button onclick="changeSize()">this does nothing</button> -->
             <div id="debug">Debug here</div>
         </div>
         <script src="spr_edit.js"></script>

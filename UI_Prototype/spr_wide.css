@@ -1,0 +1,90 @@
+#editor-wide{
+    width:396px;
+    height:600px;
+    display:block;
+}
+
+/* sprite name */
+#sprite-label-wide{
+    width: 250px;
+    height: 30px;
+    font-size:24px;
+    text-align: center;
+    border: 1px solid black;
+    margin:15px auto 15px auto;
+}
+
+/* tool picker */
+#tool-wide{
+    width: 100%;
+    height: 64px;
+    /* border:2px solid red; */
+    margin:-5px auto;
+    text-align: center;
+}
+
+/* palette picker */
+#palette-wide{
+    width:100%;
+    height: 64px;
+    padding:20px 44px 5px;
+    margin:20px auto 0px auto;
+    text-align: center;
+}
+
+/* paint editor */
+#paint-canvas-wide{
+    width: 280px;
+    height: 280px;
+    border: 3px solid black;
+    background-color: #f0f0f0;
+}
+
+
+/* sprite index counter */
+#indicator-wide{
+    font-size:20px;
+    font-family: 'Courier New', Courier, monospace;
+    padding:10px;
+    display:flex;
+    margin-top:10px
+}
+#spr-ind-div-wide{
+    padding:7px;
+    width:150px;
+    margin:auto;
+}
+/* text div */
+#spr_index-wide{
+    color:#0f0;
+    text-align: center;
+    background-color: #000;
+}
+
+/* input bar */
+#ind_in-wide{
+    display:none;
+    width:105px;
+    text-align:center;
+}
+#indicator-wide img{
+    width:32px;
+    height:32px;
+}
+
+
+/* SPRITE SHEET */
+
+#spritesheet{
+    width: 540px;
+    height:100%;
+    background-color:#121212;
+    display: block;
+}
+#ss_canv{
+    width:512px;
+    height:512px;
+    background-color: #8fe2ef;
+    border:3px solid #0f0;
+    margin-top:40px;
+}

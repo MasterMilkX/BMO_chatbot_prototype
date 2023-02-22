@@ -20,17 +20,25 @@ var EDITOR = null; // editor object
 var ETX = null; // editor context
 var PREVIEW = null; // preview object
 var PTX = null; // preview context
+var SPRITE_SHEET = null; // sprite sheet object
+var SSTX = null; // sprite sheet context
 var WINDOW_SIZE = "small";
+
+
+
+////////////    SITE UI / RENDER FUNCTIONS    //////////////
 
 
 // initialization function called on the start of the page
 function init(){
     //set editor size
-    document.getElementById("editor-small").style.display = "block";
-    document.getElementById("editor-wide").style.display = "none";
-    WINDOW_SIZE = "small";
+    // document.getElementById("editor-small").style.display = "block";
+    // document.getElementById("editor-wide").style.display = "none";
+    WINDOW_SIZE = "wide";
+    document.getElementById("editor-"+WINDOW_SIZE).style.display = "block";
 
-    EDITOR = document.getElementById("paint-canvas-small")
+    //set up canvases
+    EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE)
     ETX = EDITOR.getContext("2d");
     EDITOR.width = 320;
     EDITOR.height = 320;
@@ -40,14 +48,23 @@ function init(){
     PREVIEW.width = 64;
     PREVIEW.height = 64;
 
+    SPRITE_SHEET = document.getElementById("ss_canv");
+    SSTX = SPRITE_SHEET.getContext("2d");
+    SPRITE_SHEET.width = 256;
+    SPRITE_SHEET.height = 256;
+
     //add tools and palette
     addPalette();
     addSpriteList();
     setDemoSprites();
+
+    //set up editor
     showSprite();
     changeTool(0);
     CUR_COLOR = 0;
     makeHistory();
+
+    renderFullSheet();
 
     //mouse function assignments
     document.addEventListener("mousedown", editorDown);
@@ -62,95 +79,143 @@ function init(){
 function toggleSize(){
     console.log("new size!")
     var content = document.getElementById("content");
-    if(content.style.width == "900px"){
+
+
+    //to small
+    if(WINDOW_SIZE == "wide"){
         content.style.width = "600px";
         document.getElementById("editor-small").style.display = "block";
         document.getElementById("editor-wide").style.display = "none";
         WINDOW_SIZE = "small";
-        EDITOR.width = 320;
-        EDITOR.height = 320;
-    }else{
+        document.getElementById("spritesheet").style.display = "none";
+    }
+    //to wide
+    else{
         content.style.width = "900px";
         document.getElementById("editor-small").style.display = "none";
         document.getElementById("editor-wide").style.display = "block";
         WINDOW_SIZE = "wide";
+        document.getElementById("spritesheet").style.display = "block";
     }
 
+    //reset canvas
     EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE);
     ETX = EDITOR.getContext("2d");
+    let size = (WINDOW_SIZE == "small") ? 320 : 240;
+    EDITOR.width = size;
+    EDITOR.height = size;
 
-    //mouse function assignments
+    //reset tools
+    showSprite();
+    changeTool(CUR_TOOL);
+    setColor(document.getElementById("color-"+CUR_COLOR+"-"+WINDOW_SIZE),CUR_COLOR)();
+
+    showSprite();
     
+}
+
+function changeSize(){
+    console.log("new size!")
+    var content = document.getElementById("content");
+    if(content.style.width == "900px"){
+        content.style.width = "600px";
+        document.getElementById("spritesheet").style.display = "none";
+    }else{
+        content.style.width = "900px";
+        document.getElementById("spritesheet").style.display = "block";
+    }
 }
 
 
 // add palette to the palette bar
 function addPalette(){
-    var palette = document.getElementById("palette-small");
+    for(let s=0; s<2; s++){
+        let cur_size = (s==0) ? "small" : "wide";
+        var palette = document.getElementById("palette-"+cur_size);
 
-    //add the transparent color
-    var tr_color = document.createElement("div");
-    tr_color.classList.add("palette-item-tr");
-    tr_color.style.backgroundColor = TRANS_COLOR;
-    tr_color.onclick = setColor(tr_color,0);
-    tr_color.id = "color-0";
-    tr_color.classList.add("sel-pal");
-    palette.appendChild(tr_color);
+        //add the transparent color
+        var tr_color = document.createElement("div");
+        tr_color.classList.add("palette-item-tr");
+        tr_color.style.backgroundColor = TRANS_COLOR;
+        if(cur_size == "small")
+            tr_color.style.marginBottom = "20px";
+        else
+            tr_color.style.marginRight = "35px";
+        tr_color.onclick = setColor(tr_color,0);
+        tr_color.id = "color-0-"+cur_size;
+        tr_color.classList.add("sel-pal");
+        palette.appendChild(tr_color);
 
 
-    //add the palette colors
-    for(var i=0; i<PALETTE.length; i++){
-        var color = document.createElement("div");
-        color.classList.add("palette-item");
-        color.style.backgroundColor = PALETTE[i];
+        //add the palette colors
+        for(var i=0; i<PALETTE.length; i++){
+            var color = document.createElement("div");
+            color.classList.add("palette-item");
+            color.style.backgroundColor = PALETTE[i];
 
-        //set the color
-        color.onclick = setColor(color,i+1);
-            
-        //set the id + add to palette
-        color.id = "color-"+(i+1);
-        palette.appendChild(color);
+            //set the color
+            color.onclick = setColor(color,i+1);
+                
+            //set the id + add to palette
+            color.id = "color-"+(i+1)+"-"+cur_size;
+            palette.appendChild(color);
+        }
     }
 }
 
 // add sprite list to the sprite list bar
 function addSpriteList(){
-    var spriteList = document.getElementById("sprite-list-small");
+    // for(let s=0; s<2; s++){
+        // let cur_size = (s==0) ? "small" : "wide";
+    let cur_size = "small";
+    var spriteList = document.getElementById("sprite-list-"+cur_size);
     for(var i=0; i<7; i++){
         var sprite = document.createElement("img");
         sprite.classList.add("spr-item");
         sprite.style.backgroundColor = TRANS_COLOR;
         sprite.onclick = onSprite(i);
-        sprite.id = "sprite-"+i;
+        sprite.id = "sprite-"+i+"-"+cur_size;
 
         spriteList.appendChild(sprite);
     }
+    // }
 }
 
 // next sprite in list
 function nextSprite(){
     makeHistory();
+    updateSheetSprite(SPR_INDEX);
+
     if(SPR_INDEX < SPRITES.length-1)
         SPR_INDEX++;
+    else
+        SPR_INDEX = 0;
     showSprite();
+    activeSheet();
 }
 // previous sprite in list
 function prevSprite(){
     makeHistory();
+    updateSheetSprite(SPR_INDEX);
     if(SPR_INDEX > 0)
         SPR_INDEX--;
+    else
+        SPR_INDEX = SPRITES.length-1;
     showSprite();
+    activeSheet();
 }
 
 //if the sprite list is clicked, jump to the sprite
 function onSprite(index){
     return function(){
         makeHistory();
+        updateSheetSprite(SPR_INDEX);
         let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))
         // console.log("on sprite: " + (index+lb));
         SPR_INDEX = index+lb;
         
         showSprite();
+        activeSheet();
     }
 }
 
@@ -186,18 +251,21 @@ function showSprite(){
     document.getElementById("sprite-label-"+WINDOW_SIZE).value = NAMES[SPR_INDEX];
 
     //update the list set
-    let spr_imgs = document.getElementById("sprite-list-"+WINDOW_SIZE).getElementsByTagName("img");
-    let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))  // 0 < x < L-7
-    for(let i=lb;i<lb+7;i++){
-        //draw the sprite in the preview canvas
-        sprOnCanvas(PREVIEW, PTX, i);
-        spr_imgs[i-lb].src = PREVIEW.toDataURL();
+    if(WINDOW_SIZE == "small"){
+        let spr_imgs = document.getElementById("sprite-list-"+WINDOW_SIZE).getElementsByTagName("img");
+        let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))  // 0 < x < L-7
+        for(let i=lb;i<lb+7;i++){
+            //draw the sprite in the preview canvas
+            sprOnCanvas(PREVIEW, PTX, i);
+            spr_imgs[i-lb].src = PREVIEW.toDataURL();
+        }
+    
+        //change border
+        for(let i=0;i<7;i++)
+            spr_imgs[i].classList.remove("sel-spr");
+        spr_imgs[SPR_INDEX-lb].classList.add("sel-spr");
     }
-
-    //change border
-    for(let i=0;i<7;i++)
-        spr_imgs[i].classList.remove("sel-spr");
-    spr_imgs[SPR_INDEX-lb].classList.add("sel-spr");
+   
 
     //draw in the editor
     sprOnCanvas();
@@ -240,7 +308,7 @@ function changeTool(tool_index){
     //change tool 
     CUR_TOOL = tool_index;
     for(var i=0;i<3; i++){
-        var tool = document.getElementById("tool"+i);
+        var tool = document.getElementById("tool"+i+"-"+WINDOW_SIZE);
         if(i == tool_index)
             tool.classList.add("sel-tool");
         else
@@ -267,6 +335,84 @@ function setColor(div,i){
 }
 
 
+//render full spritesheet
+function renderFullSheet(){
+    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
+    let px = sprx / 8;  //assume square sprite
+
+    SSTX.clearRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
+
+     //clear and draw transparency color
+     SSTX.clearRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
+     SSTX.fillStyle = TRANS_COLOR;
+     SSTX.fillRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
+     
+     
+
+    for(let i=0;i<SPRITES.length;i++){
+        let c = i % 16; //columns
+        let r = Math.floor(i / 16); //rows
+        let cur_spr = SPRITES[i];
+        
+        for(var j = 0; j < 64; j++){
+            let x = j % 8;
+            let y = Math.floor(j / 8);
+    
+            //draw nothing
+            if(cur_spr[j] == 0)
+                continue;
+    
+            //draw the color
+            var color = PALETTE[cur_spr[j]-1];
+            SSTX.fillStyle = color;
+            SSTX.fillRect(c*sprx + x*px, r*sprx + y*px, px, px);
+        }
+    }
+
+    activeSheet();
+}
+
+//update a sprite in the spritesheet
+function updateSheetSprite(ind){
+    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
+    let px = sprx / 8;  //assume square sprite
+
+    let c = ind % 16; //columns
+    let r = Math.floor(ind / 16); //rows
+    let cur_spr = SPRITES[ind];
+    
+    for(var j = 0; j < 64; j++){
+        let x = j % 8;
+        let y = Math.floor(j / 8);
+
+        //draw the color
+        if(cur_spr[j] != 0){
+            var color = PALETTE[cur_spr[j]-1];
+            SSTX.fillStyle = color;
+        }else{
+            SSTX.fillStyle = TRANS_COLOR;
+        }
+        SSTX.fillRect(c*sprx + x*px, r*sprx + y*px, px, px);
+    }
+}
+
+//hover over the spritesheet
+function hoverSheet(){
+
+}
+
+//draw a box around the current sprite
+function activeSheet(){
+    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
+
+    let c = SPR_INDEX % 16; //columns
+    let r = Math.floor(SPR_INDEX / 16); //rows
+
+    SSTX.strokeStyle = "#00f0ff";
+    SSTX.lineWidth = 1;
+    SSTX.strokeRect(c*sprx+1, r*sprx+1, sprx-2, sprx-2);
+}
+
 //////////////////////      PAINT FUNCTIONS     //////////////////////
 
 
@@ -277,8 +423,8 @@ function getCursorOffset(e){
     let curs = {offx:0,offy:0};
     //mouse
     if(e instanceof MouseEvent){	
-        curs.offx = e.offsetX
-        curs.offy = e.offsetY
+        curs.offx = e.offsetX+3
+        curs.offy = e.offsetY+3
     }
     //touch
     else{
@@ -449,7 +595,7 @@ function paint(ev){
     else if(pd.y < 0 || pd.y >= 8)
         return;
 
-    // sprOnCanvas();
+    sprOnCanvas();
 
 	//draw the pixel
 	if(CUR_TOOL == 0){
@@ -556,7 +702,6 @@ function neighbors(pt){
 }
 
 
-
 // ADDS TO THE HISTORY SET OF LAST MAP ACTION
 function makeHistory(){
     let cur_spr = SPRITES[SPR_INDEX];
@@ -624,7 +769,7 @@ function redo(){
 }
 
 
-
+///////////////     TEST AND DEBUG     //////////////////
 
 
 
@@ -762,8 +907,6 @@ function setDemoSprites(){
     
 }   
 
-
-///////////////     DEBUG     //////////////////
 
 
 let debug = document.getElementById("debug");
