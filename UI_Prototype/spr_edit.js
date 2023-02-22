@@ -177,12 +177,7 @@ function editIndex(){
     i.focus();
 
 }
-document.getElementById("ind_in-"+WINDOW_SIZE).addEventListener("keyup", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        toSprite(this);
-    }
-});
+
 
 // show sprite in the canvas
 function showSprite(){
@@ -487,7 +482,7 @@ function paint(ev){
 
         let dx = pd.x - touchPt.x;
         let dy = pd.y - touchPt.y;
-        console.log("dx: "+dx+" dy: "+dy)
+        // console.log("dx: "+dx+" dy: "+dy)
 
         //move the sprite based on changed position
         new_spr = [];
@@ -535,7 +530,7 @@ function pixSearch(x,y){
         }
         t++;
     }
-    console.log(queue);
+    // console.log(queue);
     return color;
 }
 
@@ -601,7 +596,7 @@ function undo(){
     
 	// resetLasso();  			//deselect lasso in case it's out
 
-    console.log("undo")
+    // console.log("undo")
 }
 
 // REDOES THE LAST ACTION TO THE NEXT MAP LAYOUT
@@ -622,7 +617,7 @@ function redo(){
     SPR_INDEX = redoPt.i;
     showSprite(SPR_INDEX);
 
-    console.log("redo")
+    // console.log("redo")
 
 	// resetLasso();  			//deselect lasso in case it's out
 	
@@ -638,12 +633,18 @@ function redo(){
 // then open and convert all of the hex values to int associated by the palette
 function setDemoSprites(){
 
+    //reset globals
+    SPRITES = [];
+    NAMES = [];
+
     //add blank sprites
     for(let i=0;i<256;i++){
         let spr = [];
         for(let j=0;j<64;j++)
             spr.push(0);
         SPRITES.push(spr);
+
+        NAMES.push("");
     }
 
     //set the first x sprites to the demo sprites
@@ -751,12 +752,14 @@ function setDemoSprites(){
         0, 1, 1, 1, 1, 1, 1, 0
         ]
     ];
+    let demo_names = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
 
-    for(let i = 0; i < 8; i++){
+    //assign the demo sprites/names to the global arrays
+    for(let i = 0; i < demo_sprites.length; i++){
         SPRITES[i] = demo_sprites[i];
+        NAMES[i] = demo_names[i];
     }
-
-    NAMES = ["quaso", "sword", "wall", "alice", "bob", "alien", "cat", "ghost", "ghoul", "computer"]
+    
 }   
 
 
@@ -772,3 +775,42 @@ function update(){
         debug.innerHTML = `mouse pos (${UNIV_PD.x}, ${UNIV_PD.y}) | ${mouseIsDown} | touch pt (${touchPt.x}, ${touchPt.y})`
 }
 update();
+
+
+
+///////////////     KEY PRESS SHORTCUTS     //////////////////
+
+//key up (enter) to switch to sprite
+document.getElementById("ind_in-"+WINDOW_SIZE).addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        toSprite(this);
+    }
+});
+
+//check for shortcut
+document.addEventListener("keydown", function(event) {
+    //undo and redo with ctrl+z and ctrl+y
+    if (event.key == "z" && event.ctrlKey) {
+        event.preventDefault();
+        undo();
+    }
+    if (event.key == "y" && event.ctrlKey) {
+        event.preventDefault();
+        redo();
+    }
+    
+    //switch tool
+    if (event.key == "p") {
+        event.preventDefault();
+        changeTool(0);
+    }
+    else if (event.key == "b") {
+        event.preventDefault();
+        changeTool(1);
+    }
+    else if (event.key == "m") {
+        event.preventDefault();
+        changeTool(2);
+    }
+});
