@@ -32,7 +32,6 @@ function init(){
     //set editor size
     // document.getElementById("editor-small").style.display = "block";
     // document.getElementById("editor-wide").style.display = "none";
-    WINDOW_SIZE = "wide";
     document.getElementById("editor-"+WINDOW_SIZE).style.display = "block";
 
     //set up canvases
