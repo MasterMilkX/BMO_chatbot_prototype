@@ -1,5 +1,5 @@
 #editor-wide{
-    width:396px;
+    width:430px;
     height:600px;
     display:block;
 }
@@ -27,7 +27,7 @@
 #palette-wide{
     width:100%;
     height: 64px;
-    padding:20px 44px 5px;
+    padding:20px 68px 5px;
     margin:20px auto 0px auto;
     text-align: center;
 }
@@ -76,15 +76,56 @@
 /* SPRITE SHEET */
 
 #spritesheet{
-    width: 540px;
-    height:100%;
+    width: 470px;
+    height: 600px;
     background-color:#121212;
     display: block;
+    overflow-y:scroll;
+    scrollbar-width: 2px;;
 }
-#ss_canv{
+
+#ss_div{
+    width: 448px;
+    border:3px solid #000;
+    /* margin:5px; */
+}
+
+.ss-spr{
+    width: 56px;
+    height: 56px;
+    outline: 3px solid transparent;
+    /* margin:1px; */
+    cursor: pointer;
+}
+.ss-spr:hover{
+    filter:brightness(1.0);
+    outline: 3px solid #ffffff;
+
+}
+.sel-sht{
+    filter:brightness(1.0);
+    outline: 3px solid #00f0ff;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #005ca3; 
+}
+
+/* #ss_canv{
     width:512px;
     height:512px;
     background-color: #8fe2ef;
     border:3px solid #0f0;
     margin-top:40px;
-}
+} */

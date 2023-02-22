@@ -20,8 +20,6 @@ var EDITOR = null; // editor object
 var ETX = null; // editor context
 var PREVIEW = null; // preview object
 var PTX = null; // preview context
-var SPRITE_SHEET = null; // sprite sheet object
-var SSTX = null; // sprite sheet context
 var WINDOW_SIZE = "small";
 
 
@@ -48,15 +46,11 @@ function init(){
     PREVIEW.width = 64;
     PREVIEW.height = 64;
 
-    SPRITE_SHEET = document.getElementById("ss_canv");
-    SSTX = SPRITE_SHEET.getContext("2d");
-    SPRITE_SHEET.width = 256;
-    SPRITE_SHEET.height = 256;
-
     //add tools and palette
     addPalette();
     addSpriteList();
     setDemoSprites();
+    addSpriteSheet();
 
     //set up editor
     showSprite();
@@ -64,7 +58,6 @@ function init(){
     CUR_COLOR = 0;
     makeHistory();
 
-    renderFullSheet();
 
     //mouse function assignments
     document.addEventListener("mousedown", editorDown);
@@ -184,38 +177,43 @@ function addSpriteList(){
 // next sprite in list
 function nextSprite(){
     makeHistory();
-    updateSheetSprite(SPR_INDEX);
 
     if(SPR_INDEX < SPRITES.length-1)
         SPR_INDEX++;
     else
         SPR_INDEX = 0;
     showSprite();
-    activeSheet();
 }
 // previous sprite in list
 function prevSprite(){
     makeHistory();
-    updateSheetSprite(SPR_INDEX);
     if(SPR_INDEX > 0)
         SPR_INDEX--;
     else
         SPR_INDEX = SPRITES.length-1;
     showSprite();
-    activeSheet();
 }
 
-//if the sprite list is clicked, jump to the sprite
+//if the sprite list is clicked, jump to the sprite - uses 7 list index
 function onSprite(index){
     return function(){
         makeHistory();
-        updateSheetSprite(SPR_INDEX);
         let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))
         // console.log("on sprite: " + (index+lb));
         SPR_INDEX = index+lb;
         
         showSprite();
-        activeSheet();
+    }
+}
+
+//if the sprite list is clicked, jump to the sprite - uses real index
+function onSprite_sheet(d,real_index){
+    return function(){
+        makeHistory();
+        SPR_INDEX = real_index;
+        document.getElementsByClassName("sel-sht")[0].classList.remove("sel-sht");
+        d.classList.add("sel-sht");
+        showSprite();
     }
 }
 
@@ -265,6 +263,9 @@ function showSprite(){
             spr_imgs[i].classList.remove("sel-spr");
         spr_imgs[SPR_INDEX-lb].classList.add("sel-spr");
     }
+
+    //update the sprite sheet
+    updateSprSheet();
    
 
     //draw in the editor
@@ -334,84 +335,34 @@ function setColor(div,i){
     }
 }
 
-
-//render full spritesheet
-function renderFullSheet(){
-    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
-    let px = sprx / 8;  //assume square sprite
-
-    SSTX.clearRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
-
-     //clear and draw transparency color
-     SSTX.clearRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
-     SSTX.fillStyle = TRANS_COLOR;
-     SSTX.fillRect(0, 0, SPRITE_SHEET.width, SPRITE_SHEET.height);
-     
-     
-
+//add the sprites as images
+function addSpriteSheet(){
+    let ss_div = document.getElementById("ss_div");
+    
+    //add all sprites
     for(let i=0;i<SPRITES.length;i++){
-        let c = i % 16; //columns
-        let r = Math.floor(i / 16); //rows
-        let cur_spr = SPRITES[i];
-        
-        for(var j = 0; j < 64; j++){
-            let x = j % 8;
-            let y = Math.floor(j / 8);
-    
-            //draw nothing
-            if(cur_spr[j] == 0)
-                continue;
-    
-            //draw the color
-            var color = PALETTE[cur_spr[j]-1];
-            SSTX.fillStyle = color;
-            SSTX.fillRect(c*sprx + x*px, r*sprx + y*px, px, px);
-        }
-    }
+        let spr = document.createElement("img");
 
-    activeSheet();
-}
+        //draw the sprite in the preview canvas
+        sprOnCanvas(PREVIEW, PTX, i);
+        spr.src = PREVIEW.toDataURL();
+        spr.classList.add("ss-spr");
+        if(i == SPR_INDEX)
+            spr.classList.add("sel-sht");
+        spr.onclick = onSprite_sheet(spr,i);
 
-//update a sprite in the spritesheet
-function updateSheetSprite(ind){
-    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
-    let px = sprx / 8;  //assume square sprite
-
-    let c = ind % 16; //columns
-    let r = Math.floor(ind / 16); //rows
-    let cur_spr = SPRITES[ind];
-    
-    for(var j = 0; j < 64; j++){
-        let x = j % 8;
-        let y = Math.floor(j / 8);
-
-        //draw the color
-        if(cur_spr[j] != 0){
-            var color = PALETTE[cur_spr[j]-1];
-            SSTX.fillStyle = color;
-        }else{
-            SSTX.fillStyle = TRANS_COLOR;
-        }
-        SSTX.fillRect(c*sprx + x*px, r*sprx + y*px, px, px);
+        //add to the div
+        ss_div.appendChild(spr);
     }
 }
 
-//hover over the spritesheet
-function hoverSheet(){
-
+//update a sprite's image in the sprite sheet
+function updateSprSheet(){
+    let spr_imgs = document.getElementById("ss_div").getElementsByTagName("img");
+    sprOnCanvas(PREVIEW, PTX);
+    spr_imgs[SPR_INDEX].src = PREVIEW.toDataURL();
 }
 
-//draw a box around the current sprite
-function activeSheet(){
-    let sprx = SPRITE_SHEET.width / 16; //assume square canvas
-
-    let c = SPR_INDEX % 16; //columns
-    let r = Math.floor(SPR_INDEX / 16); //rows
-
-    SSTX.strokeStyle = "#00f0ff";
-    SSTX.lineWidth = 1;
-    SSTX.strokeRect(c*sprx+1, r*sprx+1, sprx-2, sprx-2);
-}
 
 //////////////////////      PAINT FUNCTIONS     //////////////////////
 
