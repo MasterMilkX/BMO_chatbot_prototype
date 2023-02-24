@@ -129,3 +129,11 @@
     border:3px solid #0f0;
     margin-top:40px;
 } */
+
+#colorPick-wide{
+    position:absolute;
+    cursor: pointer;
+    z-index: 10;
+    width:110px;
+    display:none;
+}

@@ -1,7 +1,7 @@
 #editor-small{
     width:600px;
     height:600px;
-    display:block;
+    display:none;
     /* background-color: #4CAA98; */
 }
 
@@ -67,4 +67,13 @@
 #indicator-small img{
     width:36px;
     height:36px;
+}
+
+
+#colorPick-small{
+    position:absolute;
+    cursor: pointer;
+    z-index: 10;
+    width:110px;
+    display:none;
 }

@@ -16,6 +16,8 @@ var SPRITES = []; // array of sprites (8x8 int values)
 var SPR_INDEX = 0; // index of current sprite in editor
 var NAMES = []; // array of sprite names
 
+var PICK_IND = 0;
+
 var EDITOR = null; // editor object
 var ETX = null; // editor context
 var PREVIEW = null; // preview object
@@ -29,6 +31,8 @@ var WINDOW_SIZE = "small";
 
 // initialization function called on the start of the page
 function init(){
+    
+
     //set editor size
     // document.getElementById("editor-small").style.display = "block";
     // document.getElementById("editor-wide").style.display = "none";
@@ -45,10 +49,12 @@ function init(){
     PREVIEW.width = 64;
     PREVIEW.height = 64;
 
+    //set up sprites
+    setDemoSprites();
+
     //add tools and palette
     addPalette();
     addSpriteList();
-    setDemoSprites();
     addSpriteSheet();
 
     //set up editor
@@ -63,6 +69,9 @@ function init(){
     document.addEventListener("mouseup", editorUp);
     document.addEventListener("mousemove", editorMove);
     document.addEventListener("mouseout", editorLeave)
+
+    WINDOW_SIZE = (WINDOW_SIZE == "wide") ? "small" : "wide";
+    toggleSize();
 
 
 }
@@ -138,6 +147,10 @@ function addPalette(){
         tr_color.classList.add("sel-pal");
         palette.appendChild(tr_color);
 
+        let offxt = (cur_size == "wide") ? -20 : 35;
+        let offyt = (cur_size == "wide") ? 20 : 0;
+        tr_color.ondblclick = gotoPalette(0,tr_color.offsetLeft+(offxt),tr_color.offsetTop+(offyt));
+
 
         //add the palette colors
         for(var i=0; i<PALETTE.length; i++){
@@ -151,6 +164,10 @@ function addPalette(){
             //set the id + add to palette
             color.id = "color-"+(i+1)+"-"+cur_size;
             palette.appendChild(color);
+
+            let offx = (cur_size == "wide") ? -20 : 35;
+            let offy = (cur_size == "wide") ? 20 : 0;
+            color.ondblclick = gotoPalette(i+1,color.scrollLeft+(offx),color.scrollTop+(offy));
         }
     }
 }
@@ -161,6 +178,7 @@ function addSpriteList(){
         // let cur_size = (s==0) ? "small" : "wide";
     let cur_size = "small";
     var spriteList = document.getElementById("sprite-list-"+cur_size);
+    spriteList.innerHTML = "";
     for(var i=0; i<7; i++){
         var sprite = document.createElement("img");
         sprite.classList.add("spr-item");
@@ -272,15 +290,21 @@ function showSprite(){
 }
 
 // draw in the canvas (specified with canvas and context)
-function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX, cur_spr=null){
+function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX, cur_spr=null, TR_COL=null, PAL=null){
+    if(TR_COL == null)
+        TR_COL = TRANS_COLOR;
+    if(PAL == null)
+        PAL = PALETTE;
+
     //clear and draw transparency color
     cont.clearRect(0, 0, canv.width, canv.height);
-    cont.fillStyle = TRANS_COLOR;
+    cont.fillStyle = TR_COL;
     cont.fillRect(0, 0, canv.width, canv.height);
 
     //draw the sprite
     if(cur_spr == null)
         cur_spr = SPRITES[ind];  //set to current sprite
+
     
     let px = canv.width / 8;  //assume square canvas
     for(var i = 0; i < 64; i++){
@@ -292,7 +316,7 @@ function sprOnCanvas(canv=EDITOR, cont=ETX, ind=SPR_INDEX, cur_spr=null){
             continue;
 
         //draw the color
-        var color = PALETTE[cur_spr[i]-1];
+        var color = PAL[cur_spr[i]-1];
         cont.fillStyle = color;
         cont.fillRect(x*px, y*px, px, px);
     }
@@ -337,6 +361,7 @@ function setColor(div,i){
 //add the sprites as images
 function addSpriteSheet(){
     let ss_div = document.getElementById("ss_div");
+    ss_div.innerHTML = "";
     
     //add all sprites
     for(let i=0;i<SPRITES.length;i++){
@@ -360,6 +385,59 @@ function updateSprSheet(){
     let spr_imgs = document.getElementById("ss_div").getElementsByTagName("img");
     sprOnCanvas(PREVIEW, PTX);
     spr_imgs[SPR_INDEX].src = PREVIEW.toDataURL();
+}
+
+// show the input at the current color palette location
+var PAL_WIDE = [{x:58,y:460},{x:142,y:460},{x:196,y:460},{x:248,y:460},{x:300,y:460}];
+var PAL_SMALL = [{x:575,y:135},{x:575,y:205},{x:575,y:255},{x:575,y:305},{x:575,y:355}];
+function gotoPalette(i,x,y){
+    return function(){
+        let pal_pos = (WINDOW_SIZE == "wide") ? PAL_WIDE : PAL_SMALL;
+        let col_pick = document.getElementById("colorPick-"+WINDOW_SIZE);
+        col_pick.style.left = pal_pos[i].x;
+        col_pick.style.top = pal_pos[i].y;
+        document.querySelector('#colorPick-'+WINDOW_SIZE).jscolor.fromString(i == 0 ? TRANS_COLOR : PALETTE[i-1]); //set color
+        col_pick.style.display = "block";
+        col_pick.focus();
+    }
+}
+
+// set the color of the palette
+function setPaletteColor(){
+    let col_pick = document.getElementById("colorPick-"+WINDOW_SIZE);
+    let col = col_pick.value;
+
+    //update the palette and hide
+    if(CUR_COLOR == 0)
+        TRANS_COLOR = col;
+    else
+        PALETTE[CUR_COLOR-1] = col;
+    col_pick.style.display = "none";
+
+    //update the sprites
+    sprOnCanvas();
+    addSpriteList();
+    addSpriteSheet();
+    showSprite();
+
+    //update all palettes
+    for(let i=0;i<2;i++){
+        let ch = document.getElementById("palette-"+(i==0?"small":"wide")).children;
+        ch[CUR_COLOR].style.backgroundColor = col;
+    }
+    
+}
+
+// preview a new color on the current sprite
+function previewNewCol(nc){
+    if(CUR_COLOR == 0)
+        sprOnCanvas(EDITOR,ETX,SPR_INDEX,null,nc,null);
+    else{
+        let pal = PALETTE.slice();
+        pal[CUR_COLOR-1] = nc;
+        sprOnCanvas(EDITOR,ETX,SPR_INDEX,null,null,pal);
+    }
+
 }
 
 

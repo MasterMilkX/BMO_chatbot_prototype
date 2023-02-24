@@ -5,7 +5,7 @@
         </title>
 
         <!-- libraries -->
-        <script src="jscolor.min.js"></script>
+        <script src="jscolor.js"></script>
 
 
         <style>
@@ -125,8 +125,6 @@
             }
 
 
-
-
             /* debug styles */
 
             #settings{
@@ -172,6 +170,10 @@
                                 <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7-small" onclick="redo()">
                             </div>  
                             <canvas id="paint-canvas-small"></canvas>
+                            
+                            <!-- color picker -->
+                            <input id='colorPick-small' value="#ffffff" data-jscolor="" onblur="setPaletteColor()" onchange="previewNewCol(this.value)">
+                            
                             <div id="palette-small">
                                 <!-- add palette here -->
                             </div>
@@ -208,6 +210,7 @@
 
                     <!-- middle -->
                     <div>
+                        <input id='colorPick-wide' value="#3399FF" data-jscolor="" onblur="setPaletteColor()" onchange="previewNewCol(this.value)">
                         <div id="palette-wide">
                             <!-- add palette here -->
                         </div>
