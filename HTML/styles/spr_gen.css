@@ -1,0 +1,105 @@
+#preview-canv{
+    display:none;
+    width: 64px;
+    height: 64px;
+}
+
+
+#container{
+    width:906px;
+    height:606px;
+    margin:10px auto 20px auto;
+    border:3px solid black;
+    background-color: #005;
+}
+#content{
+    width:600px;
+    height:600px;
+    background-color: #4CAA98;
+    border:3px solid blue;
+    display:flex;
+}
+
+/* general class styles */
+
+.tool-img{
+    width: 30px;
+    height: 30px;
+    margin: 5px auto 5px auto;
+    cursor: pointer;
+    padding:10px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+.tool-img:hover{
+    filter: brightness(80%);
+}
+.sel-tool{
+    border: 2px solid white;
+    filter: brightness(100%);
+}
+.palette-item{
+    width : 52px;
+    height : 50px;
+    outline: 3px solid black;
+    float : left;
+    cursor : pointer;
+}
+.palette-item-tr{
+    width : 52px;
+    height : 50px;
+    outline : 3px solid black;
+    float : left;
+    cursor : pointer;
+}
+.sel-pal{
+    filter: brightness(100%);
+    outline : 5px solid #00f0ff;
+}
+
+.arrow-nav{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding:10px;
+    margin:auto;
+}
+.arrow-nav:hover{
+    filter: brightness(70%);
+}
+.spr-item{
+    width : 64px;
+    height : 64px;
+    outline: 4px solid black;
+    padding-right:3px;
+    float : left;
+    cursor: pointer;
+}
+.sel-spr{
+    filter : brightness(100%);  /* do not remove - pushes image to the front */
+    outline: 4px solid yellow;
+    width:72px;
+    height:72px;
+    cursor: pointer;
+    margin-top:-4px;
+    padding:0;
+}
+
+
+/* debug styles */
+
+#settings{
+    width:880px;
+    height:20px;
+    padding:5px 2px 15px 2px;;
+    margin:auto;
+    border:3px solid grey;
+}
+#debug{
+    display:inline-block;
+    width:700px;
+    font-size: 20px;
+    color:#0f0;
+    background-color: #000;
+    padding:3px 10px;
+}

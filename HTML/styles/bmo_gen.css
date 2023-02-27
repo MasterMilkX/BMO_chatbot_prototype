@@ -1,0 +1,247 @@
+/* 
+    COLORS:
+        //blade-runner palette
+        #022946
+        #01435D
+        #058F9E
+        #0B738E
+        #005076
+        #FF36DA
+
+        #4CAA98  //outside
+        #81E5D1  //face
+*/
+:root{
+    --bmo_color: #81E5D1;
+    --user_color: #fff;
+}
+body{
+    background-color: #01435D;
+    color: #FFFFFF;
+}
+
+/* ----------------- */
+/* app layout styles */
+/* ----------------- */
+
+#container{
+    /* temp height */
+    width:900px;
+    height:635px;
+    margin:auto;
+    border:5px solid #dedede;
+}
+#main-content{
+    width:900px;
+    height:600px;
+    background-color:#000;
+    display:flex;
+}
+#right-half{
+    width:280px;
+    height:100%;
+    background-color:#000;
+    border-left: 5px solid #dedede;
+    display:block;
+}
+
+/* -------------- */
+/* toolbar styles */
+/* -------------- */
+
+#toolbar{
+    width:900px;
+    height:30px;
+    background-color:#0ff;
+    border-bottom: 5px solid #dedede;
+    color:#000;
+    display:flex;
+}
+#toolbar-left{
+    width:55%;
+    height:30px;
+    border:1px solid re÷d;
+    display:flex;
+    background-color: #dedede;
+}
+#toolbar-right{
+    width:45%;
+    height:30px;
+    display:flex;
+    text-align:center;
+    background-color: #dedede;
+}
+.toolbar-item{
+    background-color:#dedede;
+    text-align:center;
+    cursor:pointer;
+    border-width: 1px;
+    border-color:#ababab;
+    border-style: none solid none solid;
+    height:100%;
+    line-height: 200%;
+    width:20%;
+    height: 30px;
+}
+.tool-item-right{
+    float:right;
+    width:100px;
+}
+.tool-select{
+    background-color:#ababab;
+}
+
+/* -------------- */
+/* bmo icon style */
+/* -------------- */
+
+#bmo-icon-button{
+    width:30px;
+    height:30px;
+    background-color: #dedede;
+    float:right;
+    padding:0 5px 0 5px;
+    cursor:pointer;
+    /* border:1px solid #898989; */
+}
+#bmo-icon-button:hover{
+    background-color: #ababab;
+}
+/* canvas animation icon */
+#bmo-icon{
+    width:30px;
+    height:30px;
+
+    /* scale up pixels */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* ------------------ */
+/* main window editor */
+/* ------------------ */
+
+#editor{
+    width:620px;
+    height:100%;
+    background-color:#000;
+    float:left;
+}
+.editor-window{
+    width:100%;
+    height:100%;
+}
+
+/* code editor */
+#code-editor{
+    display:block;
+}
+#ace-code{
+    width:100%;
+    height:100%;
+    background-color:#000;
+    border:0px;
+}
+
+/* sprite editor */
+#sprite-editor{
+    display:none;
+}
+
+/* map editor */
+#map-editor{
+    display:none;
+}
+
+/* game editor */
+#game-editor{
+    display:none;
+}
+#game-canvas{
+    width:600px;
+    width:600px;
+}
+
+/* ----------------------- */
+/* right half with chatbox */
+/* ----------------------- */
+
+#bmo{
+    width:280px;
+    height:175px;
+    background-color:#fff;
+}
+#bmo-face{
+    width:280px;
+    height:175px;
+}
+
+
+#chat{
+    width:280px;
+    height:425px;
+    background-color:#022946;
+    /* border:1px solid red; */
+    position: relative;
+}
+#chat-out{
+    width:260px;
+    height:340px;
+    background-color:#000;
+    font-family:'Courier New', Courier, monospace;
+    padding:10px;
+    overflow-y: visible;
+    overflow-x: hidden;
+    word-wrap: break-word;
+}
+#chat-in{
+    width:100%;
+    height:30px;
+    background-color:#000;
+}
+#chatbox{
+    width:100%;
+    height:100%;
+    border:0px;
+    font-size:100%;
+}
+#chat-btns{
+    width:100%;
+    height:30px;
+    background-color:#000;
+    display:flex;
+    padding-bottom: 5px;
+    justify-content: center;
+}
+
+#chat-btn{
+    height: 35px;
+    background-color:#058F9E;
+    color:#fff;
+    border: 1px solid #0B738E;
+    cursor:pointer;
+}
+.chat{
+    width:256px;
+    word-wrap: normal;
+    padding:2px;
+    line-height: 20px;
+}
+.user_chat{
+    color: var(--user_color);
+}
+.bmo_chat{
+    color: var(--bmo_color);
+}
+.bmo_name{
+    background-color: var(--bmo_color);
+    color:#000;
+    font-weight: bold;
+}
+.user_name{
+    background-color: var(--user_color);
+    color:#000;
+    font-weight: bold;
+} 

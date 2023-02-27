@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BMO Game Designer</title>
+
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="styles/bmo_gen.css">
+        <link rel="stylesheet" href="styles/spr_small.css">
+        <link rel="stylesheet" href="styles/spr_wide.css">
+
+        <!-- ace editor -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    
+    </head>
+    <body onload="init()">
+        <div id="container">
+
+            <style>
+                
+            </style>
+
+            <div id="toolbar">
+                <div id="toolbar-left">
+                    <div class="toolbar-item">File</div>
+                    <div class="toolbar-item">Edit</div>
+                    <div class="toolbar-item">Help</div>
+                </div>
+                <div id="toolbar-right">
+                    <div class="toolbar-item tool-item-right tool-select" onclick="changeEditorView(this)">Code</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Sprite</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Map</div>
+                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Game</div>
+                    <div id="bmo-icon-button" onclick="toggleChat()"><canvas id="bmo-icon"></canvas></div>
+                </div>
+            </div>
+
+            <div id="main-content">
+
+               
+                <div id="editor">
+
+                    <!--
+                        -----------------
+                        CODE EDITOR GOES HERE
+                        -----------------
+                    -->
+
+                    <div id="code-editor" class="editor-window">
+                        <div id="ace-code"></div>
+                    </div>
+
+                    <!--
+                        -----------------
+                        SPRITE EDITOR GOES HERE
+                        -----------------
+                    -->
+                    <div id="sprite-editor" class="editor-window">
+                        
+                    </div>
+
+
+
+                    <!-- map editor -->
+                    <div id="map-editor" class="editor-window">
+                        map editor goes here
+                    </div> 
+                    <!-- game view -->
+                    <div id="game-editor" class="editor-window">
+                        game editor goes here
+                        <canvas id="game-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- bmo interaction -->
+                <div id="right-half">
+                    <div id="bmo">
+                        <canvas id="bmo-face"></canvas>
+                    </div>
+                    <div id="chat">
+                        <div id="chat-out">
+                        </div>
+                        <div id="chat-btns"> <!-- generate this-->
+                            <button id="chat-btn" onclick="sendChatFromButton(this)">code debug</button>
+                            <button id="chat-btn" onclick="sendChatFromButton(this)">make sprites</button>
+                            <button id="chat-btn" onclick="sendChatFromButton(this)">new game features</button>
+                        </div>
+                        <div id="chat-in">
+                            <input type="text" id="chatbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- scripts -->
+        <script src="code/code1.js"></script>
+        <script src="code/bmo1.js"></script>
+
+    </body>
+</html>
