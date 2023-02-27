@@ -31,7 +31,6 @@ var WINDOW_SIZE = "small";
 
 // initialization function called on the start of the page
 function init(){
-    
 
     //set editor size
     // document.getElementById("editor-small").style.display = "block";
@@ -107,11 +106,10 @@ function toggleSize(){
     EDITOR.height = size;
 
     //reset tools
-    showSprite();
     changeTool(CUR_TOOL);
     setColor(document.getElementById("color-"+CUR_COLOR+"-"+WINDOW_SIZE),CUR_COLOR)();
-
     showSprite();
+    setAllPalPos();
     
 }
 
@@ -147,9 +145,14 @@ function addPalette(){
         tr_color.classList.add("sel-pal");
         palette.appendChild(tr_color);
 
-        let offxt = (cur_size == "wide") ? -20 : 35;
-        let offyt = (cur_size == "wide") ? 20 : 0;
-        tr_color.ondblclick = gotoPalette(0,tr_color.offsetLeft+(offxt),tr_color.offsetTop+(offyt));
+        // let x = parseInt(tr_color.offsetLeft)
+        // let y = parseInt(tr_color.offsetTop)
+
+        // let offx = (cur_size == "wide") ? 25 : -25;
+        // let offy = (cur_size == "wide") ? 60 : 13;
+
+        // console.log(cur_size + "-0: (" + x + ", " + y+")");
+        // tr_color.ondblclick = gotoPalette(0,x+(offx),y+(offy));
 
 
         //add the palette colors
@@ -165,10 +168,28 @@ function addPalette(){
             color.id = "color-"+(i+1)+"-"+cur_size;
             palette.appendChild(color);
 
-            let offx = (cur_size == "wide") ? -20 : 35;
-            let offy = (cur_size == "wide") ? 20 : 0;
-            color.ondblclick = gotoPalette(i+1,color.scrollLeft+(offx),color.scrollTop+(offy));
+            //set the position
+            // let x = parseInt(color.offsetLeft)
+            // let y = parseInt(color.offsetTop)
+            // console.log(cur_size + "-"+(i+1)+": (" + x + ", " + y+")");
+            // color.ondblclick = gotoPalette(i+1,x+offx,y+offy);
         }
+    }
+}
+
+// set all palette positions for the picker to jump to
+function setAllPalPos(){
+    for(let i=0;i<5;i++){
+        let picker = document.getElementById("colorPick-"+i);
+        let color = document.getElementById("color-"+i+"-"+WINDOW_SIZE);
+        
+        let x = parseInt(color.offsetLeft)
+        let y = parseInt(color.offsetTop)
+        let offx = (WINDOW_SIZE == "wide") ? -25 : 25;
+        let offy = (WINDOW_SIZE == "wide") ? 60 : 13;
+        
+        // console.log(WINDOW_SIZE + "-"+i+": (" + x + ", " + y+")");
+        color.ondblclick = gotoPalette(i,x+offx,y+offy);
     }
 }
 
@@ -199,6 +220,7 @@ function nextSprite(){
         SPR_INDEX++;
     else
         SPR_INDEX = 0;
+    setSelSheet(SPR_INDEX);
     showSprite();
 }
 // previous sprite in list
@@ -208,22 +230,23 @@ function prevSprite(){
         SPR_INDEX--;
     else
         SPR_INDEX = SPRITES.length-1;
+    setSelSheet(SPR_INDEX);
     showSprite();
 }
 
-//if the sprite list is clicked, jump to the sprite - uses 7 list index
+// if the sprite list is clicked, jump to the sprite - uses 7 list index
 function onSprite(index){
     return function(){
         makeHistory();
         let lb = Math.max(0,Math.min(SPRITES.length-7,SPR_INDEX-3))
         // console.log("on sprite: " + (index+lb));
         SPR_INDEX = index+lb;
-        
+        setSelSheet(SPR_INDEX);
         showSprite();
     }
 }
 
-//if the sprite list is clicked, jump to the sprite - uses real index
+// if the sprite list is clicked, jump to the sprite - uses real index
 function onSprite_sheet(d,real_index){
     return function(){
         makeHistory();
@@ -234,7 +257,15 @@ function onSprite_sheet(d,real_index){
     }
 }
 
-//jump to an index
+// set the selected sprite in the sheet
+function setSelSheet(i){
+    document.getElementsByClassName("sel-sht")[0].classList.remove("sel-sht");
+    let spr_sheet = document.getElementsByClassName("ss-spr");
+    spr_sheet[i].classList.add("sel-sht");
+
+}
+
+// jump to an index
 function toSprite(d){
     let index = Math.max(Math.min(parseInt(d.value-1), 255),0);
 
@@ -248,7 +279,7 @@ function toSprite(d){
     showSprite();
 }
 
-//show the input text
+// show the input text
 function editIndex(){
     let i = document.getElementById("ind_in-"+WINDOW_SIZE);
     document.getElementById("spr_index-"+WINDOW_SIZE).style.display = "none";
@@ -358,7 +389,7 @@ function setColor(div,i){
     }
 }
 
-//add the sprites as images
+// add the sprites as images
 function addSpriteSheet(){
     let ss_div = document.getElementById("ss_div");
     ss_div.innerHTML = "";
@@ -380,7 +411,7 @@ function addSpriteSheet(){
     }
 }
 
-//update a sprite's image in the sprite sheet
+// update a sprite's image in the sprite sheet
 function updateSprSheet(){
     let spr_imgs = document.getElementById("ss_div").getElementsByTagName("img");
     sprOnCanvas(PREVIEW, PTX);
@@ -388,14 +419,15 @@ function updateSprSheet(){
 }
 
 // show the input at the current color palette location
-var PAL_WIDE = [{x:58,y:460},{x:142,y:460},{x:196,y:460},{x:248,y:460},{x:300,y:460}];
-var PAL_SMALL = [{x:575,y:135},{x:575,y:205},{x:575,y:255},{x:575,y:305},{x:575,y:355}];
+// var PAL_WIDE = [{x:58,y:460},{x:142,y:460},{x:196,y:460},{x:248,y:460},{x:300,y:460}];
+// var PAL_SMALL = [{x:575,y:135},{x:575,y:205},{x:575,y:255},{x:575,y:305},{x:575,y:355}];
 function gotoPalette(i,x,y){
     return function(){
-        let pal_pos = (WINDOW_SIZE == "wide") ? PAL_WIDE : PAL_SMALL;
+        // let pal_pos = (WINDOW_SIZE == "wide") ? PAL_WIDE : PAL_SMALL;
+        console.log(x,y)
         let col_pick = document.getElementById("colorPick-"+WINDOW_SIZE);
-        col_pick.style.left = pal_pos[i].x;
-        col_pick.style.top = pal_pos[i].y;
+        col_pick.style.left = x;
+        col_pick.style.top = y;
         document.querySelector('#colorPick-'+WINDOW_SIZE).jscolor.fromString(i == 0 ? TRANS_COLOR : PALETTE[i-1]); //set color
         col_pick.style.display = "block";
         col_pick.focus();
@@ -936,14 +968,18 @@ function setDemoSprites(){
 }   
 
 
-
+// show the debugs
 let debug = document.getElementById("debug");
-
 function update(){
     requestAnimationFrame(update);
+    
+    if (UNIV_PD != null){
+        // debug.innerHTML = `M POS (${UNIV_PD.x}, ${UNIV_PD.y})`
+        // debug.innerHTML += ` | M PRESS? ${mouseIsDown} `
+        // debug.innerHTML += ` | TOUCH PT (${touchPt.x}, ${touchPt.y})`
+        // debug.innerHTML += ` | `
+    }
 
-    if (UNIV_PD != null)
-        debug.innerHTML = `mouse pos (${UNIV_PD.x}, ${UNIV_PD.y}) | ${mouseIsDown} | touch pt (${touchPt.x}, ${touchPt.y})`
 }
 update();
 
@@ -951,7 +987,7 @@ update();
 
 ///////////////     KEY PRESS SHORTCUTS     //////////////////
 
-//key up (enter) to switch to sprite
+// key up (enter) to switch to sprite
 document.getElementById("ind_in-"+WINDOW_SIZE).addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -959,7 +995,7 @@ document.getElementById("ind_in-"+WINDOW_SIZE).addEventListener("keyup", functio
     }
 });
 
-//check for shortcut
+// check for shortcut
 document.addEventListener("keydown", function(event) {
     //undo and redo with ctrl+z and ctrl+y
     if (event.key == "z" && event.ctrlKey) {
@@ -984,4 +1020,35 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
         changeTool(2);
     }
+
+    //iterate through sprites
+    if (event.key == "ArrowLeft") {
+        event.preventDefault();
+        prevSprite();
+    }
+    else if (event.key == "ArrowRight") {
+        event.preventDefault();
+        nextSprite();
+    }
 });
+
+//window resize
+window.addEventListener('resize', function(event) {
+    let pal1 = document.getElementById("color-"+CUR_COLOR+"-"+WINDOW_SIZE);
+    let pick = document.getElementById("colorPick-"+WINDOW_SIZE);
+
+    if(pal1 != null && pick != null){
+        let ox = parseInt(pal1.offsetLeft);
+        let oy = parseInt(pal1.offsetTop);
+
+        if(WINDOW_SIZE == "small"){
+            pick.style.left = ox+25;
+            pick.style.top = oy+13;
+        }else if(WINDOW_SIZE == "wide"){
+            pick.style.left = ox-25;
+            pick.style.top = oy+60;
+        }
+    }
+
+    setAllPalPos();
+}, true);
