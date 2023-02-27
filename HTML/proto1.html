@@ -5,21 +5,20 @@
 
         <!-- stylesheets -->
         <link rel="stylesheet" href="styles/bmo_gen.css">
+        
+        <link rel="stylesheet" href="styles/spr_gen.css">
         <link rel="stylesheet" href="styles/spr_small.css">
         <link rel="stylesheet" href="styles/spr_wide.css">
 
-        <!-- ace editor -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.js" type="text/javascript" charset="utf-8"></script>
 
+        <!-- libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.14.0/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="code/jscolor.js"></script>
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
     
     </head>
-    <body onload="init()">
+    <body onload="MAIN_INIT()">
         <div id="container">
-
-            <style>
-                
-            </style>
 
             <div id="toolbar">
                 <div id="toolbar-left">
@@ -28,11 +27,11 @@
                     <div class="toolbar-item">Help</div>
                 </div>
                 <div id="toolbar-right">
-                    <div class="toolbar-item tool-item-right tool-select" onclick="changeEditorView(this)">Code</div>
-                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Sprite</div>
-                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Map</div>
-                    <div class="toolbar-item tool-item-right" onclick="changeEditorView(this)">Game</div>
-                    <div id="bmo-icon-button" onclick="toggleChat()"><canvas id="bmo-icon"></canvas></div>
+                    <div class="toolbar-item tool-item-right tool-select" onclick="CHANGE_EDITOR(this)">Code</div>
+                    <div class="toolbar-item tool-item-right" onclick="CHANGE_EDITOR(this)">Sprite</div>
+                    <div class="toolbar-item tool-item-right" onclick="CHANGE_EDITOR(this)">Map</div>
+                    <div class="toolbar-item tool-item-right" onclick="CHANGE_EDITOR(this)">Game</div>
+                    <div id="bmo-icon-button" onclick="TOGGLE_BMO()"><canvas id="bmo-icon"></canvas></div>
                 </div>
             </div>
 
@@ -56,9 +55,109 @@
                         SPRITE EDITOR GOES HERE
                         -----------------
                     -->
-                    <div id="sprite-editor" class="editor-window">
+                    <canvas id="preview-canv"></canvas>
+                    <div id="sprite-editor" class="editor-window" style="background-color: #31c5b1;">
                         
+                        <!-- small editor -->
+                        <div id="spr-editor-small">
+                            <div id="paint-small">
+                                <!-- top -->
+                                <div style="width:100%;">
+                                    <input id='sprite-label-small' type="text" value="alien" onblur="changeSprName(this.value)" >
+                                </div>
+                                <!-- middle -->
+                                <div style="display:flex;margin:20px auto 20px auto;position:relative">
+                                    <div id="tool-small">
+                                        <!-- add tools here -->
+                                        <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0-small" onclick="changeTool(0)">
+                                        <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1-small" onclick="changeTool(1)">
+                                        <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2-small" onclick="changeTool(2)">
+                                        <!-- <img src="../data/imgs/tools/tools_3.png" class="tool-img" id="tool3" onclick="changeTool(3)"> -->
+                                        <img src="../data/imgs/tools/tools_6.png" class="tool-img" id="tool6-small" onclick="undo()">
+                                        <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7-small" onclick="redo()">
+                                    </div>  
+                                    <canvas id="paint-canvas-small"></canvas>
+                                    
+                                    <!-- color picker -->
+                                    <input id='colorPick-small' value="#ffffff" data-jscolor="" onblur="setPaletteColor()" onchange="previewNewCol(this.value)" style="left:250px;top:250px;">
+                                    <!-- <input id="wtf" value="#0000ff" data-jscolor=""  style="width:110px;position:absolute;z-index:100;top:100px;left:100px;cursor: pointer;"> -->
+                                    <div id="palette-small">
+                                        <!-- add palette here -->
+                                    </div>
+                                </div>
+                                <!-- bottom -->
+                                <div style="width:100%;display:flex;">
+                                    <div><img src='../data/imgs/tools/arrow_left.png' class="arrow-nav" onclick="prevSprite()"></div>
+                                    <div id="sprite-list-small">
+                                        <!-- populate list of sprites here -->
+                                    </div>
+                                    <div><img src='../data/imgs/tools/arrow_right.png' class="arrow-nav" onclick="nextSprite()"></div>
+                                </div>
+                                <!-- indicator and sprite mod -->
+                                <div id="indicator-small">
+                                    <!-- <img src='../data/imgs/tools/delete.png'> -->
+                                    <div id="spr-ind-div-small">
+                                        <div ondblclick="editIndex()" id="spr_index-small">0 / 256</div>
+                                        <input type='number' min="1" max="256" onblur="toSprite(this)" id="ind_in-small">
+                                    </div>
+                                    <!-- <img src='../data/imgs/tools/add2.png'> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- wide editor -->
+                        <div id="spr-editor-wide">
+                            <!-- top -->
+                            <div style="width:100%;text-align:center">
+                                <input id='sprite-label-wide' type="text" value="alien" onblur="changeSprName(this.value)" >
+                            </div>
+                            <div style="text-align: center;margin:auto;">
+                                <canvas id="paint-canvas-wide"></canvas>
+                            </div>
+
+                            <!-- middle -->
+                            <div>
+                                <input id='colorPick-wide' value="#3399FF" data-jscolor="" onblur="setPaletteColor()" onchange="previewNewCol(this.value)">
+                                <div id="palette-wide">
+                                    <!-- add palette here -->
+                                </div>
+
+                                <div id="tool-wide">
+                                    <!-- add tools here -->
+                                    <img src="../data/imgs/tools/tools_0.png" class="tool-img" id="tool0-wide" onclick="changeTool(0)">
+                                    <img src="../data/imgs/tools/tools_1.png" class="tool-img" id="tool1-wide" onclick="changeTool(1)">
+                                    <img src="../data/imgs/tools/tools_2.png" class="tool-img" id="tool2-wide" onclick="changeTool(2)">
+                                    <!-- <img src="../data/imgs/tools/tools_3.png" class="tool-img" id="tool3" onclick="changeTool(3)"> -->
+                                    <img src="../data/imgs/tools/tools_6.png" class="tool-img" id="tool6-wide" onclick="undo()">
+                                    <img src="../data/imgs/tools/tools_7.png" class="tool-img" id="tool7-wide" onclick="redo()">
+                                </div>  
+                                
+                                
+                            </div>
+                        
+                            <!-- indicator and sprite mod -->
+                            <div id="indicator-wide">
+                                <div><img src='../data/imgs/tools/arrow_left.png' class="arrow-nav" onclick="prevSprite()"></div>
+                                <!-- <img src='../data/imgs/tools/delete.png'> -->
+                                <div id="spr-ind-div-wide">
+                                    <div ondblclick="editIndex()" id="spr_index-wide">0 / 256</div>
+                                    <input type='number' min="1" max="256" onblur="toSprite(this)" id="ind_in-wide">
+                                </div>
+                                <div><img src='../data/imgs/tools/arrow_right.png' class="arrow-nav" onclick="nextSprite()"></div>
+                                <!-- <img src='../data/imgs/tools/add2.png'> -->
+                            </div>
+                        </div>
+
+                        <!-- sprite sheet to show in wide editor -->
+                        <div id="spritesheet">
+                            <div id="ss_div" style="background-color: #dedede;"></div>
+                            <!-- <canvas id="ss_canv"></canvas> -->
+                        </div>
+
                     </div>
+
+
+
 
 
 
@@ -95,8 +194,10 @@
         </div>
 
         <!-- scripts -->
+        <script src="code/spr_edit.js"></script>
         <script src="code/code1.js"></script>
         <script src="code/bmo1.js"></script>
+        <script src="code/main.js"> </script>
 
     </body>
 </html>

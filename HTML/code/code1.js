@@ -78,26 +78,6 @@ function showIcon(mood){
         xi, yi, imsize, imsize);
 }
 
-//show or hide the bmo chat sidebar
-function toggleChat(){
-    let chat_window = document.getElementById("right-half");
-    let editor_window = document.getElementById("editor");
-    
-    //show the window
-    if (chat_window.style.display == "none"){
-        chat_window.style.display = "block";
-        showIcon("awake");
-        editor_window.style.width = "620px";
-    } 
-    //hide the window
-    else {
-        chat_window.style.display = "none";
-        showIcon("off");
-        editor_window.style.width = "900px";
-    }
-
-    ace_editor.resize()  //resize the code editor
-}
 
 // - face functions - //
 
@@ -171,32 +151,9 @@ function drawBMOFace(mood){
 // - chat functions - //
 
 
-// - editor functions - //
-
-//change which screen the editor window shows
-function changeEditorView(modeTab){
-    let mode = modeTab.innerHTML.toLowerCase();
-
-    //hide all the other windows and unselect tabs
-    let all_windows = document.getElementsByClassName("editor-window");
-    for (let i = 0; i < all_windows.length; i++){
-        all_windows[i].style.display = "none";
-    }
-    let all_tabs = document.getElementsByClassName("tool-item-right");
-    for (let i = 0; i < all_tabs.length; i++){
-        all_tabs[i].classList.remove("tool-select");
-    }
-
-
-    //show the selected window and tab
-    let selected_window = document.getElementById(mode + "-editor");
-    selected_window.style.display = "block";
-    modeTab.classList.add("tool-select");
-
-}
 
 //initialization function
-function init(){
+function CODE_INIT(){
     //set the default icon
     let bmo_shown = document.getElementById("right-half");
     showIcon((bmo_shown.style.display == "block" ? "off" : "awake"));

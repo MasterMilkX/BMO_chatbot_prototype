@@ -3,7 +3,7 @@
 */
 
 
-#editor-small{
+#spr-editor-small{
     width:600px;
     height:600px;
     display:none;
@@ -73,7 +73,6 @@
     width:36px;
     height:36px;
 }
-
 
 #colorPick-small{
     position:absolute;

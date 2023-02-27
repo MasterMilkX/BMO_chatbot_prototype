@@ -30,12 +30,12 @@ var WINDOW_SIZE = "small";
 
 
 // initialization function called on the start of the page
-function init(){
+function SPRITE_INIT(){
 
     //set editor size
-    // document.getElementById("editor-small").style.display = "block";
-    // document.getElementById("editor-wide").style.display = "none";
-    document.getElementById("editor-"+WINDOW_SIZE).style.display = "block";
+    // document.getElementById("spr-editor-small").style.display = "block";
+    // document.getElementById("spr-editor-wide").style.display = "none";
+    document.getElementById("spr-editor-"+WINDOW_SIZE).style.display = "block";
 
     //set up canvases
     EDITOR = document.getElementById("paint-canvas-"+WINDOW_SIZE)
@@ -83,17 +83,19 @@ function toggleSize(){
 
     //to small
     if(WINDOW_SIZE == "wide"){
-        content.style.width = "600px";
-        document.getElementById("editor-small").style.display = "block";
-        document.getElementById("editor-wide").style.display = "none";
+        if(content)
+            content.style.width = "600px";
+        document.getElementById("spr-editor-small").style.display = "block";
+        document.getElementById("spr-editor-wide").style.display = "none";
         WINDOW_SIZE = "small";
         document.getElementById("spritesheet").style.display = "none";
     }
     //to wide
     else{
-        content.style.width = "900px";
-        document.getElementById("editor-small").style.display = "none";
-        document.getElementById("editor-wide").style.display = "block";
+        if(content)
+            content.style.width = "900px";
+        document.getElementById("spr-editor-small").style.display = "none";
+        document.getElementById("spr-editor-wide").style.display = "block";
         WINDOW_SIZE = "wide";
         document.getElementById("spritesheet").style.display = "block";
     }
@@ -409,6 +411,7 @@ function addSpriteSheet(){
         //add to the div
         ss_div.appendChild(spr);
     }
+    ss_div.style.backgroundColor = TRANS_COLOR;
 }
 
 // update a sprite's image in the sprite sheet
@@ -426,8 +429,8 @@ function gotoPalette(i,x,y){
         // let pal_pos = (WINDOW_SIZE == "wide") ? PAL_WIDE : PAL_SMALL;
         console.log(x,y)
         let col_pick = document.getElementById("colorPick-"+WINDOW_SIZE);
-        col_pick.style.left = x;
-        col_pick.style.top = y;
+        col_pick.style.left = x+"px";
+        col_pick.style.top = y+"px";
         document.querySelector('#colorPick-'+WINDOW_SIZE).jscolor.fromString(i == 0 ? TRANS_COLOR : PALETTE[i-1]); //set color
         col_pick.style.display = "block";
         col_pick.focus();
@@ -440,9 +443,10 @@ function setPaletteColor(){
     let col = col_pick.value;
 
     //update the palette and hide
-    if(CUR_COLOR == 0)
+    if(CUR_COLOR == 0){
         TRANS_COLOR = col;
-    else
+        ss_div.style.backgroundColor = TRANS_COLOR; //reset the background color of sprite sheet
+    }else
         PALETTE[CUR_COLOR-1] = col;
     col_pick.style.display = "none";
 
@@ -1042,11 +1046,11 @@ window.addEventListener('resize', function(event) {
         let oy = parseInt(pal1.offsetTop);
 
         if(WINDOW_SIZE == "small"){
-            pick.style.left = ox+25;
-            pick.style.top = oy+13;
+            pick.style.left = (ox+25)+"px";
+            pick.style.top = (oy+13)+"px";
         }else if(WINDOW_SIZE == "wide"){
-            pick.style.left = ox-25;
-            pick.style.top = oy+60;
+            pick.style.left = (ox-25)+"px";
+            pick.style.top = (oy+60)+"px";
         }
     }
 
