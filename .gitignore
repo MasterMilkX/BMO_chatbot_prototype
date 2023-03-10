@@ -7,3 +7,4 @@ data/glove.6B/
 tmp/GPT_*
 models/
 data/rip_data/
+ext_tools/
