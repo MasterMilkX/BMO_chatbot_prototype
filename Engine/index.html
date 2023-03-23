@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>Engine</title>
+        <style>
+            /* 
+                COLORS:
+                    //blade-runner palette
+                    #022946
+                    #01435D
+                    #058F9E
+                    #0B738E
+                    #005076
+                    #FF36DA
+
+                    #4CAA98  //outside
+                    #81E5D1  //face
+            */
+
+
+            body {
+                background-color: #058F9E;
+                color: #FFFFFF;
+            }
+            #container{
+                margin:auto;
+                display:block;
+                text-align: center;
+                padding:10px;
+                /* border:1px solid red; */
+            }
+            #title{
+                font-size: 20px;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: bold;
+                margin-top:10px;
+            }
+            #game{
+                width: 384px;
+                height: 384px;
+                border:2px solid white;
+                background-color: #000;
+
+                padding-left: 0;
+				padding-right: 0;
+				margin-left: auto;
+				margin-right: auto;
+
+                /* pixel rendering */
+                image-rendering: -moz-crisp-edges;
+		        image-rendering: -webkit-crisp-edges;
+		        image-rendering: pixelated;
+		        image-rendering: crisp-edges;
+
+            }
+            #editor{
+                height: 384px;
+                width: 250px;
+                margin-left:15px;
+            }
+            #game_dat{
+                margin-top:20px;
+                width: 512px;
+                height: 100px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <script>
+            function toggleDat(){
+                var togBtn = document.getElementById("togBtn");
+                togBtn.innerHTML = togBtn.innerHTML == "Hide Data" ? "Show Data" : "Hide Data";
+
+                var dat = document.getElementById("dat_show");
+                if(dat.style.display == "none"){
+                    dat.style.display = "block";
+                }else{
+                    dat.style.display = "none";
+                }
+            }
+
+        </script>
+        <div id="container">
+            <div id="title">
+                <button style="margin-right:70px" id="togBtn" onclick="toggleDat()">Show Data</button>
+                BMO Engine
+                <button style="margin-left:70px" id="expBtn">Export Data</button>
+            </div><br>
+            <canvas id="game"></canvas>
+            <textarea id="editor"></textarea>
+            <div id="dat_show" style="display: none;">
+                <textarea id="game_dat"></textarea><br>
+            </div>
+            <script src="engine.js"></script>
+        </div>
+    </body>
+</html>
