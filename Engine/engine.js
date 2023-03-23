@@ -3,7 +3,10 @@
 var GAME_CANVAS = document.getElementById("game");
 GAME_CANVAS.width = 128;
 GAME_CANVAS.height = 128;
+
 var GAME_CTX = GAME_CANVAS.getContext("2d");
+GAME_CTX.imageSmoothingEnabled = false;
+GAME_CTX.textRendering = "geometricPrecision";
 
 // ENGINE VARIABLES
 
@@ -47,13 +50,16 @@ function pix(x,y,c){
  * @param {number} x2 - x position of the second point
  * @param {number} y2 - y position of the second point
  * @param {string} c - color index
+ * @param {number} l - line width
  */
-function line(x1,y1,x1,y2,c){
-    GAME_CTX.strokeStyle = c;
-    GAME_CTX.beginPath();
-    GAME_CTX.moveTo(x1,y1);
-    GAME_CTX.lineTo(x2,y2);
-    GAME_CTX.stroke();
+function line(x1,y1,x2,y2,c,l=1){
+    let w = x2-x1;
+    let h = y2-y1;
+    if (w==0 && h==0)
+        return
+
+    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillRect(x1, y1, Math.max(1,w), Math.max(1,h));
 }
 
 /**
@@ -70,7 +76,7 @@ function rect(x,y,w,h,c){
 }
 
 /**
- * Draw a rectangle outline
+ * Draw a rectangle outline. Fills with transparent color.
  * @param {number} x - x position
  * @param {number} y - y position
  * @param {number} w - width
@@ -79,11 +85,25 @@ function rect(x,y,w,h,c){
  * @param {number} l - line width
  */
 function rectb(x,y,w,h,c,l=1){
-    GAME_CTX.strokeStyle = c;
-    GAME_CTX.lineWidth = l;
-    GAME_CTX.strokeRect(x, y, w, h);
+    // GAME_CTX.strokeStyle = c;
+    // GAME_CTX.lineWidth = l;
+    // GAME_CTX.strokeRect(x, y, w, h);
+
+    //top, bottom, left, right borders
+    let xs = [x,x,x,x+w-l];
+    let ys = [y,y+h-l,y,y];
+    let ws = [w-l,w-l,l,l];
+    let hs = [l,l,h-l,h];
+
+    GAME_CTX.fillStyle = c;
+    for(let i=0; i<4; i++){
+        GAME_CTX.fillRect(xs[i], ys[i], ws[i], hs[i]);
+    }
+
 }
 
+// Math.floor() but smaller
+function mf(i){return Math.floor(i);}
 
 /**
  * Draw a filled circle. Uses the Minsky circle algorithm.
@@ -120,8 +140,6 @@ function circ(xc, yc, r, c) {
     GAME_CTX.fillRect(mf(xc),mf(yc-r),1,2*r+1)
 }
 
-function mf(i){return Math.floor(i);}
-
 /**
  * Draw a circle outline. Uses the Minsky circle algorithm.
  * Taken from PICO-8 implementation: https://www.lexaloffle.com/bbs/?pid=44630#p
@@ -135,6 +153,7 @@ function circb(xc,yc,r,c,w=1){
     xc=xc+0.5;
     yc=yc+0.5;
     r=r;
+
     let j = r;
     let k = 0;
     let rat = 1/r;
@@ -142,6 +161,7 @@ function circb(xc,yc,r,c,w=1){
     GAME_CTX.fillStyle = c;
 
     for(let i=0; i<r*0.785; i++){
+    // for(let i=0; i<r*1.618; i++){
         k -= rat*j
         j += rat*k
         GAME_CTX.fillRect(mf(xc+j), mf(yc+k), w, w);
@@ -157,15 +177,52 @@ function circb(xc,yc,r,c,w=1){
     GAME_CTX.fillRect(mf(xc-r), mf(yc), w, w);
     GAME_CTX.fillRect(mf(xc), mf(yc+r), w, w);
     GAME_CTX.fillRect(mf(xc), mf(yc-r), w, w);
+
+
+    //rounder version
+    // xc=xc+0.5;
+    // yc=yc+0.5;
+    // r=r*0.707108;
+
+    // let j = r;
+    // let k = r;
+    // let rat = 0.5/r;'
+
+    // for(let i=0; i<r*1.618; i++){
+    //     k -= rat*j
+    //     j += rat*k
+    //     GAME_CTX.fillRect(mf(xc+j), mf(yc+k), w, w);
+    //     GAME_CTX.fillRect(mf(xc-j), mf(yc+k), w, w);
+    //     GAME_CTX.fillRect(mf(xc+j), mf(yc-k), w, w);
+    //     GAME_CTX.fillRect(mf(xc-j), mf(yc-k), w, w);
+    //     GAME_CTX.fillRect(mf(xc+k), mf(yc+j), w, w);
+    //     GAME_CTX.fillRect(mf(xc-k), mf(yc+j), w, w);
+    //     GAME_CTX.fillRect(mf(xc+k), mf(yc-j), w, w);
+    //     GAME_CTX.fillRect(mf(xc-k), mf(yc-j), w, w);
+    // }
+
 }
 
 
 
 
 // Draw some text
-function txt(){
 
+/**
+ * Draw some text
+ * @param {string} t - text to render
+ * @param {number} x - x position
+ * @param {number} y - y position
+ * @param {string} c - color index
+ * @param {string} align - text alignment (left, center, right)
+ */
+function txt(t,x,y,c,align="left"){
+    GAME_CTX.fillStyle = c;
+    GAME_CTX.font = "6px tom-thumb";
+    GAME_CTX.textAlign = align;
+    GAME_CTX.fillText(t,x,y);
 }
+
 
 // Get pixel color index from 2D position
 function pget(){
@@ -234,9 +291,19 @@ function rrc(){
 // RENDER ONTO THE CANVAS
 function render(){
     cls();
-    pix(32,64,"#f00");
-    circ(64,64,10,"#0f0");
-    circb(96,64,10,"#00f");
+
+    pix(32,32,"#f00");
+    rect(64,32,6,9,"#0f0");
+    rectb(96,32,6,9,"#00f");
+
+    line(32,64,32,72,"#f00");
+    circ(64,64,9,"#0f0");
+    circb(96,64,9,"#00f");
+
+    txt("Hello World!", 64, 12, "#fff",'center');
+    txt("Hi- I'm BMO the game design bot", 2, 20, "#fff");
+
+    
 }
 
 // UPDATE THE GAME

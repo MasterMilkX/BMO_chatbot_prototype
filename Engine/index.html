@@ -51,6 +51,9 @@
 		        image-rendering: pixelated;
 		        image-rendering: crisp-edges;
 
+                font-smooth: never;
+                -webkit-font-smoothing : none;
+
             }
             #editor{
                 height: 384px;
@@ -61,6 +64,12 @@
                 margin-top:20px;
                 width: 512px;
                 height: 100px;
+            }
+
+            /* import the tom-thumb ttf font */
+            @font-face {
+                font-family: 'tom-thumb';
+                src: url('tom-thumb.ttf');
             }
             
         </style>
