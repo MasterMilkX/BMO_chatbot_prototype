@@ -26,6 +26,7 @@
                 display:block;
                 text-align: center;
                 padding:10px;
+                width:800px;
                 /* border:1px solid red; */
             }
             #title{
@@ -33,6 +34,15 @@
                 font-family: 'Courier New', Courier, monospace;
                 font-weight: bold;
                 margin-top:10px;
+            }
+            #settings{
+                margin-top:5px;
+                margin-bottom:10px;
+                width:650px;
+                padding:10px;
+				margin-left: auto;
+				margin-right: auto;
+                display:block;
             }
             #game{
                 width: 384px;
@@ -59,7 +69,22 @@
                 height: 384px;
                 width: 250px;
                 margin-left:15px;
+                overflow-x: show;
             }
+
+            #debug{
+                width: 650px;
+                background-color:black;
+                border:1px solid white;
+                height:48px;
+                padding:8px;
+                display:block;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 12px;
+                text-align: left;
+                margin:10px auto; 
+            }
+
             #game_dat{
                 margin-top:20px;
                 width: 512px;
@@ -74,7 +99,7 @@
             
         </style>
     </head>
-    <body>
+    <body onload="init()">
         <script>
             function toggleDat(){
                 var togBtn = document.getElementById("togBtn");
@@ -91,15 +116,41 @@
         </script>
         <div id="container">
             <div id="title">
-                <button style="margin-right:70px" id="togBtn" onclick="toggleDat()">Show Data</button>
                 BMO Engine
-                <button style="margin-left:70px" id="expBtn">Export Data</button>
             </div><br>
+            <div id="settings">
+                <div style="display:inline-block;width:370px">
+                    <button id="runBtn" onclick="parseDat()">▶ Run</button>
+                    <button id="stopBtn" style="margin: 0 0 0 20">◼ Stop</button>
+                </div>
+                
+                <div style="display:inline-block;width:250px;margin-left:20px">
+                    <button id="togBtn" onclick="toggleDat()" style="margin-right:15px" >Show Data</button>
+                    <button id="expBtn">Export Data</button>
+                </div>
+            </div>
             <canvas id="game"></canvas>
-            <textarea id="editor"></textarea>
+            <textarea id="editor">
+--set the palette
+setPal(['#190000','#f2e6e6','#560909', '#AD2020','#000'])
+
+func _draw()
+   cls()
+   pix(0,0,1)
+end
+
+func funcode(a,b,c)
+   ret a+b+c
+end
+            </textarea>
+            <div id="debug">
+                Debug window goes here
+            </div>
             <div id="dat_show" style="display: none;">
                 <textarea id="game_dat"></textarea><br>
             </div>
+            <br>
+            
             <script src="engine.js"></script>
         </div>
     </body>

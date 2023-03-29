@@ -1,4 +1,4 @@
-// GENERAL VARIABLES
+// HTML ELEMENT VARIABLES
 
 var GAME_CANVAS = document.getElementById("game");
 GAME_CANVAS.width = 128;
@@ -8,39 +8,64 @@ var GAME_CTX = GAME_CANVAS.getContext("2d");
 GAME_CTX.imageSmoothingEnabled = false;
 GAME_CTX.textRendering = "geometricPrecision";
 
+
+var debugArea = document.getElementById("debug");
+
+var gameEditor = document.getElementById("editor");
+
 // ENGINE VARIABLES
 
 var ENGINE = {
-    bgColor : "#000000",  // background color
     pal : [               // color palette
-        "#000000",        // 0
-        "#1D2B53",        // 1
-        "#7E2553",        // 2
-        "#008751",        // 3
+        "#000000",        // 0 ; background
+        "#000000",        // 1
+        "#1D2B53",        // 2
+        "#7E2553",        // 3
+        "#008751",        // 4
     ]
 
 }
 
-// PARSER FUNCTIONS 
+// ENGINE FUNCTIONS 
 // - inspired by JUNO engine (https://github.com/digitsensitive/juno) and PICO-8 (https://www.lexaloffle.com/pico-8.php)
 
 /**
- * Clear the screen with the background color
+ * Clear the screen with the background color (0th index in palette)
  */
 function cls(){
-    GAME_CTX.fillStyle = ENGINE.bgColor;
+    GAME_CTX.fillStyle = ENGINE.pal[0];
     GAME_CTX.fillRect(0, 0, GAME_CANVAS.width, GAME_CANVAS.height);
+}
+
+/**
+ * Set the 4 color palette
+ * 
+ * @param {string[]} pal - array of 5 colors (0th color is background)
+ */
+function setPal(pal){
+    ENGINE.pal = pal;
 }
 
 /** 
 * Draw a pixel
 * @param {number} x - x position
 * @param {number} y - y position
-* @param {string} c - color index 
+* @param {number} c - color index 
 */
 function pix(x,y,c){
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
     GAME_CTX.fillRect(x, y, 1,1);
+}
+
+/**
+ * Get pixel color index from 2D position
+ * @param {*} x  - x position
+ * @param {*} y  - y position
+ */
+function pget(x,y){
+    let imgData = GAME_CTX.getImageData(x,y,1,1);
+    let data = imgData.data;
+    return data[3];
 }
 
 /**
@@ -58,7 +83,7 @@ function line(x1,y1,x2,y2,c,l=1){
     if (w==0 && h==0)
         return
 
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
     GAME_CTX.fillRect(x1, y1, Math.max(1,w), Math.max(1,h));
 }
 
@@ -71,7 +96,7 @@ function line(x1,y1,x2,y2,c,l=1){
  * @param {string} c - color index
  */
 function rect(x,y,w,h,c){
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
     GAME_CTX.fillRect(x, y, w, h);
 }
 
@@ -95,7 +120,7 @@ function rectb(x,y,w,h,c,l=1){
     let ws = [w-l,w-l,l,l];
     let hs = [l,l,h-l,h];
 
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
     for(let i=0; i<4; i++){
         GAME_CTX.fillRect(xs[i], ys[i], ws[i], hs[i]);
     }
@@ -120,7 +145,7 @@ function circ(xc, yc, r, c) {
     let k = 0;
     let rat = 1/r;
 
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
 
     for(let i=0; i<r*0.786; i++){
         k -= rat*j
@@ -158,7 +183,7 @@ function circb(xc,yc,r,c,w=1){
     let k = 0;
     let rat = 1/r;
 
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
 
     for(let i=0; i<r*0.785; i++){
     // for(let i=0; i<r*1.618; i++){
@@ -217,16 +242,10 @@ function circb(xc,yc,r,c,w=1){
  * @param {string} align - text alignment (left, center, right)
  */
 function txt(t,x,y,c,align="left"){
-    GAME_CTX.fillStyle = c;
+    GAME_CTX.fillStyle = ENGINE.pal[c];
     GAME_CTX.font = "6px tom-thumb";
     GAME_CTX.textAlign = align;
     GAME_CTX.fillText(t,x,y);
-}
-
-
-// Get pixel color index from 2D position
-function pget(){
-
 }
 
 
@@ -265,10 +284,22 @@ function ticks(){
 
 }
 
+/**
+ * Get a random number between 2 floats (default 0 and 1)
+ * @param {number} min
+ * @param {number} max
+ */
+function rnd(min=0,max=1){
+    return Math.random()*(max-min)+min;
+}
 
-// Get a random number between min and max value
-function rnd(){
-
+/**
+ * Get a random number between min and max value (integers)
+ * @param {number} min 
+ * @param {number} max 
+ */
+function rndi(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 
@@ -284,24 +315,84 @@ function rrc(){
 }
 
 
+// PARSER FUNCTIONS
 
 
-// ENGINE FUNCTIONS
+/**
+ * Debug function (shows at the bottom of the screen)
+ * @param {string} txt - text to print
+ * @param {boolean} reset - reset the debug text
+ */
+function debug(txt,reset=true){
+    if(reset)
+        debugArea.innerHTML = "";
+    debugArea.innerHTML += txt;
+}
+
+
+/**
+ * Parses a text game data file to the game (rewrites to executable JS code)
+ * 
+ * @param {string} dat - text game data file
+ */
+function parseDat(dat){
+
+    //pull from the text area if no data is passed
+    if(dat == null){
+        dat = gameEditor.value;
+        debug("Parsing data from text area...\n")
+    }
+
+    if(dat == ""){
+        debug("No data to parse. Please enter some data in the text area.\n")
+        return;
+    }
+
+
+    ////////      use regular expressions to parse/extract code for pure javascript execution     ////////
+
+    /// CONVERT VOCABULARY TO JAVASCRIPT ///
+
+    dat = dat.replace(/--(.*)\n/g, "// $1\n");    // convert all comments
+    dat = dat.replace(/\bend\b/g, "}");      //convert ends to closing brackets
+    dat = dat.replace(/\bret\b/g, "return");      //convert ret to return
+
+    ///    SPECIAL CONVERSIONS    ///
+    
+    dat = dat.replace(/^func\s([a-zA-Z_]+\(.*\))/gm, "function $1{");   //convert func to function
+    dat = dat.replace(/\)\n/g, ");\n");      // add semicolon
+    dat = dat.replace(/(\t|^\s\s+)+/g, "");           // remove tabs
+
+    ///  GET SPECIAL CODE BLOCKS   ///
+
+    //get init function
+
+    //check output
+    console.log(dat);
+}
+
+
+// INITIALIZATION FUNCTION
+function init(){
+    console.clear();  //for the console in dev tools 
+}
+
+
 
 // RENDER ONTO THE CANVAS
 function render(){
-    cls();
+    // cls();
 
-    pix(32,32,"#f00");
-    rect(64,32,6,9,"#0f0");
-    rectb(96,32,6,9,"#00f");
+    // pix(32,32,"#f00");
+    // rect(64,32,6,9,"#0f0");
+    // rectb(96,32,6,9,"#00f");
 
-    line(32,64,32,72,"#f00");
-    circ(64,64,9,"#0f0");
-    circb(96,64,9,"#00f");
+    // line(32,64,32,72,"#f00");
+    // circ(64,64,9,"#0f0");
+    // circb(96,64,9,"#00f");
 
-    txt("Hello World!", 64, 12, "#fff",'center');
-    txt("Hi- I'm BMO the game design bot", 2, 20, "#fff");
+    // txt("Hello World!", 64, 12, "#fff",'center');
+    // txt("Hi- I'm BMO the game design bot", 2, 20, "#fff");
 
     
 }
