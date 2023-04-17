@@ -8,3 +8,4 @@ tmp/GPT_*
 models/
 data/rip_data/
 ext_tools/
+Experimental_Notebooks/_tmp/
