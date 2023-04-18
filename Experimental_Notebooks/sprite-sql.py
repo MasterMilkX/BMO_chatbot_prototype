@@ -22,7 +22,7 @@ def connect_to_db():
 def convert_sprite_to_hex(filename):
     pico_sheets = np.load(filename, allow_pickle=True)
     mydb, mycursor = connect_to_db()
-    CUR_SS_COUNT = 4794
+    CUR_SS_COUNT = 6001
 
     while CUR_SS_COUNT < len(pico_sheets):
         print(f"CURRENT SPRITE INDEX: {CUR_SS_COUNT}")
@@ -31,7 +31,7 @@ def convert_sprite_to_hex(filename):
             print("sleeping")
             time.sleep(3600)
             print("done sleeping")
-            mydb, mycursor = connect_to_db
+            mydb, mycursor = connect_to_db()
         image_dict = {}
         hex_list = np.vectorize(hex)(image_data['img'])
         image_dict['hex_string'] = "".join([hex.split('x')[-1] for l in hex_list for hex in l]).upper()
