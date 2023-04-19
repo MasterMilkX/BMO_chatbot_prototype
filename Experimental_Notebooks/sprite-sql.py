@@ -5,6 +5,7 @@ import numpy as np
 import os
 import math
 import time
+import datetime
 
 
 #CONNECT TO THE SQL DATABASE
@@ -22,13 +23,14 @@ def connect_to_db():
 def convert_sprite_to_hex(filename):
     pico_sheets = np.load(filename, allow_pickle=True)
     mydb, mycursor = connect_to_db()
-    CUR_SS_COUNT = 6001
+    CUR_SS_COUNT = 48001
 
     while CUR_SS_COUNT < len(pico_sheets):
         print(f"CURRENT SPRITE INDEX: {CUR_SS_COUNT}")
         image_data = pico_sheets[CUR_SS_COUNT]
         if CUR_SS_COUNT % 1500 == 0 and CUR_SS_COUNT != 0:
             print("sleeping")
+            print("current time - ", datetime.datetime.now())
             time.sleep(3600)
             print("done sleeping")
             mydb, mycursor = connect_to_db()
