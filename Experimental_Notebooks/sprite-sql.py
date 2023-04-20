@@ -23,7 +23,7 @@ def connect_to_db():
 def convert_sprite_to_hex(filename):
     pico_sheets = np.load(filename, allow_pickle=True)
     mydb, mycursor = connect_to_db()
-    CUR_SS_COUNT = 48001
+    CUR_SS_COUNT = 49501
 
     while CUR_SS_COUNT < len(pico_sheets):
         print(f"CURRENT SPRITE INDEX: {CUR_SS_COUNT}")
