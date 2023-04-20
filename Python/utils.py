@@ -301,7 +301,7 @@ def showMultiSprRGB(sprs,text='',textArr=None):
 	plt.show()
 
 # make a gif from a list of images
-def animatePal(sprs,filename,pal=PICO_PALETTE,fps=10):
+def animatePal(sprs,filename,pal=PICO_PALETTE,fps=10,textArr=None):
 	colormap = ListedColormap(pal,N=len(pal))
 
 	#make a temp folder if it doesn't exist
@@ -321,6 +321,8 @@ def animatePal(sprs,filename,pal=PICO_PALETTE,fps=10):
 			plt.figure(figsize=(2,2))
 			plt.axis('off')
 			plt.imshow(spr.squeeze(),cmap=colormap,vmin=0,vmax=len(pal)-1)
+			if textArr != None:
+				plt.title(textArr[si])
 			# plt.show()
 					
 			plt.savefig(f"_tmp/{si}.png")
