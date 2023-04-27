@@ -9,3 +9,4 @@ models/
 data/rip_data/
 ext_tools/
 Experimental_Notebooks/_tmp/
+data/gpt3_api_key.txt
