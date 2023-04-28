@@ -343,7 +343,7 @@ def animatePal(sprs,filename,pal=PICO_PALETTE,fps=10,textArr=None):
 		os.remove(f"_tmp/{i}.png")
 
 
-##  DATA PROCESSING FUNCTIONS  ##
+################################                           ENCODING FUNCTIONS                       ################################
 
 # encode a sprite to one-hot array based on a palette (form (NxN) => (NxNxP)))
 def encodeSpr1H(s,channels=len(PICO_PALETTE)):
@@ -358,3 +358,27 @@ def encodeSpr1H(s,channels=len(PICO_PALETTE)):
 def decodeSpr1H(s3c):
 	return np.argmax(s3c,axis=2)
 	
+
+#visualize the text embedding array as a heatmap
+def showTxtEmb(txtEmb,textArr=None,pltcolor='viridis'):
+	#show txt squares (8 per row)
+	plt.figure(figsize=(20,7))
+	col = 8
+	for i, txt in enumerate(txtEmb):
+		# reshape the array to 2d square
+		sq = math.ceil(np.sqrt(len(txt)))
+		txtSq = np.zeros(sq**2)
+		txtSq[:len(txt)] = txt
+		txtSq = txtSq.reshape(sq,sq)
+
+		# add to subplot
+		plt.subplot(int(len(txtEmb) / col) + 1, col, i + 1)
+		plt.imshow(txtSq.squeeze(), cmap=pltcolor)
+		plt.axis('off')
+
+		#add sublabels
+		if (textArr != None) and (i < len(textArr)):
+			plt.title(f"{textArr[i]}")
+
+	# plt.colorbar()
+	plt.show()
