@@ -373,7 +373,7 @@ def showTxtEmb(txtEmb,textArr=None,pltcolor='viridis'):
 
 		# add to subplot
 		plt.subplot(int(len(txtEmb) / col) + 1, col, i + 1)
-		plt.imshow(txtSq.squeeze(), cmap=pltcolor)
+		plt.imshow(txtSq.squeeze(), cmap=pltcolor, vmin=0, vmax=1)
 		plt.axis('off')
 
 		#add sublabels
